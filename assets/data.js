@@ -191,7 +191,7 @@ window.EXPERIENCE = {
     {
       when: "С мая 2025",
       title: "Бизнес-ассистент и операционный руководитель",
-      org: "E-commerce компания (детские товары), ИП Журова",
+      org: "E-commerce компания",
       points: [
         "Автоматизировал учет листовок на складах Telegram-ботом (работа ускорилась примерно в 4 раза) и собрал систему онбординга сотрудников.",
         "Развернул и поддерживаю серверы, VPN, доступы к кабинетам маркетплейсов и корпоративные аккаунты.",
@@ -257,7 +257,7 @@ window.EXPERIENCE = {
     {
       when: "Since May 2025",
       title: "Business assistant and operations lead",
-      org: "E-commerce company (children's goods), IP Zhurova",
+      org: "E-commerce company",
       points: [
         "Automated flyer tracking in warehouses with a Telegram bot (work became about 4 times faster) and built an employee onboarding system.",
         "Set up and maintain servers, VPN, access to marketplace accounts and corporate accounts.",
