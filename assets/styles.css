@@ -73,7 +73,9 @@ ul { padding: 0; list-style: none; }
 /* ---------- шапка ---------- */
 .nav { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
 .nav-in { display: flex; align-items: center; gap: 16px; height: 64px; }
-.logo { text-decoration: none; }
+.logo { text-decoration: none; display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+.logo-ava { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--surface); box-shadow: 0 0 0 1.5px var(--blue); flex: none; background: #fff; }
+.logo-name { font-weight: 800; font-size: 1.02rem; letter-spacing: -.01em; color: var(--ink); white-space: nowrap; }
 .logo-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--ink); color: var(--bg); font-weight: 800; font-size: .9rem; letter-spacing: .02em; }
 .nav-links { display: flex; gap: 4px; margin-left: auto; }
 .nav-links a { text-decoration: none; font-weight: 500; font-size: .92rem; padding: 8px 14px; border-radius: 999px; color: var(--muted); transition: color .15s, background .15s; }
@@ -88,19 +90,23 @@ ul { padding: 0; list-style: none; }
 .hero-role { margin-top: 22px; font-size: clamp(1.2rem, 2.2vw, 1.6rem); font-weight: 600; line-height: 1.3; max-width: 22em; color: var(--blue); }
 .hero-lead { margin-top: 18px; max-width: 34em; color: var(--muted); font-size: 1.05rem; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.hero-hint { margin-top: 22px; font-size: .85rem; color: var(--muted); max-width: 26em; }
-.hero-stage { position: relative; padding: 0 0 56px 36px; max-width: 440px; width: 100%; justify-self: end; }
+.hero-stage { position: relative; display: grid; gap: 14px; max-width: 440px; width: 100%; justify-self: end; }
 .photo-win { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
 .photo-win img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: #fff; }
 .win-bar { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
 .win-bar.slim { padding: 9px 14px; font-size: .78rem; color: var(--muted); font-weight: 600; }
 .win-name { font-weight: 600; }
-.mini { position: absolute; display: block; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; transition: transform .2s; }
+.mini { display: block; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; transition: transform .2s; }
 .mini:hover { transform: translateY(-4px) rotate(-.6deg); }
 .mini-bar { padding: 7px 12px; font-size: .72rem; font-weight: 700; background: var(--surface-2); border-bottom: 1px solid var(--line); color: var(--muted); }
-.mini.chat { left: -6px; bottom: 0; width: min(270px, 62%); }
-.mini.radar { right: -10px; top: 44%; width: 128px; }
-.mini.radar svg { padding: 6px; }
+.mini-row { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 14px; align-items: stretch; }
+.mini.plate svg { display: block; width: 100%; height: auto; padding: 6px 8px 8px; }
+.mp-face { stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.mp-face.t { fill: color-mix(in srgb, var(--blue) 12%, var(--surface)); }
+.mp-face.l { fill: color-mix(in srgb, var(--blue) 26%, var(--surface)); }
+.mp-face.r { fill: color-mix(in srgb, var(--blue) 40%, var(--surface)); }
+.mp-hole { fill: #0b1828; fill-opacity: .85; stroke: var(--ink); stroke-width: 1; animation: mpHole 6.4s ease-in-out infinite both; }
+@keyframes mpHole { 0%, 6% { opacity: 0; } 14%, 86% { opacity: 1; } 96%, 100% { opacity: 0; } }
 .mini-chat-body { padding: 10px; display: grid; gap: 6px; min-height: 118px; align-content: end; }
 .mc { font-size: .74rem; line-height: 1.35; padding: 7px 10px; border-radius: 12px; max-width: 92%; }
 .mc.doc { background: var(--surface-2); justify-self: start; }
@@ -471,9 +477,8 @@ ul { padding: 0; list-style: none; }
 @media (max-width: 560px) {
   .tiles, .skill-groups, .quals ul { grid-template-columns: minmax(0, 1fr); }
   .tile:first-child { grid-column: span 1; }
-  .hero-stage { padding: 0 0 56px 0; }
-  .mini.radar { right: 0; }
-  .mini.chat { left: 0; }
+  .mini-row { grid-template-columns: minmax(0, 1fr); }
+  .logo-name { font-size: .95rem; }
   .win { width: 100vw; max-height: 100dvh; border-radius: 0; }
   .win-box { max-height: 100dvh; }
   .win-demo, .win-info { padding: 18px 16px 24px; }

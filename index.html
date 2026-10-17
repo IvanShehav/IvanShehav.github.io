@@ -9,9 +9,6 @@
 <meta property="og:title" content="Иван Шехавцов, AI-продукты и автоматизация">
 <meta property="og:description" content="Проекты с живыми мини-демо, опыт, учеба и контакты.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://ivanshehav.github.io/">
-<meta property="og:image" content="https://ivanshehav.github.io/assets/photo.jpg">
-<link rel="canonical" href="https://ivanshehav.github.io/">
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +30,7 @@
 
 <header class="nav" id="top">
   <div class="wrap nav-in">
-    <a class="logo" href="#top" aria-label="Иван Шехавцов"><span class="logo-mark">ИШ</span></a>
+    <a class="logo" href="#top" aria-label="Иван Шехавцов"><img class="logo-ava" src="assets/avatar.jpg" width="44" height="44" alt=""><span class="logo-name" id="logo-name">Иван Шехавцов</span></a>
     <nav class="nav-links" id="nav-links" aria-label="Разделы"></nav>
     <div class="nav-tools">
       <button class="tool" id="lang-btn" type="button"></button>
@@ -54,21 +51,22 @@
           <a class="btn primary" id="cta1" href="#projects"></a>
           <a class="btn" id="cta2" href="#contacts"></a>
         </div>
-        <p class="hero-hint" id="hero-hint"></p>
       </div>
       <div class="hero-stage">
         <figure class="photo-win">
-          <div class="win-bar slim"><span class="dots"><i></i><i></i><i></i></span><span class="win-name">ivan.profile</span></div>
+          <div class="win-bar slim"><span class="dots"><i></i><i></i><i></i></span></div>
           <img id="hero-photo" src="assets/photo.jpg" width="900" height="900" alt="">
         </figure>
-        <a class="mini chat" id="mini-chat" href="#p-patient" aria-label="Виртуальный пациент">
+        <div class="mini-row">
+        <a class="mini chat" id="mini-chat" href="#p-patient" data-open="patient" aria-label="Виртуальный пациент">
           <div class="mini-bar"><span id="mini-chat-title"></span></div>
           <div class="mini-chat-body" id="mini-chat-body" aria-hidden="true"></div>
         </a>
-        <a class="mini radar" id="mini-radar" href="#p-patient" aria-label="OCEAN">
-          <div class="mini-bar"><span id="mini-radar-title"></span></div>
-          <svg viewBox="-70 -70 140 140" id="mini-radar-svg" aria-hidden="true"></svg>
+        <a class="mini plate" id="mini-plate" href="#p-hydroplate" data-open="hydroplate" aria-label="KOMPAS-3D">
+          <div class="mini-bar"><span id="mini-plate-title"></span></div>
+          <svg viewBox="0 0 140 112" id="mini-plate-svg" aria-hidden="true"></svg>
         </a>
+        </div>
       </div>
     </div>
   </section>

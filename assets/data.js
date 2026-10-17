@@ -16,10 +16,9 @@ window.UI = {
       lead: "Студент ИТ-специалитета «Сириуса». Беру задачу от сырой идеи и интервью до прототипа, архитектуры и запуска. Сильнее всего чувствую себя на стыке AI, аналитики и управления командой.",
       cta1: "Смотреть проекты",
       cta2: "Написать мне",
-      hint: "Маленькие окна справа живые, нажмите на любое",
       photoAlt: "Фотография Ивана Шехавцова",
       chatTitle: "Виртуальный пациент",
-      radarTitle: "Профиль OCEAN"
+      plateTitle: "Плита в KOMPAS-3D"
     },
     about: {
       title: "Обо мне",
@@ -54,7 +53,7 @@ window.UI = {
       main: "Главные",
       more: "Остальное",
       filters: { all: "Все", ai: "AI", product: "Продукт", auto: "Автоматизация", data: "Данные", eng: "Инженерия", team: "Команда", lab: "Эксперименты" },
-      open: "Открыть окно",
+      open: "Смотреть проект",
       close: "Закрыть",
       role: "Моя роль",
       period: "Период",
@@ -62,8 +61,8 @@ window.UI = {
       stack: "Стек",
       links: "Ссылки",
       demoTitle: "Попробуйте сами",
-      noDemo: "У этого проекта нет интерактива, зато есть история.",
-      simplified: "Упрощенная модель на выдуманных данных",
+      noDemo: "",
+      simplified: "",
       empty: "В этой категории пока пусто",
       prev: "Назад",
       next: "Дальше"
@@ -80,7 +79,7 @@ window.UI = {
       github: "GitHub",
       copy: "Скопировать почту",
       copied: "Скопировано",
-      note: "Сайт сделан вручную на HTML, CSS и JS и работает на GitHub Pages."
+      note: ""
     },
     footer: "Иван Шехавцов, 2026",
     theme: "Сменить тему",
@@ -95,10 +94,9 @@ window.UI = {
       lead: "Student of the IT specialist program at Sirius University. I take a task from a raw idea and interviews to a prototype, architecture and launch. I am strongest where AI, analytics and team management meet.",
       cta1: "See projects",
       cta2: "Write to me",
-      hint: "The small windows on the right are live, click any of them",
       photoAlt: "Photo of Ivan Shekhavtsov",
       chatTitle: "Virtual patient",
-      radarTitle: "OCEAN profile"
+      plateTitle: "Plate in KOMPAS-3D"
     },
     about: {
       title: "About me",
@@ -133,7 +131,7 @@ window.UI = {
       main: "Main",
       more: "Everything else",
       filters: { all: "All", ai: "AI", product: "Product", auto: "Automation", data: "Data", eng: "Engineering", team: "Team", lab: "Experiments" },
-      open: "Open window",
+      open: "View project",
       close: "Close",
       role: "My role",
       period: "Period",
@@ -141,8 +139,8 @@ window.UI = {
       stack: "Stack",
       links: "Links",
       demoTitle: "Try it yourself",
-      noDemo: "This project has no interactive part, but it has a story.",
-      simplified: "Simplified model with made-up data",
+      noDemo: "",
+      simplified: "",
       empty: "Nothing here yet",
       prev: "Previous",
       next: "Next"
@@ -159,7 +157,7 @@ window.UI = {
       github: "GitHub",
       copy: "Copy email",
       copied: "Copied",
-      note: "This site is handmade with HTML, CSS and JS and runs on GitHub Pages."
+      note: ""
     },
     footer: "Ivan Shekhavtsov, 2026",
     theme: "Switch theme",

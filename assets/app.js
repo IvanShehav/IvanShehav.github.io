@@ -81,8 +81,8 @@
     $("nav-links").innerHTML = ["about", "projects", "experience", "education", "skills", "contacts"].map(function (k) { return '<a href="#' + k + '" data-sec="' + k + '">' + esc(t.nav[k]) + "</a>"; }).join("");
     $("lang-btn").textContent = t.lang; $("theme-btn").setAttribute("aria-label", t.theme);
     $("hero-name").textContent = t.hero.name; $("hero-role").textContent = t.hero.role; $("hero-lead").textContent = t.hero.lead;
-    $("cta1").textContent = t.hero.cta1; $("cta2").textContent = t.hero.cta2; $("hero-hint").textContent = t.hero.hint;
-    $("hero-photo").alt = t.hero.photoAlt; $("mini-chat-title").textContent = t.hero.chatTitle; $("mini-radar-title").textContent = t.hero.radarTitle;
+    $("logo-name").textContent = t.hero.name; $("cta1").textContent = t.hero.cta1; $("cta2").textContent = t.hero.cta2;
+    $("hero-photo").alt = t.hero.photoAlt; $("mini-chat-title").textContent = t.hero.chatTitle; $("mini-plate-title").textContent = t.hero.plateTitle;
     $("about-title").textContent = t.about.title;
     $("about-text").innerHTML = t.about.text.map(function (x) { return "<p>" + esc(x) + "</p>"; }).join("");
     $("about-facts").innerHTML = "<h3>" + esc(t.about.factsTitle) + "</h3>" + t.about.facts.map(function (f) { return "<div><dt>" + esc(f[0]) + "</dt><dd>" + esc(f[1]) + "</dd></div>"; }).join("");
@@ -93,7 +93,7 @@
     $("experience-title").textContent = t.experience.title; $("education-title").textContent = t.education.title;
     $("skills-title").textContent = t.skills.title; $("skills-lead").textContent = t.skills.lead;
     $("achievements-title").textContent = t.achievements.title;
-    $("contacts-title").textContent = t.contacts.title; $("contacts-lead").textContent = t.contacts.lead; $("contacts-note").textContent = t.contacts.note;
+    $("contacts-title").textContent = t.contacts.title; $("contacts-lead").textContent = t.contacts.lead; 
     $("copy-btn").textContent = t.contacts.copy; $("footer-text").textContent = t.footer; $("to-top").textContent = t.top;
     $("win-close").setAttribute("aria-label", t.projects.close); $("win-prev").setAttribute("aria-label", t.projects.prev); $("win-next").setAttribute("aria-label", t.projects.next);
     renderTimeline(); renderEdu(); renderSkills(); renderAch(); renderContacts(); renderFilters(); renderProjects();
@@ -211,8 +211,6 @@
     var s = e.target.closest("[data-skill]");
     if (s) { var k = s.getAttribute("data-skill"); state.skill = state.skill === k ? null : k; renderSkills(); renderProjects(); return; }
     if (e.target.closest("[data-clear]")) { state.skill = null; renderSkills(); renderProjects(); return; }
-    var mini = e.target.closest(".mini");
-    if (mini) { e.preventDefault(); openProject("patient", mini); }
   });
   $("lang-btn").addEventListener("click", function () {
     state.lang = state.lang === "ru" ? "en" : "ru"; store("lang", state.lang); renderStatic(); startHero();
@@ -248,31 +246,32 @@
     heroTimers.forEach(function (t) { clearTimeout(t); clearInterval(t); }); heroTimers = [];
     var ru = state.lang === "ru";
     var seq = ru
-      ? [["Что вас беспокоит?", "Болит в правом боку, особенно после еды.", [3, 4, 2, 5, 1]], ["Что вас беспокоит?", "Мне очень тревожно, болит в боку, вдруг это серьезно?", [3, 3, 4, 3, 5]], ["Что вас беспокоит?", "Я уже все рассказал медсестре. Болит бок.", [2, 2, 2, 1, 4]]]
-      : [["What brings you here?", "Pain in my right side, mostly after eating.", [3, 4, 2, 5, 1]], ["What brings you here?", "I am very worried, my side hurts, what if it is serious?", [3, 3, 4, 3, 5]], ["What brings you here?", "I already told the nurse. My side hurts.", [2, 2, 2, 1, 4]]];
-    var body = $("mini-chat-body"), svg = $("mini-radar-svg"), NS = "http://www.w3.org/2000/svg";
-    svg.innerHTML = "";
-    [1, 2, 3, 4, 5].forEach(function (r) { var pl = document.createElementNS(NS, "polygon"); pl.setAttribute("class", "d-grid-line"); pl.setAttribute("points", poly([r, r, r, r, r], 12)); svg.appendChild(pl); });
-    var shape = document.createElementNS(NS, "polygon"); shape.setAttribute("class", "d-radar-shape"); svg.appendChild(shape);
-    var cur = [3, 3, 3, 3, 3];
-    function poly(v, k) { return v.map(function (x, i) { var a = -Math.PI / 2 + i * 2 * Math.PI / 5; return (Math.cos(a) * x * k).toFixed(1) + "," + (Math.sin(a) * x * k).toFixed(1); }).join(" "); }
-    function setShape(v) { cur = v; shape.setAttribute("points", poly(v, 12)); }
-    function tween(to) {
-      if (reduce) return setShape(to);
-      var from = cur.slice(), t0 = performance.now();
-      (function f(now) { var k = Math.min(1, (now - t0) / 700); setShape(from.map(function (x, i) { return x + (to[i] - x) * k; })); if (k < 1) requestAnimationFrame(f); })(t0);
-    }
+      ? [["Что вас беспокоит?", "Болит в правом боку, особенно после еды."], ["Что вас беспокоит?", "Мне очень тревожно, болит в боку, вдруг это серьезно?"], ["Что вас беспокоит?", "Я уже все рассказал медсестре. Болит бок."]]
+      : [["What brings you here?", "Pain in my right side, mostly after eating."], ["What brings you here?", "I am very worried, my side hurts, what if it is serious?"], ["What brings you here?", "I already told the nurse. My side hurts."]];
+    var body = $("mini-chat-body");
     function bubble(text, cls) { var d = document.createElement("div"); d.className = "mc " + cls; d.textContent = text; body.appendChild(d); while (body.children.length > 4) body.removeChild(body.firstChild); return d; }
     var i = 0;
     function play() {
       var s = seq[i % seq.length]; i++;
-      body.innerHTML = ""; tween(s[2]);
+      body.innerHTML = "";
       bubble(s[0], "doc");
       var typing = bubble("...", "pat typing");
       heroTimers.push(setTimeout(function () { typing.classList.remove("typing"); typing.textContent = s[1]; }, 900));
     }
     play();
     if (!reduce) heroTimers.push(setInterval(play, 4800));
+    /* плита: отверстия появляются по очереди */
+    var ps = $("mini-plate-svg"), NS = "http://www.w3.org/2000/svg";
+    function el(tag, a) { var e = document.createElementNS(NS, tag); Object.keys(a).forEach(function (k) { e.setAttribute(k, a[k]); }); ps.appendChild(e); return e; }
+    ps.innerHTML = "";
+    el("polygon", { points: "70,10 124,37 70,64 16,37", class: "mp-face t" });
+    el("polygon", { points: "16,37 70,64 70,106 16,79", class: "mp-face l" });
+    el("polygon", { points: "70,64 124,37 124,79 70,106", class: "mp-face r" });
+    [[70, 37, 7, 3.6], [48, 26, 4.5, 2.3], [92, 26, 4.5, 2.3], [48, 48, 4.5, 2.3], [92, 48, 4.5, 2.3]].forEach(function (h, n) {
+      el("ellipse", { cx: h[0], cy: h[1], rx: h[2], ry: h[3], class: "mp-hole", style: "animation-delay:" + (n * 0.35) + "s" });
+    });
+    [[34, 66], [54, 76]].forEach(function (h, n) { el("ellipse", { cx: h[0], cy: h[1], rx: 6, ry: 7.5, transform: "rotate(-26 " + h[0] + " " + h[1] + ")", class: "mp-hole", style: "animation-delay:" + (1.9 + n * 0.35) + "s" }); });
+    [[88, 76], [108, 66]].forEach(function (h, n) { el("ellipse", { cx: h[0], cy: h[1], rx: 6, ry: 7.5, transform: "rotate(26 " + h[0] + " " + h[1] + ")", class: "mp-hole", style: "animation-delay:" + (2.6 + n * 0.35) + "s" }); });
   }
 
   /* ---------- старт ---------- */
