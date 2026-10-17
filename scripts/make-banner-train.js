@@ -4,8 +4,8 @@ const fs = require("fs"), vm = require("vm"), path = require("path");
 const file = process.argv[2];
 const win = { matchMedia: () => ({ matches: false }) };
 vm.runInNewContext(fs.readFileSync(path.join(__dirname, "../assets/train3d.js"), "utf8"), { window: win, Math, Object, document: {} });
-const T = win.Train3D, model = T.build();
-const N = 28, W = 200, H = 168, DUR = 14, PITCH = 0.22, OY = 32;
+const T = win.Train3D, model = T.build(true);
+const N = 72, W = 200, H = 168, DUR = 12, PITCH = 0.5, OY = 32;
 const f1 = (x) => Math.round(x * 10) / 10;
 function recorder() {
   const out = []; let d = "", filled = false, alpha = 1, cap = "butt";
@@ -22,7 +22,7 @@ function recorder() {
 let frames = "";
 for (let i = 0; i < N; i++) {
   const r = recorder();
-  T.paint(r.ctx, model, W, H, -0.75 + (Math.PI * 2 * i) / N, PITCH, 1.0);
+  T.paint(r.ctx, model, W, H, -0.75 + (Math.PI * 2 * i) / N, PITCH, 1.12);
   const kt = [0], v = [i === 0 ? 1 : 0];
   if (i > 0) { kt.push(i / N); v.push(1); }
   if (i < N - 1) { kt.push((i + 1) / N); v.push(0); }

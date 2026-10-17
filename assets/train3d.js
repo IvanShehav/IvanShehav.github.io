@@ -22,7 +22,7 @@
     wheel: [44, 48, 54], hub: [150, 156, 164], rail: [120, 126, 134], sleeper: [88, 80, 72]
   };
 
-  function build() {
+  function build(lite) {
     var solid = [], flat = [];
     function add(list, v, n, col, decals) { var f = { v: v, n: n || autoNormal(v), c: col, d: decals || [] }; list.push(f); return f; }
     function box(x0, x1, y0, y1, z0, z1, col) {
@@ -39,9 +39,9 @@
     function qz(x0, x1, y0, y1, z, col) { return { v: [[x0, y0, z], [x1, y0, z], [x1, y1, z], [x0, y1, z]], c: col }; }
 
     /* путь: земля, шпалы, рельсы */
-    flat.push({ v: [[-13, 0, -2.2], [13, 0, -2.2], [13, 0, 2.2], [-13, 0, 2.2]], c: [20, 30, 44], a: 0.22 });
-    for (var s = -11.4; s <= 11.4; s += 1.2) flat.push({ v: [[s - 0.17, 0.04, -1.5], [s + 0.17, 0.04, -1.5], [s + 0.17, 0.04, 1.5], [s - 0.17, 0.04, 1.5]], c: C.sleeper });
-    box(-13, 13, 0.04, 0.14, 0.66, 0.8, C.rail); box(-13, 13, 0.04, 0.14, -0.8, -0.66, C.rail);
+    if (!lite) flat.push({ v: [[-13, 0, -2.2], [13, 0, -2.2], [13, 0, 2.2], [-13, 0, 2.2]], c: [20, 30, 44], a: 0.22 });
+    for (var s = lite ? -7.2 : -11.4; s <= (lite ? 7.2 : 11.4); s += lite ? 2.4 : 1.2) flat.push({ v: [[s - 0.17, 0.04, -1.5], [s + 0.17, 0.04, -1.5], [s + 0.17, 0.04, 1.5], [s - 0.17, 0.04, 1.5]], c: C.sleeper });
+    var RL = lite ? 7.6 : 13; box(-RL, RL, 0.04, 0.14, 0.66, 0.8, C.rail); box(-RL, RL, 0.04, 0.14, -0.8, -0.66, C.rail);
 
     /* подвеска и тележки */
     box(-2.5, -0.7, 0.8, 0.93, -0.7, 0.7, C.frame2); box(0.5, 2.1, 0.8, 0.93, -0.7, 0.7, C.frame2);
@@ -152,7 +152,7 @@
   function mount(canvas, opts) {
     opts = opts || {};
     var model = build(), ctx = canvas.getContext("2d");
-    var st = { yaw: -0.75, pitch: 0.3, zoom: 1, auto: opts.auto !== false, lastTouch: 0, dirty: true, visible: true, dead: false };
+    var st = { yaw: -0.75, pitch: 0.42, zoom: 1, auto: opts.auto !== false, lastTouch: 0, dirty: true, visible: true, dead: false };
     var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     var W = 0, H = 0, dpr = 1, raf = 0, prev = 0;
     var pointers = {}, pinch0 = 0, zoom0 = 1;
@@ -222,7 +222,7 @@
 
     return {
       zoomBy: function (k) { st.zoom *= k; clampZoom(); touch(); },
-      reset: function () { st.yaw = -0.75; st.pitch = 0.3; st.zoom = 1; touch(); },
+      reset: function () { st.yaw = -0.75; st.pitch = 0.42; st.zoom = 1; touch(); },
       destroy: function () { st.dead = true; cancelAnimationFrame(raf); if (io) io.disconnect(); if (ro) ro.disconnect(); }
     };
   }
