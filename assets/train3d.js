@@ -4,7 +4,7 @@
   "use strict";
 
   /* ---------- геометрия ---------- */
-  var CENTER = [0, 1.5, 0];
+  var CENTER = [0.7, 1.5, 0];
   function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
   function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
   function norm(a) { var l = Math.sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; }
@@ -97,6 +97,57 @@
     return { solid: solid, flat: flat, pantograph: [[[-0.8, 3.2, 0], [0, 3.85, 0], [0.8, 3.2, 0]], [[0, 3.85, 0.42], [0, 3.85, -0.42]]] };
   }
 
+  /* общая отрисовка: ctx может быть canvas или записывающим объектом (для SVG-анимации в README) */
+  function paint(ctx, model, W, H, yaw, pitch, zoom) {
+  function tf(p, cy, sy, cp, sp, D) {
+    var x = p[0] - CENTER[0], y = p[1] - CENTER[1], z = p[2] - CENTER[2];
+    var X = x * cy + z * sy, Z = -x * sy + z * cy;
+    return [X, y * cp - Z * sp, y * sp + Z * cp + D];
+  }
+  function rot(n, cy, sy, cp, sp) {
+    var X = n[0] * cy + n[2] * sy, Z = -n[0] * sy + n[2] * cy;
+    return [X, n[1] * cp - Z * sp, n[1] * sp + Z * cp];
+  }
+  var LIGHT = norm([-0.35, 0.75, -0.6]);
+  function shade(col, n) { var k = 0.42 + 0.58 * Math.max(0, dot(n, LIGHT)); return "rgb(" + Math.round(col[0] * k) + "," + Math.round(col[1] * k) + "," + Math.round(col[2] * k) + ")"; }
+    var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+    var D = 30 / zoom, f = Math.min(W * 1.2, H * 2.0) * 30 / 19;
+    ctx.clearRect(0, 0, W, H);
+    var ox = W / 2, oy = H * 0.52;
+    function proj(q) { return [ox + f * q[0] / q[2], oy - f * q[1] / q[2]]; }
+    function poly(v, fill, alpha) {
+      ctx.beginPath(); for (var i = 0; i < v.length; i++) { var s = proj(v[i]); i ? ctx.lineTo(s[0], s[1]) : ctx.moveTo(s[0], s[1]); }
+      ctx.closePath(); if (alpha != null) ctx.globalAlpha = alpha; ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = fill; ctx.lineWidth = 0.7; ctx.stroke(); if (alpha != null) ctx.globalAlpha = 1;
+    }
+    model.flat.forEach(function (fc) {
+      var v = fc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); });
+      if (v.some(function (q) { return q[2] < 1; })) return;
+      poly(v, fc.a != null ? "rgb(" + fc.c.join(",") + ")" : shade(fc.c, [0, 1, 0]), fc.a);
+    });
+    var list = [];
+    model.solid.forEach(function (fc) {
+      var v = fc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); });
+      var c = centroid(v), n = rot(fc.n, cy, sy, cp, sp);
+      if (dot(n, c) >= 0) return;
+      list.push({ f: fc, v: v, n: n, d: c[0] * c[0] + c[1] * c[1] + c[2] * c[2], cy: cy, sy: sy });
+    });
+    list.sort(function (a, b) { return b.d - a.d; });
+    list.forEach(function (it) {
+      poly(it.v, shade(it.f.c, it.n));
+      it.f.d.forEach(function (dc) {
+        if (!dc) return;
+        poly(dc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); }), shade(dc.c, it.n));
+      });
+    });
+    /* токоприемник на крыше */
+    ctx.strokeStyle = "rgb(" + shade(C.red, [0, 0, -1]).slice(4, -1) + ")"; ctx.lineWidth = Math.max(1.4, f * 0.012); ctx.lineCap = "round"; ctx.lineJoin = "round";
+    var pg = model.pantograph;
+    var a = proj(tf(pg[0][0], cy, sy, cp, sp, D)), b = proj(tf(pg[0][1], cy, sy, cp, sp, D)), c = proj(tf(pg[0][2], cy, sy, cp, sp, D));
+    ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.lineTo(c[0], c[1]); ctx.stroke();
+    var d1 = proj(tf(pg[1][0], cy, sy, cp, sp, D)), d2 = proj(tf(pg[1][1], cy, sy, cp, sp, D));
+    ctx.beginPath(); ctx.moveTo(d1[0], d1[1]); ctx.lineTo(d2[0], d2[1]); ctx.stroke();
+  }
+
   /* ---------- отрисовка ---------- */
   function mount(canvas, opts) {
     opts = opts || {};
@@ -112,56 +163,10 @@
       if (w !== W || h !== H || canvas.width !== Math.round(w * dpr)) { W = w; H = h; canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); st.dirty = true; }
       return true;
     }
-    function tf(p, cy, sy, cp, sp, D) {
-      var x = p[0] - CENTER[0], y = p[1] - CENTER[1], z = p[2] - CENTER[2];
-      var X = x * cy + z * sy, Z = -x * sy + z * cy;
-      return [X, y * cp - Z * sp, y * sp + Z * cp + D];
-    }
-    function rot(n, cy, sy, cp, sp) {
-      var X = n[0] * cy + n[2] * sy, Z = -n[0] * sy + n[2] * cy;
-      return [X, n[1] * cp - Z * sp, n[1] * sp + Z * cp];
-    }
-    var LIGHT = norm([-0.35, 0.75, -0.6]);
-    function shade(col, n) { var k = 0.42 + 0.58 * Math.max(0, dot(n, LIGHT)); return "rgb(" + Math.round(col[0] * k) + "," + Math.round(col[1] * k) + "," + Math.round(col[2] * k) + ")"; }
-
     function draw() {
       if (!resize()) return;
-      var cy = Math.cos(st.yaw), sy = Math.sin(st.yaw), cp = Math.cos(st.pitch), sp = Math.sin(st.pitch);
-      var D = 30 / st.zoom, f = Math.min(W * 1.2, H * 2.0) * 30 / 19 * 1.2;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
-      var ox = W / 2, oy = H * 0.52;
-      function proj(q) { return [ox + f * q[0] / q[2], oy - f * q[1] / q[2]]; }
-      function poly(v, fill, alpha) {
-        ctx.beginPath(); for (var i = 0; i < v.length; i++) { var s = proj(v[i]); i ? ctx.lineTo(s[0], s[1]) : ctx.moveTo(s[0], s[1]); }
-        ctx.closePath(); if (alpha != null) ctx.globalAlpha = alpha; ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = fill; ctx.lineWidth = 0.7; ctx.stroke(); if (alpha != null) ctx.globalAlpha = 1;
-      }
-      model.flat.forEach(function (fc) {
-        var v = fc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); });
-        if (v.some(function (q) { return q[2] < 1; })) return;
-        poly(v, fc.a != null ? "rgb(" + fc.c.join(",") + ")" : shade(fc.c, [0, 1, 0]), fc.a);
-      });
-      var list = [];
-      model.solid.forEach(function (fc) {
-        var v = fc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); });
-        var c = centroid(v), n = rot(fc.n, cy, sy, cp, sp);
-        if (dot(n, c) >= 0) return;
-        list.push({ f: fc, v: v, n: n, d: c[0] * c[0] + c[1] * c[1] + c[2] * c[2], cy: cy, sy: sy });
-      });
-      list.sort(function (a, b) { return b.d - a.d; });
-      list.forEach(function (it) {
-        poly(it.v, shade(it.f.c, it.n));
-        it.f.d.forEach(function (dc) {
-          if (!dc) return;
-          poly(dc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); }), shade(dc.c, it.n));
-        });
-      });
-      /* токоприемник на крыше */
-      ctx.strokeStyle = "rgb(" + shade(C.red, [0, 0, -1]).slice(4, -1) + ")"; ctx.lineWidth = Math.max(1.4, f * 0.012); ctx.lineCap = "round"; ctx.lineJoin = "round";
-      var pg = model.pantograph;
-      var a = proj(tf(pg[0][0], cy, sy, cp, sp, D)), b = proj(tf(pg[0][1], cy, sy, cp, sp, D)), c = proj(tf(pg[0][2], cy, sy, cp, sp, D));
-      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.lineTo(c[0], c[1]); ctx.stroke();
-      var d1 = proj(tf(pg[1][0], cy, sy, cp, sp, D)), d2 = proj(tf(pg[1][1], cy, sy, cp, sp, D));
-      ctx.beginPath(); ctx.moveTo(d1[0], d1[1]); ctx.lineTo(d2[0], d2[1]); ctx.stroke();
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      paint(ctx, model, W, H, st.yaw, st.pitch, st.zoom);
     }
 
     function loop(t) {
@@ -178,7 +183,7 @@
     function clampZoom() { st.zoom = Math.max(0.65, Math.min(2.6, st.zoom)); }
     canvas.style.cursor = "grab";
     canvas.addEventListener("pointerdown", function (e) {
-      pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+      pointers[e.pointerId] = { x: e.clientX, y: e.clientY }; canvas._moved = false; canvas._sx = e.clientX; canvas._sy = e.clientY;
       try { canvas.setPointerCapture(e.pointerId); } catch (x) { /* noop */ }
       var ids = Object.keys(pointers);
       if (ids.length === 2) { var p = pointers[ids[0]], q = pointers[ids[1]]; pinch0 = Math.hypot(p.x - q.x, p.y - q.y); zoom0 = st.zoom; }
@@ -186,6 +191,7 @@
     });
     canvas.addEventListener("pointermove", function (e) {
       var p = pointers[e.pointerId]; if (!p) return;
+      if (Math.abs(e.clientX - canvas._sx) + Math.abs(e.clientY - canvas._sy) > 6) canvas._moved = true;
       var ids = Object.keys(pointers);
       if (ids.length >= 2) {
         pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
@@ -221,5 +227,5 @@
     };
   }
 
-  window.Train3D = { mount: mount };
+  window.Train3D = { mount: mount, paint: paint, build: build };
 })();

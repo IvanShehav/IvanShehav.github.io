@@ -73,7 +73,9 @@
       return '<rect class="a-card" x="126" y="78" width="68" height="56" rx="10"/><path class="a-line" d="M142 78 v-14 a18 18 0 0 1 36 0 v14"/><circle class="a-acc" cx="160" cy="104" r="7"/><circle class="a-fill" cx="70" cy="60" r="16"/><circle class="a-fill2" cx="250" cy="120" r="16"/><path class="a-line" d="M86 62 L124 90" stroke-dasharray="4 4"/>';
     }
   };
-  function cover(p) { return '<img class="tile-cover" src="' + esc(p.cover) + '" alt="" loading="lazy">'; }
+  function cover(p) {
+    if (p.viewer3d && window.Train3D) return '<canvas class="tile-3d" data-tile3d tabindex="-1" aria-label="' + esc(T().projects.viewerLabel) + '"></canvas><span class="tile-hint">' + esc(T().projects.dragHint) + "</span>";
+    return '<img class="tile-cover" src="' + esc(p.cover) + '" alt="" loading="lazy">'; }
   function gallery(p) {
     return '<div class="gallery">' + p.gallery.map(function (b) {
       return '<h4 class="g-title">' + esc(b[state.lang]) + '</h4><div class="g-grid">' + b.items.map(function (it) {
@@ -86,26 +88,35 @@
     var t = T().projects;
     return '<div class="t3"><canvas class="t3-canvas" id="t3-cv" tabindex="0" aria-label="' + esc(t.viewerLabel) + '"></canvas><div class="t3-ctl"><button type="button" data-t3="in" aria-label="' + esc(T().hero.zoomIn) + '">+</button><button type="button" data-t3="out" aria-label="' + esc(T().hero.zoomOut) + '">&minus;</button><button type="button" data-t3="reset" aria-label="' + esc(t.viewerReset) + '">&#8634;</button></div></div><p class="t3-hint">' + esc(t.viewerHint) + "</p>";
   }
-  var lb = { list: [], i: 0, el: null };
-  function lbOpen(i) {
-    var items = Array.prototype.slice.call(document.querySelectorAll("#win-body .gallery figure.g-item"));
-    if (!items.length) return;
-    lb.list = items.map(function (f) { return { src: f.querySelector("img").getAttribute("src"), cap: f.querySelector("figcaption").textContent }; });
-    lb.i = Math.max(0, Math.min(i, lb.list.length - 1));
-    if (!lb.el) {
-      var d = document.createElement("div"); d.className = "lb"; d.id = "lb"; d.setAttribute("role", "group"); d.setAttribute("aria-label", T().projects.lbLabel);
-      d.innerHTML = '<button type="button" class="lb-x" data-lb="close" aria-label="' + esc(T().projects.lbClose) + '">&times;</button><button type="button" class="lb-n prev" data-lb="prev" aria-label="' + esc(T().projects.lbPrev) + '">&#8249;</button><figure><img alt=""><figcaption></figcaption></figure><button type="button" class="lb-n next" data-lb="next" aria-label="' + esc(T().projects.lbNext) + '">&#8250;</button><div class="lb-count"></div>';
-      $("win-box").appendChild(d); lb.el = d;
-    }
-    lb.el.hidden = false; lbShow(0); lb.el.querySelector(".lb-x").focus();
+  /* большая листалка работ + вкладка с 3D-моделью */
+  var sl = { list: [], i: 0 };
+  function slides(p) {
+    var l = [];
+    p.gallery.forEach(function (b) { b.items.forEach(function (it) { l.push({ src: "assets/" + it[0], cap: state.lang === "ru" ? it[1] : it[2], sec: b[state.lang], open: it[3] || "" }); }); });
+    return l;
   }
-  function lbShow(d) {
-    lb.i = (lb.i + d + lb.list.length) % lb.list.length; var it = lb.list[lb.i];
-    var img = lb.el.querySelector("img"); img.src = it.src; img.alt = it.cap;
-    lb.el.querySelector("figcaption").textContent = it.cap; lb.el.querySelector(".lb-count").textContent = (lb.i + 1) + " / " + lb.list.length;
+  function slider(p) {
+    var t = T().projects; sl.list = slides(p); sl.i = 0;
+    return '<div class="tabs" role="tablist"><button type="button" role="tab" class="tab on" data-tab="works" aria-selected="true">' + esc(t.tabWorks) + '</button><button type="button" role="tab" class="tab" data-tab="model" aria-selected="false">' + esc(t.tabModel) + "</button></div>" +
+      '<div class="pane" data-pane="works"><div class="sl"><div class="sl-stage" id="sl-stage"><img id="sl-img" alt=""><button type="button" class="sl-n prev" data-sl="-1" aria-label="' + esc(t.lbPrev) + '">&#8249;</button><button type="button" class="sl-n next" data-sl="1" aria-label="' + esc(t.lbNext) + '">&#8250;</button><span class="sl-count" id="sl-count"></span></div>' +
+      '<div class="sl-cap"><div><span class="sl-sec" id="sl-sec"></span><b id="sl-cap"></b></div><a class="plink" id="sl-open" href="#" hidden>' + esc(t.slOpen) + "</a></div>" +
+      '<div class="sl-thumbs" id="sl-thumbs">' + sl.list.map(function (x, i) { return '<button type="button" class="sl-t" data-sl-go="' + i + '" aria-label="' + esc(x.cap) + '"><img src="' + esc(x.src) + '" alt="" loading="lazy"></button>'; }).join("") + "</div></div></div>" +
+      '<div class="pane" data-pane="model" hidden>' + viewer3d() + "</div>";
   }
-  function lbClose() { if (lb.el) lb.el.hidden = true; }
-  function lbIsOpen() { return !!(lb.el && !lb.el.hidden); }
+  function slShow(i) {
+    if (!sl.list.length) return;
+    sl.i = (i + sl.list.length) % sl.list.length; var it = sl.list[sl.i];
+    var img = $("sl-img"); if (!img) return;
+    img.src = it.src; img.alt = it.cap; $("sl-cap").textContent = it.cap; $("sl-sec").textContent = it.sec; $("sl-count").textContent = (sl.i + 1) + " / " + sl.list.length;
+    var o = $("sl-open"); o.hidden = !it.open; if (it.open) { o.setAttribute("href", "#p-" + it.open); o.setAttribute("data-open", it.open); }
+    Array.prototype.forEach.call($("sl-thumbs").children, function (b, k) { b.classList.toggle("on", k === sl.i); b.setAttribute("aria-current", k === sl.i ? "true" : "false"); });
+    var cur = $("sl-thumbs").children[sl.i]; if (cur) { var th = $("sl-thumbs"); th.scrollTo ? th.scrollTo({ left: cur.offsetLeft - th.clientWidth / 2 + cur.clientWidth / 2, behavior: "smooth" }) : 0; }
+    [1, -1].forEach(function (d) { var n = sl.list[(sl.i + d + sl.list.length) % sl.list.length]; (new Image()).src = n.src; });
+  }
+  function setTab(name) {
+    Array.prototype.forEach.call(document.querySelectorAll("#win-body .tab"), function (b) { var on = b.getAttribute("data-tab") === name; b.classList.toggle("on", on); b.setAttribute("aria-selected", on ? "true" : "false"); });
+    Array.prototype.forEach.call(document.querySelectorAll("#win-body .pane"), function (e) { e.hidden = e.getAttribute("data-pane") !== name; });
+  }
   function art(type, id) { if (window.SCREENS && id && window.SCREENS.has(id)) return window.SCREENS.draw(id, state.lang); return '<svg viewBox="0 0 320 180" class="art" aria-hidden="true">' + (ART[type] || ART.grid)() + "</svg>"; }
 
   /* ---------- рендер ---------- */
@@ -190,14 +201,17 @@
     $("filters").setAttribute("aria-label", T().projects.title);
   }
   function match(p) { return state.filter === "all" || p.cat.indexOf(state.filter) >= 0; }
+  var tileTrains = [];
   function renderProjects() {
     var t = T().projects, f = t.filters, it = skillItem();
     function cls(p) { return it ? (it[1].indexOf(p.id) >= 0 ? " hit" : " dim") : ""; }
     var main = LIST.filter(function (p) { return p.main && match(p); }), more = LIST.filter(function (p) { return !p.main && match(p); });
     $("tiles").classList.toggle("filtered", state.filter !== "all");
+    tileTrains.forEach(function (x) { x.destroy(); }); tileTrains = [];
     $("tiles").innerHTML = main.map(function (p) {
       return '<a class="tile' + cls(p) + '" href="#p-' + p.id + '" data-open="' + p.id + '"><div class="win-bar slim"><span class="dots"><i></i><i></i><i></i></span><span class="tile-cat">' + esc(f[state.filter !== "all" && p.cat.indexOf(state.filter) >= 0 ? state.filter : p.cat[0]]) + '</span><span class="tile-year">' + esc(p.year) + '</span></div><div class="tile-art">' + (p.cover ? cover(p) : art(p.art, p.id)) + '</div><div class="tile-body"><h3>' + esc(P(p).title) + "</h3><p>" + esc(P(p).tag) + '</p><span class="tile-open">' + esc(t.open) + "</span></div></a>";
     }).join("");
+    Array.prototype.forEach.call(document.querySelectorAll("#tiles [data-tile3d]"), function (c) { tileTrains.push(Train3D.mount(c, { auto: true })); });
     $("rows").innerHTML = more.map(function (p) {
       return '<a class="row' + cls(p) + '" href="#p-' + p.id + '" data-open="' + p.id + '"><span class="row-year">' + esc(p.year) + '</span><span class="row-main"><b>' + esc(P(p).title) + "</b><small>" + esc(P(p).tag) + '</small></span><span class="row-cats">' + p.cat.map(function (c) { return "<i>" + esc(f[c]) + "</i>"; }).join("") + "</span></a>";
     }).join("");
@@ -218,11 +232,11 @@
     var links = p.links.map(function (l) { return '<a class="plink" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(state.lang === "en" && LINK_EN[l.l] ? LINK_EN[l.l] : l.l) + "</a>"; }).join("");
     var hasDemo = !!(p.demo && window.DEMOS[p.demo]);
     $("win-body").innerHTML =
-      '<section class="win-demo">' + (hasDemo ? "<h3>" + esc(t.demoTitle) + "</h3>" : "") + '<div id="demo-root" class="demo-root">' + (hasDemo ? "" : p.viewer3d ? viewer3d() + gallery(p) : p.gallery ? gallery(p) : '<div class="art-big">' + art(p.art, p.id) + "</div>") + "</div>" + (hasDemo && t.simplified ? '<p class="win-note">' + esc(t.simplified) + "</p>" : "") + "</section>" +
+      '<section class="win-demo">' + (hasDemo ? "<h3>" + esc(t.demoTitle) + "</h3>" : "") + '<div id="demo-root" class="demo-root">' + (hasDemo ? "" : p.viewer3d ? slider(p) : p.gallery ? gallery(p) : '<div class="art-big">' + art(p.art, p.id) + "</div>") + "</div>" + (hasDemo && t.simplified ? '<p class="win-note">' + esc(t.simplified) + "</p>" : "") + "</section>" +
       '<section class="win-info"><p class="win-tag">' + esc(L.tag) + '</p><dl class="meta"><div><dt>' + esc(t.role) + "</dt><dd>" + esc(L.role) + "</dd></div><div><dt>" + esc(t.period) + "</dt><dd>" + esc(L.period) + "</dd></div>" + (L.result ? "<div><dt>" + esc(t.resultLabel) + "</dt><dd>" + esc(L.result) + "</dd></div>" : "") + "</dl>" + (p.photo ? '<figure class="win-photo"><img src="' + esc(p.photo.src) + '" alt="' + esc(p.photo[state.lang]) + '" loading="lazy"><figcaption>' + esc(p.photo[state.lang]) + "</figcaption></figure>" : "") + "<p>" + esc(L.summary) + "</p><h3>" + esc(t.did) + "</h3><ul>" + L.did.map(function (d) { return "<li>" + esc(d) + "</li>"; }).join("") + "</ul><h3>" + esc(t.stack) + '</h3><div class="chips">' + stack.map(function (s) { return '<span class="chip static">' + esc(s) + "</span>"; }).join("") + "</div>" + (links ? "<h3>" + esc(t.links) + '</h3><div class="plinks">' + links + "</div>" : "") + (L.note ? '<p class="win-note warn">' + esc(L.note) + "</p>" : "") + "</section>";
     $("win-body").scrollTop = 0;
     if (hasDemo) { var cl = window.DEMOS[p.demo]($("demo-root"), state.lang); state.cleanup = cl; }
-    lbClose();
+    if (p.viewer3d) slShow(0);
     if (p.viewer3d && window.Train3D) {
       var tv = Train3D.mount($("t3-cv"), { auto: true, wheel: true });
       $("demo-root").querySelector(".t3-ctl").addEventListener("click", function (e) {
@@ -236,10 +250,17 @@
     try { history.replaceState(null, "", "#p-" + id); } catch (e) { /* file:// */ }
   }
   function closeProject() { if (win.open) win.close(); }
-  win.addEventListener("cancel", function (e) { if (lbIsOpen()) { e.preventDefault(); lbClose(); } });
   win.addEventListener("keydown", function (e) {
-    if (!lbIsOpen()) return;
-    if (e.key === "ArrowLeft") { e.preventDefault(); lbShow(-1); } else if (e.key === "ArrowRight") { e.preventDefault(); lbShow(1); }
+    var pane = document.querySelector('#win-body .pane[data-pane="works"]');
+    if (!pane || pane.hidden || e.target.closest("canvas")) return;
+    if (e.key === "ArrowLeft") { e.preventDefault(); slShow(sl.i - 1); } else if (e.key === "ArrowRight") { e.preventDefault(); slShow(sl.i + 1); }
+  });
+  /* свайп по большой картинке */
+  var swipe = null;
+  win.addEventListener("pointerdown", function (e) { swipe = e.target.closest("#sl-stage") && !e.target.closest("button") ? { x: e.clientX, y: e.clientY } : null; });
+  win.addEventListener("pointerup", function (e) {
+    if (!swipe) return; var dx = e.clientX - swipe.x, dy = e.clientY - swipe.y; swipe = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) slShow(sl.i + (dx < 0 ? 1 : -1));
   });
   function onClosed() {
     if (state.cleanup) { state.cleanup(); state.cleanup = null; }
@@ -258,12 +279,16 @@
   $("win-prev").addEventListener("click", function () { step(-1); });
   $("win-next").addEventListener("click", function () { step(1); });
 
+  document.addEventListener("dragstart", function (e) { if (e.target.closest && e.target.closest("canvas")) e.preventDefault(); });
   /* ---------- события ---------- */
   document.addEventListener("click", function (e) {
-    var lbb = e.target.closest("[data-lb]");
-    if (lbb) { var k0 = lbb.getAttribute("data-lb"); if (k0 === "close") lbClose(); else lbShow(k0 === "next" ? 1 : -1); return; }
-    var gi = e.target.closest("#win-body figure.g-item");
-    if (gi) { var all = Array.prototype.slice.call(document.querySelectorAll("#win-body .gallery figure.g-item")); lbOpen(all.indexOf(gi)); return; }
+    if (e.target.closest("canvas") && e.target.closest("canvas")._moved) { e.preventDefault(); e.target.closest("canvas")._moved = false; return; }
+    var sb = e.target.closest("[data-sl]");
+    if (sb) { slShow(sl.i + parseInt(sb.getAttribute("data-sl"), 10)); return; }
+    var sg = e.target.closest("[data-sl-go]");
+    if (sg) { slShow(parseInt(sg.getAttribute("data-sl-go"), 10)); return; }
+    var tb = e.target.closest("[data-tab]");
+    if (tb) { setTab(tb.getAttribute("data-tab")); return; }
     var a = e.target.closest("[data-open]");
     if (a) { e.preventDefault(); openProject(a.getAttribute("data-open"), a); return; }
     var f = e.target.closest("[data-filter]");
