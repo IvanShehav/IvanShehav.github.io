@@ -150,17 +150,60 @@
   };
 
   S.ecomops = function () {
-    var o = frame(T("Операционка e-commerce", "E-commerce operations"));
-    var n = [[58, 62, T("Боты", "Bots"), T("ответы покупателям", "buyer replies")], [168, 62, T("Онбординг", "Onboarding"), T("новые сотрудники", "new hires")], [58, 142, T("Дашборды", "Dashboards"), T("цифры по продажам", "sales numbers")], [168, 142, T("Серверы", "Servers"), T("все работает", "all running")]];
-    n.forEach(function (p) { o += line(p[0], p[1], 113, 102, "a-line"); });
-    n.forEach(function (p, i) { o += packet(p[0], p[1], 113, 102, i * 0.7, 2.8) + packet(113, 102, p[0], p[1], 1.4 + i * 0.7, 2.8); });
-    n.forEach(function (p, i) { o += "<g>" + r(p[0] - 40, p[1] - 15, 80, 30, "a-card", 8) + t(p[0], p[1] - 2, p[2], "a-b", "middle") + t(p[0], p[1] + 9, p[3], "a-s", "middle") + "</g>"; });
-    o += c(113, 102, 19, "a-acc") + t(113, 105, T("Команда", "Team"), "a-dk", "middle");
-    o += '<circle class="a-ring" cx="113" cy="102" r="19" fill="none" stroke-width="2">' + an("opacity", "0;.7;0", 2.8) + an("r", "19;27;27", 2.8) + "</circle>";
-    o += line(214, 34, 214, 168, "a-axis") + t(222, 46, T("Сегодня", "Today"), "a-b");
-    o += cycle(222, 66, ["128", "131", "135", "140"], "a-big", 8) + t(222, 77, T("ответов бота", "bot replies"), "a-s");
-    o += cycle(222, 102, ["2", "2", "3", "3"], "a-big", 8) + t(222, 113, T("новых сотрудников", "new hires"), "a-s");
-    o += c(227, 142, 4, "a-ok") .replace("/>", ">" + an("opacity", "1;.35;1", 1.6) + "</circle>") + t(236, 145, T("сбоев нет", "no incidents"), "a-b");
+    var o = frame(T("Бизнес-кабинет", "Business cabinet"));
+    /* меню слева */
+    o += line(80, 30, 80, 172, "a-axis");
+    var menu = T("Кабинет|Заказы|Команда|Дашборд|Боты", "Cabinet|Orders|Team|Dashboard|Bots").split("|");
+    menu.forEach(function (m, i) {
+      var y = 36 + i * 21;
+      o += (i === 3 ? r(14, y - 3, 62, 17, "a-fill2", 7) : "") + c(23, y + 5.5, 3, i === 3 ? "a-fill" : "a-line2") + t(31, y + 8.5, m, i === 3 ? "a-b" : "a-s");
+    });
+    /* шапка кабинета */
+    o += t(90, 43, T("Дашборд продаж", "Sales dashboard"), "a-t") + c(262, 40, 3, "a-ok") + t(268, 43, T("Анна", "Anna"), "a-s");
+    /* показатели */
+    var k = [[90, 66, T("Заказы", "Orders"), ["128", "131", "135", "140"]], [166, 66, T("Выручка", "Revenue"), ["84 тыс.", "88 тыс.", "93 тыс.", "97 тыс."]], [242, 62, T("Ответы бота", "Bot replies"), ["312", "318", "327", "341"]]];
+    k.forEach(function (q) {
+      o += r(q[0], 50, q[1], 34, "a-card", 7) + t(q[0] + 6, 61, q[2], "a-s") + cycle(q[0] + 6, 77, q[3], "a-t", 8);
+    });
+    /* график продаж */
+    o += line(90, 125, 304, 125, "a-axis");
+    [14, 22, 17, 28, 20, 32, 25, 36, 30].forEach(function (h, i) {
+      var x = 94 + i * 23.5, h2 = h * 0.7 + 6, h3 = h * 1.05 > 38 ? 38 : h * 1.05;
+      o += '<rect class="' + (i === 7 ? "a-acc" : "a-fill") + '" x="' + x + '" y="' + (125 - h) + '" width="14" height="' + h + '" rx="3">' +
+        an("height", h + ";" + h3 + ";" + h2 + ";" + h, 7, ' begin="' + (i * 0.25) + 's"') + an("y", (125 - h) + ";" + (125 - h3) + ";" + (125 - h2) + ";" + (125 - h), 7, ' begin="' + (i * 0.25) + 's"') + "</rect>";
+    });
+    /* последние заказы */
+    var rows = [[T("Заказ 1044", "Order 1044"), "Wildberries", [T("Новый", "New"), T("Собран", "Packed"), T("Отправлен", "Shipped")]], [T("Заказ 1045", "Order 1045"), "Ozon", [T("Собран", "Packed"), T("Отправлен", "Shipped"), T("Доставлен", "Delivered")]]];
+    rows.forEach(function (q, i) {
+      var y = 140 + i * 15;
+      o += t(90, y + 5, q[0], "a-b") + t(158, y + 5, q[1], "a-s") + r(236, y - 4, 68, 13, "a-fill2", 6) + cycle(270, y + 5, q[2], "a-s", 6 + i, "middle");
+    });
+    return o;
+  };
+
+  S.tvs = function () {
+    var o = frame(T("Эволюция телевизоров", "Television evolution"));
+    /* 1. механический: вращающийся диск */
+    o += r(30, 112, 68, 6, "a-line2", 3) + r(34, 106, 60, 7, "a-card", 3);
+    o += '<g transform="translate(60 80)"><g>' + '<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>' + c(0, 0, 24, "a-card");
+    for (var i = 0; i < 9; i++) { var a1 = i * 40 * Math.PI / 180, rr = 8 + i * 1.8; o += c(Math.cos(a1) * rr, Math.sin(a1) * rr, 1.8, "a-fill"); }
+    o += c(0, 0, 3, "a-acc") + "</g></g>" + r(80, 70, 18, 22, "a-fill2", 3) + r(83, 74, 12, 14, "a-acc", 2, ' opacity=".9"').replace("/>", ">" + an("opacity", ".9;.4;.9", 1.2) + "</rect>");
+    /* 2. кинескопный: ящик с антенной и бегущей разверткой */
+    o += line(150, 62, 142, 46, "a-axis2") + line(170, 62, 178, 46, "a-axis2");
+    o += r(124, 62, 72, 52, "a-card", 9) + r(131, 69, 44, 38, "a-fill2", 7) + c(185, 80, 3.5, "a-line2") + c(185, 94, 3.5, "a-line2");
+    o += '<rect class="a-fill" x="131" y="69" width="44" height="3" rx="1.5">' + an("y", "69;104;69", 3) + "</rect>";
+    o += r(132, 114, 6, 5, "a-line2", 1) + r(182, 114, 6, 5, "a-line2", 1);
+    /* 3. плоский: тонкий экран на подставке */
+    o += r(224, 64, 68, 42, "a-card", 4) + r(228, 68, 60, 34, "a-fill2", 2);
+    [[232, 14], [244, 22], [256, 10], [268, 18]].forEach(function (b, k) {
+      o += '<rect class="a-fill" x="' + b[0] + '" y="' + (98 - b[1]) + '" width="9" height="' + b[1] + '" rx="2">' + an("height", b[1] + ";" + (b[1] + 8) + ";" + b[1], 2.4 + k * 0.3) + an("y", (98 - b[1]) + ";" + (90 - b[1]) + ";" + (98 - b[1]), 2.4 + k * 0.3) + "</rect>";
+    });
+    o += r(252, 106, 12, 8, "a-line2", 1) + r(242, 113, 32, 4, "a-line2", 2);
+    /* стрелки и подписи */
+    o += '<path class="a-arrow" d="M104 90 H116 M111 85 L116 90 L111 95"/><path class="a-arrow" d="M204 90 H216 M211 85 L216 90 L211 95"/>';
+    var cap = [[64, T("Механический", "Mechanical"), T("1920-е", "1920s")], [160, T("Кинескопный", "CRT"), T("1940-1990-е", "1940s-1990s")], [258, T("Плоский", "Flat screen"), T("2000-е", "2000s")]];
+    cap.forEach(function (q) { o += t(q[0], 136, q[1], "a-b", "middle") + t(q[0], 147, q[2], "a-s", "middle"); });
+    o += line(34, 160, 286, 160, "a-axis2") + '<circle class="a-acc" r="3.5" cy="160"><animate attributeName="cx" values="34;286" dur="5s" repeatCount="indefinite"/></circle>';
     return o;
   };
 

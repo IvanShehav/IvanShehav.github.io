@@ -917,10 +917,10 @@ window.PROJECTS = [
     links: [{ l: "GitHub: 3D_Models", url: "https://github.com/IvanShehav/3D_Models" }]
   },
   {
-    id: "tvs", main: true, viewer3d: false, cat: ["eng"], art: "grid", cover: "https://mir-s3-cdn-cf.behance.net/project_modules/source/253c8e199616497.6654df6d9dc36.gif", year: "2024",
+    id: "tvs", main: true, cat: ["eng"], art: "tvs", year: "2024",
     ru: {
-      title: "Развитие телевизоров",
-      tag: "Телевизоры разных эпох, смоделированные с нуля, и история их создания в анимации",
+      title: "3D-модели телевизоров разных эпох",
+      tag: "Смоделировал с нуля и показал историю создания в анимации: от механического телевизора до плоского",
       role: "3D-художник",
       period: "Май 2024",
       summary: "Смоделировал с нуля телевизоры разных эпох: от механического с вращающимся диском до современного плоского. Для каждой модели собрал сцену с интерьером и сделал анимацию, чтобы было видно, как менялась технология. Работа опубликована на Behance.",
@@ -928,8 +928,8 @@ window.PROJECTS = [
       note: ""
     },
     en: {
-      title: "Evolution of the television",
-      tag: "Televisions from different eras modeled from scratch, with the story of their creation in animation",
+      title: "3D models of televisions from different eras",
+      tag: "Modeled from scratch, with the story of their creation shown in animation: from a mechanical TV to a flat screen",
       role: "3D artist",
       period: "May 2024",
       summary: "Modeled televisions from different eras from scratch, from a mechanical one with a spinning disc to a modern flat screen. For each model I built a scene with an interior and made an animation to show how the technology changed. The work is published on Behance.",

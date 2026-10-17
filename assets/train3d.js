@@ -32,8 +32,8 @@
   }
 
   function build(lite) {
-    var solid = [], flat = [], seg = lite ? 2 : 5;
-    function add(list, v, n, col, decals) { var f = { v: v, n: n || autoNormal(v), c: col, d: decals || [] }; list.push(f); return f; }
+    var solid = [], flat = [], seg = lite ? 2 : 5, layer = 1;
+    function add(list, v, n, col, decals) { var f = { v: v, n: n || autoNormal(v), c: col, d: decals || [], l: layer }; list.push(f); return f; }
     function box(x0, x1, y0, y1, z0, z1, col) {
       var P = function (x, y, z) { return [x, y, z]; };
       add(solid, [P(x1, y0, z0), P(x1, y1, z0), P(x1, y1, z1), P(x1, y0, z1)], [1, 0, 0], col);
@@ -52,25 +52,26 @@
     for (var s = lite ? -7.2 : -12; s <= (lite ? 7.2 : 12); s += lite ? 2.4 : 1.2) flat.push({ v: [[s - 0.17, 0.04, -1.5], [s + 0.17, 0.04, -1.5], [s + 0.17, 0.04, 1.5], [s - 0.17, 0.04, 1.5]], c: C.sleeper });
     box(-RL, RL, 0.04, 0.15, 0.68, 0.8, C.rail); box(-RL, RL, 0.04, 0.15, -0.8, -0.68, C.rail);
 
-    /* тележки */
+    /* тележки и подвагонное оборудование: рисуются до кузова, он их частично закрывает */
+    layer = 2;
     [-3.2, 2.8].forEach(function (bx) {
-      box(bx - 1.0, bx + 1.0, 0.52, 0.8, -0.58, 0.58, C.frame);
-      box(bx - 0.5, bx + 0.5, 0.8, 0.98, -0.7, 0.7, C.frame2);
+      box(bx - 0.95, bx + 0.95, 0.5, 0.72, -0.5, 0.5, C.frame);
       [-0.74, 0.74].forEach(function (ax) {
         [-0.9, 0.9].forEach(function (wz) {
           var v = [], hub = [], k, n = lite ? 10 : 18;
-          for (k = 0; k < n; k++) { var a = k / n * Math.PI * 2; v.push([bx + ax + Math.cos(a) * 0.42, 0.54 + Math.sin(a) * 0.42, wz]); hub.push([bx + ax + Math.cos(a) * 0.16, 0.54 + Math.sin(a) * 0.16, wz + (wz > 0 ? 0.012 : -0.012)]); }
+          for (k = 0; k < n; k++) { var a = k / n * Math.PI * 2; v.push([bx + ax + Math.cos(a) * 0.4, 0.52 + Math.sin(a) * 0.4, wz]); hub.push([bx + ax + Math.cos(a) * 0.15, 0.52 + Math.sin(a) * 0.15, wz + (wz > 0 ? 0.012 : -0.012)]); }
           add(solid, v, [0, 0, wz > 0 ? 1 : -1], C.wheel, lite ? [] : [{ v: hub, c: C.hub }]);
-          box(bx + ax - 0.12, bx + ax + 0.12, 0.44, 0.64, wz > 0 ? 0.74 : -0.9, wz > 0 ? 0.9 : -0.74, C.frame2);
+          
         });
       });
     });
 
     /* кузов: набор сечений, между ними грани */
+    layer = 3;
     var X0 = -5, X1 = 4.6, BL = X1 - X0;
     var secs = [
-      [X0, 1.2, 1.1, 2.7, 0.12, 0.34, C.low], [X1, 1.2, 1.1, 2.7, 0.12, 0.34, C.low],
-      [5.25, 1.14, 1.14, 2.6, 0.16, 0.4, C.red], [5.85, 1.0, 1.2, 2.47, 0.2, 0.44, C.red], [6.28, 0.8, 1.3, 2.3, 0.22, 0.46, C.red]
+      [X0, 1.2, 1.0, 2.7, 0.12, 0.34, C.low], [X1, 1.2, 1.0, 2.7, 0.12, 0.34, C.low],
+      [5.25, 1.14, 1.06, 2.6, 0.16, 0.4, C.red], [5.85, 1.0, 1.14, 2.47, 0.2, 0.44, C.red], [6.28, 0.8, 1.24, 2.3, 0.22, 0.46, C.red]
     ].map(function (q) { return { x: q[0], r: ring(q[1], q[2], q[3], q[4], q[5], seg), low: q[6], w: q[1], y0: q[2], y1: q[3], rb: q[4], rt: q[5] }; });
     var sideR = [], sideL = [], kR = seg, kL = 3 * seg + 2, n = secs[0].r.length;
     for (var i = 0; i < secs.length - 1; i++) {
@@ -131,10 +132,10 @@
     front.d.push(fpoly(1, [[0.45, 1.35], [-0.45, 1.35], [-0.45, 1.42], [0.45, 1.42]], C.dark, fx));
     back.d.push(fpoly(1, [[0.55, 1.4], [-0.55, 1.4], [-0.6, 2.3], [0.6, 2.3]], C.dark, secs[0].x - 0.012));
 
-    /* подвагонное оборудование, крыша */
-    box(X0, X1, 0.95, 1.1, -1.0, 1.0, C.frame);
-    box(-2.2, -0.5, 0.72, 0.95, -0.8, 0.8, C.frame2); box(0.4, 1.9, 0.72, 0.95, -0.8, 0.8, C.frame2); box(-0.2, 0.3, 0.82, 0.95, -0.6, 0.6, C.frame);
-    box(5.95, 6.55, 0.88, 1.3, -0.7, 0.7, C.frame2);
+    layer = 2;
+    box(-2.2, -0.5, 0.74, 0.98, -0.6, 0.6, C.frame2); box(0.4, 1.9, 0.74, 0.98, -0.6, 0.6, C.frame2);
+    box(5.95, 6.5, 0.9, 1.26, -0.65, 0.65, C.frame2);
+    layer = 4;
     [[-4.2, -2.6], [1.4, 3.0]].forEach(function (r) { box(r[0], r[1], 2.62, 2.9, -0.55, 0.55, C.ac); box(r[0] + 0.15, r[1] - 0.15, 2.9, 2.98, -0.4, 0.4, C.low); });
     box(-0.5, 0.5, 2.62, 2.8, -0.35, 0.35, C.frame2);
 
@@ -173,18 +174,18 @@
       var v = fc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); });
       var c = centroid(v), n = rot(fc.n, cy, sy, cp, sp);
       if (dot(n, c) >= 0) return;
-      list.push({ f: fc, v: v, n: n, d: c[0] * c[0] + c[1] * c[1] + c[2] * c[2], cy: cy, sy: sy });
+      list.push({ f: fc, v: v, n: n, d: c[0] * c[0] + c[1] * c[1] + c[2] * c[2], l: fc.l || 0 });
     });
-    list.sort(function (a, b) { return b.d - a.d; });
+    list.sort(function (a, b) { return a.l - b.l || b.d - a.d; });
     list.forEach(function (it) {
-      poly(it.v, shade(it.f.c, it.n), null, shade(it.f.c, it.n, 0.72));
+      poly(it.v, shade(it.f.c, it.n), null, shade(it.f.c, it.n, 0.88));
       it.f.d.forEach(function (dc) {
         if (!dc) return;
         poly(dc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); }), shade(dc.c, it.n), null, shade(dc.c, it.n, 0.8));
       });
     });
     /* токоприемник на крыше */
-    ctx.strokeStyle = "rgb(60,66,76)"; ctx.lineWidth = Math.max(1.4, f * 0.011); ctx.lineCap = "round"; ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgb(60,66,76)"; ctx.lineWidth = Math.max(1.2, f * 0.0065); ctx.lineCap = "round"; ctx.lineJoin = "round";
     var pg = model.pantograph;
     var a = proj(tf(pg[0][0], cy, sy, cp, sp, D)), b = proj(tf(pg[0][1], cy, sy, cp, sp, D)), c = proj(tf(pg[0][2], cy, sy, cp, sp, D));
     ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.lineTo(c[0], c[1]); ctx.stroke();
@@ -242,7 +243,7 @@
         var a = pointers[ids[0]], b = pointers[ids[1]], dist = Math.hypot(a.x - b.x, a.y - b.y);
         if (pinch0) { st.zoom = zoom0 * dist / pinch0; clampZoom(); }
       } else {
-        st.yaw += (e.clientX - p.x) * 0.011; if (!opts.horizontalOnly) st.pitch = Math.max(0.04, Math.min(1.3, st.pitch + (e.clientY - p.y) * 0.008));
+        st.yaw += (e.clientX - p.x) * 0.011; if (!opts.horizontalOnly) st.pitch = Math.max(0.12, Math.min(1.35, st.pitch + (e.clientY - p.y) * 0.008));
         pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
       }
       touch();
@@ -255,7 +256,7 @@
     }, { passive: false });
     canvas.addEventListener("keydown", function (e) {
       var k = e.key, h = true;
-      if (k === "ArrowLeft") st.yaw -= 0.15; else if (k === "ArrowRight") st.yaw += 0.15; else if (k === "ArrowUp") st.pitch = Math.min(1.3, st.pitch + 0.08); else if (k === "ArrowDown") st.pitch = Math.max(0.04, st.pitch - 0.08);
+      if (k === "ArrowLeft") st.yaw -= 0.15; else if (k === "ArrowRight") st.yaw += 0.15; else if (k === "ArrowUp") st.pitch = Math.min(1.35, st.pitch + 0.08); else if (k === "ArrowDown") st.pitch = Math.max(0.12, st.pitch - 0.08);
       else if (k === "+" || k === "=") { st.zoom *= 1.15; clampZoom(); } else if (k === "-") { st.zoom /= 1.15; clampZoom(); } else h = false;
       if (h) { e.preventDefault(); touch(); }
     });

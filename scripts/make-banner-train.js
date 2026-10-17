@@ -5,7 +5,7 @@ const file = process.argv[2];
 const win = { matchMedia: () => ({ matches: false }) };
 vm.runInNewContext(fs.readFileSync(path.join(__dirname, "../assets/train3d.js"), "utf8"), { window: win, Math, Object, document: {} });
 const T = win.Train3D, model = T.build(true);
-const N = 60, W = 200, H = 168, DUR = 12, PITCH = 0.5, OY = 32;
+const N = 60, W = 200, H = 168, DUR = 12, PITCH = 0.5, OY = 18;
 const f1 = (x) => Math.round(x * 4) / 4;
 function recorder() {
   const out = []; let d = "", filled = false, alpha = 1, cap = "butt";
