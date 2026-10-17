@@ -68,7 +68,7 @@
   };
 
   S.kiroden = function () {
-    var o = frame("KIRODEN");
+    var o = frame(T("Бот для бизнеса", "Business bot"));
     o += r(16, 36, 150, 18, "a-fill2", 9) + t(24, 48.5, T("Выберите, что нужно", "Choose what you need"), "a-b");
     var b = T("Инструкции|Гарантия|Подарок|Поддержка", "Manuals|Warranty|Gift|Support").split("|");
     b.forEach(function (s, i) { o += r(16 + (i % 2) * 80, 60 + Math.floor(i / 2) * 24, 76, 20, "a-card", 8) + t(54 + (i % 2) * 80, 73.5 + Math.floor(i / 2) * 24, s, "a-b", "middle"); });
@@ -141,6 +141,17 @@
     o += t(178, 66, T("Жалобы", "Complaints"), "a-s") + r(178, 70, 118, 22, "a-fill2", 5) + r(184, 76, 100, 4, "a-fill", 2) + r(184, 84, 70, 4, "a-fill", 2);
     o += t(178, 108, T("Анамнез", "History"), "a-s") + r(178, 112, 118, 22, "a-fill2", 5) + r(184, 118, 90, 4, "a-fill", 2) + r(184, 126, 56, 4, "a-fill", 2);
     o += r(178, 142, 70, 16, "a-fill", 8) + t(213, 153, T("Подтвердить", "Confirm"), "a-w", "middle");
+    return o;
+  };
+
+  S.bankbash = function () {
+    var o = frame(T("Онлайн-банк (Bash)", "Online bank (Bash)"));
+    o += r(16, 36, 168, 128, "a-term", 8);
+    var L = [["$ ./bank.sh", "a-tg"], [T("1) Баланс", "1) Balance"), "a-tt"], [T("2) Перевод", "2) Transfer"), "a-tt"], [T("3) История", "3) History"), "a-tt"], ["> 1", "a-tg"], [T("Счет 4081  12 450 руб.", "Account 4081  12,450 rub."), "a-tt"]];
+    L.forEach(function (x, i) { o += t(26, 54 + i * 18, x[0], x[1]); });
+    o += line(196, 34, 196, 168, "a-axis") + t(204, 46, T("Расходы за неделю", "Weekly spending"), "a-b");
+    [24, 52, 36, 70, 44, 60, 30].forEach(function (v, i) { o += r(206 + i * 14, 150 - v, 9, v, i === 3 ? "a-acc" : "a-fill", 3); });
+    o += line(204, 150, 304, 150, "a-axis");
     return o;
   };
 

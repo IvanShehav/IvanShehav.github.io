@@ -12,52 +12,45 @@ window.UI = {
     nav: { about: "Обо мне", projects: "Проекты", experience: "Опыт", education: "Учеба", skills: "Навыки", contacts: "Контакты" },
     hero: {
       name: "Иван Шехавцов",
-      role: "Строю AI-продукты и автоматизацию для бизнеса",
-      lead: "Студент ИТ-специалитета «Сириуса». Беру задачу от сырой идеи и интервью до прототипа, архитектуры и запуска. Сильнее всего чувствую себя на стыке AI, аналитики и управления командой.",
+      role: "Продуктовый и системный аналитик",
+      lead: "Студент ИТ-специалитета «Сириуса». Делаю AI-продукты и автоматизацию: разбираю задачу с людьми, описываю сценарии и требования, собираю прототипы и довожу до запуска вместе с командой. Готов работать удаленно, около 20 часов в неделю.",
       cta1: "Смотреть проекты",
       cta2: "Написать мне",
+      cta3: "Скачать резюме (PDF)",
       photoAlt: "Фотография Ивана Шехавцова",
       chatTitle: "Виртуальный пациент",
-      plateTitle: "Плита в KOMPAS-3D"
+      infraTitle: "Серверы и сеть"
     },
     about: {
       title: "Обо мне",
       text: [
-        "Я соединяю продуктовую аналитику, AI и управление. Прежде всего делаю простую вещь: разговариваю с людьми, которым нужен продукт, и превращаю их боль в понятный сценарий.",
-        "Дальше проектирую флоу и экраны, пишу промпты и требования, вместе с командой собираю прототип и довожу до запуска. Умею и сам написать бота, сервис или интеграцию, поэтому разговор с разработчиками идет на одном языке."
+        "Я студент университета «Сириус». Также учусь в Финансовом университете при Правительстве РФ, направление «Прикладные информационные системы в экономике и финансах»."
       ],
-      factsTitle: "Коротко",
-      facts: [
-        ["Где учусь", "Университет «Сириус», 3 курс очного ИТ-специалитета"],
-        ["Чем занимаюсь сейчас", "AI-инструменты для медицинского центра и обучающий симулятор для студентов-медиков"],
-        ["Команды", "Руководил группами до 7 человек: хакатоны, SMM-отдел, проектные команды"],
-        ["Где живу", "Сочи, федеральная территория «Сириус»"]
-      ],
-      goalsTitle: "Что я ищу",
-      goals: [
-        { t: "Сильная команда с ростом", d: "Хочу работать с людьми, у которых можно учиться, и расти вместе с продуктом и командой." },
-        { t: "Интересные задачи", d: "Мне важно понимать, зачем продукт нужен людям, и видеть результат своей работы." },
-        { t: "Сложные вызовы", d: "Принимаю сложные задачи и берусь за незнакомое: так было с KOMPAS-3D, Astra Linux и медицинскими данными." },
-        { t: "Ценность для бизнеса", d: "Хочу приносить пользу, которую можно измерить: сэкономленное время, понятные решения, работающий сервис." }
-      ],
-      qualTitle: "Что обо мне важно знать",
-      quals: [
-        { t: "Довожу до результата", d: "От интервью и схемы до работающего сервиса в продакшене." },
-        { t: "Говорю с людьми и с кодом", d: "Веду заказчика и понимаю, как это будет устроено внутри." },
-        { t: "Считаю, а не гадаю", d: "Метрики, воронки, юнит-экономика и честные оговорки про данные." },
-        { t: "Беру ответственность", d: "Хакатоны, команды, найм, отчетность: это моя зона." }
-      ]
+      interestsTitle: "Сферы интересов",
+      interests: ["Агенты", "ИИ-системы", "Финтех", "ML", "Автоматизация бизнес-процессов"],
+      goalsTitle: "",
+      goals: [],
+      qualTitle: "",
+      quals: []
     },
     projects: {
       title: "Проекты",
-      lead: "Нажмите на любой проект: в окне будет короткая история и маленькая рабочая модель одной настоящей идеи из него.",
+      lead: "Нажмите на проект: в окне короткая история, моя роль и результат, а где можно, еще и небольшая демо-версия.",
       main: "Главные",
-      more: "Остальное",
-      filters: { all: "Все", ai: "AI", product: "Продукт", auto: "Автоматизация", data: "Данные", eng: "Инженерия", team: "Команда", lab: "Эксперименты" },
+      more: "Еще проекты",
+      otherTitle: "Остальное",
+      other: [
+        { t: "Амбассадор ВКонтакте", d: "Организовывал мероприятия: больше десяти, около тысячи человек охвата." },
+        { t: "Международные фестивали", d: "Участвовал во Всемирном фестивале молодежи и в других международных фестивалях." },
+        { t: "Ведущий мероприятий", d: "Проводил мероприятия в роли ведущего." },
+        { t: "Оргкоманда хакатонов", d: "Организовал два хакатона, один из них международный." }
+      ],
+      filters: { all: "Все", ai: "AI", product: "Продукт и аналитика", auto: "Автоматизация", dev: "Разработка", eng: "Инженерия и 3D" },
       open: "Смотреть проект",
       close: "Закрыть",
       role: "Моя роль",
       period: "Период",
+      resultLabel: "Результат",
       did: "Что сделал",
       stack: "Стек",
       links: "Ссылки",
@@ -74,7 +67,7 @@ window.UI = {
     achievements: { title: "Достижения" },
     contacts: {
       title: "Давайте поговорим",
-      lead: "Открыт к стажировкам, частичной и полной занятости, проектам и интересным задачам. Отвечаю быстро, чаще всего в Telegram.",
+      lead: "Открыт к стажировкам, частичной занятости и проектам. Формат удаленный, около 20 часов в неделю. Отвечаю быстро, чаще всего в Telegram.",
       email: "Почта",
       telegram: "Telegram",
       github: "GitHub",
@@ -91,52 +84,45 @@ window.UI = {
     nav: { about: "About", projects: "Projects", experience: "Experience", education: "Education", skills: "Skills", contacts: "Contact" },
     hero: {
       name: "Ivan Shekhavtsov",
-      role: "I build AI products and business automation",
-      lead: "Student of the IT specialist program at Sirius University. I take a task from a raw idea and interviews to a prototype, architecture and launch. I am strongest where AI, analytics and team management meet.",
+      role: "Product and systems analyst",
+      lead: "Student of the IT specialist program at Sirius University. I build AI products and automation: I talk to people, describe scenarios and requirements, build prototypes and take them to launch together with a team. Ready to work remotely, about 20 hours a week.",
       cta1: "See projects",
       cta2: "Write to me",
+      cta3: "Download resume (PDF)",
       photoAlt: "Photo of Ivan Shekhavtsov",
       chatTitle: "Virtual patient",
-      plateTitle: "Plate in KOMPAS-3D"
+      infraTitle: "Servers and network"
     },
     about: {
       title: "About me",
       text: [
-        "I combine product analytics, AI and management. First, I do one simple thing: I talk to the people who need a product and turn their pain into a clear scenario.",
-        "Then I design flows and screens, write prompts and requirements, build a prototype with the team and bring it to launch. I can also write a bot, a service or an integration myself, so I talk to developers in the same language."
+        "I am a student at Sirius University. I also study at the Financial University under the Government of the Russian Federation, majoring in Applied Information Systems in Economics and Finance."
       ],
-      factsTitle: "In short",
-      facts: [
-        ["Studying", "Sirius University, 3rd year of the full-time IT specialist program"],
-        ["Working on now", "AI tools for a medical center and a training simulator for medical students"],
-        ["Teams", "Led groups of up to 7 people: hackathons, an SMM department, project teams"],
-        ["Based in", "Sochi, Sirius federal territory"]
-      ],
-      goalsTitle: "What I am looking for",
-      goals: [
-        { t: "A strong team with room to grow", d: "I want to work with people I can learn from and grow together with the product and the team." },
-        { t: "Interesting problems", d: "It matters to me to understand why people need the product and to see the result of my work." },
-        { t: "Hard challenges", d: "I take on difficult tasks and unfamiliar ground: that is how it went with KOMPAS-3D, Astra Linux and medical data." },
-        { t: "Value for the business", d: "I want to bring benefit that can be measured: saved time, clear decisions, a working service." }
-      ],
-      qualTitle: "What is worth knowing about me",
-      quals: [
-        { t: "I finish things", d: "From interviews and diagrams to a working service in production." },
-        { t: "I speak people and code", d: "I lead the customer conversation and understand how it works inside." },
-        { t: "I count, not guess", d: "Metrics, funnels, unit economics and honest notes about data limits." },
-        { t: "I take responsibility", d: "Hackathons, teams, hiring, reporting: this is my zone." }
-      ]
+      interestsTitle: "Areas of interest",
+      interests: ["Agents", "AI systems", "Fintech", "ML", "Business process automation"],
+      goalsTitle: "",
+      goals: [],
+      qualTitle: "",
+      quals: []
     },
     projects: {
       title: "Projects",
-      lead: "Click any project: the window has a short story and a small working model of one real idea from it.",
+      lead: "Click a project: a short story, my role and the result, and where possible a small demo version.",
       main: "Main",
-      more: "Everything else",
-      filters: { all: "All", ai: "AI", product: "Product", auto: "Automation", data: "Data", eng: "Engineering", team: "Team", lab: "Experiments" },
+      more: "More projects",
+      otherTitle: "Other",
+      other: [
+        { t: "VK ambassador", d: "Organized events: more than ten, with about a thousand people reached." },
+        { t: "International festivals", d: "Took part in the World Festival of Youth and other international festivals." },
+        { t: "Event host", d: "Hosted events as a presenter." },
+        { t: "Hackathon organizing team", d: "Organized two hackathons, one of them international." }
+      ],
+      filters: { all: "All", ai: "AI", product: "Product and analytics", auto: "Automation", dev: "Development", eng: "Engineering and 3D" },
       open: "View project",
       close: "Close",
       role: "My role",
       period: "Period",
+      resultLabel: "Result",
       did: "What I did",
       stack: "Stack",
       links: "Links",
@@ -153,7 +139,7 @@ window.UI = {
     achievements: { title: "Achievements" },
     contacts: {
       title: "Let us talk",
-      lead: "Open to internships, part-time and full-time roles, projects and interesting tasks. I reply fast, most often in Telegram.",
+      lead: "Open to internships, part-time work and projects. Remote, about 20 hours a week. I reply fast, most often in Telegram.",
       email: "Email",
       telegram: "Telegram",
       github: "GitHub",
@@ -175,11 +161,10 @@ window.EXPERIENCE = {
       title: "ML-специалист и проджект-менеджер",
       org: "Фонд «Талант и успех», Центр аналитики и оптимизации процессов",
       points: [
-        "С нуля создаю и внедряю AI-инструменты для медицинского центра: суммаризация истории болезни и транскрибация разговора врача с пациентом, чтобы быстрее заполнять карту.",
+        "Работаем над несколькими проектами: внедряем ИИ в медицину и автоматизируем рутинные задачи.",
         "Разобрал структуру и данные медицинской информационной системы и процесс ведения документации.",
         "В команде из трех человек совмещаю ML-задачи с планированием и координацией, формат внутреннего стартапа."
-      ],
-      project: "medcenter"
+      ]
     },
     {
       when: "Июль - сентябрь 2026",
@@ -208,9 +193,10 @@ window.EXPERIENCE = {
       title: "Бизнес-ассистент и операционный руководитель",
       org: "E-commerce компания (детские товары), ИП Журова",
       points: [
-        "Автоматизировал учет листовок на складах Telegram-ботом и собрал систему онбординга сотрудников.",
+        "Автоматизировал учет листовок на складах Telegram-ботом (работа ускорилась примерно в 4 раза) и собрал систему онбординга сотрудников.",
         "Развернул и поддерживаю серверы, VPN, доступы к кабинетам маркетплейсов и корпоративные аккаунты.",
-        "Руковожу SMM-отделом из четырех человек: планы, отчетность, найм. Ставлю ТЗ дизайнерам, юристам и бухгалтерам."
+        "Выстраивал отделы, например SMM (четыре человека) и логистики: систематизировал и автоматизировал процессы, писал регламенты, занимался наймом.",
+        "Ставлю ТЗ дизайнерам, юристам и бухгалтерам."
       ],
       project: "ecomops"
     },
@@ -241,11 +227,10 @@ window.EXPERIENCE = {
       title: "ML specialist and project manager",
       org: "Talent and Success Foundation, Center for Analytics and Process Optimization",
       points: [
-        "Building and rolling out AI tools for a medical center from scratch: medical history summarization and transcription of doctor-patient conversations to fill records faster.",
+        "We work on several projects: bringing AI into medicine and automating routine tasks.",
         "Studied the structure and data of the hospital information system and the documentation process.",
         "In a team of three I combine ML work with planning and coordination, an internal startup format."
-      ],
-      project: "medcenter"
+      ]
     },
     {
       when: "July - September 2026",
@@ -274,9 +259,10 @@ window.EXPERIENCE = {
       title: "Business assistant and operations lead",
       org: "E-commerce company (children's goods), IP Zhurova",
       points: [
-        "Automated flyer tracking in warehouses with a Telegram bot and built an employee onboarding system.",
+        "Automated flyer tracking in warehouses with a Telegram bot (work became about 4 times faster) and built an employee onboarding system.",
         "Set up and maintain servers, VPN, access to marketplace accounts and corporate accounts.",
-        "Lead a four-person SMM department: plans, reporting, hiring. Write briefs for designers, lawyers and accountants."
+        "Built departments, for example SMM (four people) and logistics: organized and automated processes, wrote regulations, handled hiring.",
+        "Write briefs for designers, lawyers and accountants."
       ],
       project: "ecomops"
     },
@@ -348,7 +334,7 @@ window.EDUCATION = {
 
 window.ACHIEVEMENTS = {
   ru: [
-    { big: "3 раза", text: "победитель всероссийского конкурса «Большая перемена», грант 1 млн рублей" },
+    { big: "3 раза", text: "победитель всероссийского конкурса «Большая перемена»" },
     { big: "5 стран", text: "участники хакатона Young Scientists Hackathon 2025, который я вел как тимлид оргкоманды" },
     { big: "до 7", text: "человек в командах, которыми я руководил: хакатоны, SMM-отдел, проектные группы" },
     { big: "350+", text: "часов волонтерской деятельности" },
@@ -358,7 +344,7 @@ window.ACHIEVEMENTS = {
     { big: "Статья", text: "пишу с научным руководителем обзорную статью про нейродифференциальные уравнения в химической технологии" }
   ],
   en: [
-    { big: "3 times", text: "winner of the all-Russian contest Bolshaya Peremena, a grant of 1 million rubles" },
+    { big: "3 times", text: "winner of the all-Russian contest Bolshaya Peremena" },
     { big: "5 countries", text: "participants of Young Scientists Hackathon 2025, which I led as team lead of the organizers" },
     { big: "up to 7", text: "people in the teams I led: hackathons, an SMM department, project groups" },
     { big: "350+", text: "hours of volunteering" },
@@ -454,7 +440,7 @@ window.SKILLS = {
 /* Проекты. art: тип картинки для карточки, demo: ключ мини-демо из demos.js. */
 window.PROJECTS = [
   {
-    id: "patient", main: true, cat: ["ai", "product"], art: "radar", demo: "patient", year: "2026",
+    id: "patient", main: true, cat: ["ai"], art: "radar", demo: "patient", year: "2026",
     ru: {
       title: "Виртуальный пациент",
       tag: "Симулятор клинического мышления: студент-медик говорит с LLM в роли пациента",
@@ -488,10 +474,10 @@ window.PROJECTS = [
       note: "A team project, the internship was one stage. The example data is made up, no real patients."
     },
     stack: ["LLM", "Prompt engineering", "LangGraph", "Figma", "BPMN", "React", "FastAPI", "PostgreSQL"],
-    links: [{ l: "GitHub команды", url: "https://github.com/Podoroj-nik/doctors_simulator" }]
+    links: []
   },
   {
-    id: "dispatcher", main: true, cat: ["ai", "product", "team"], art: "incident", demo: "dispatcher", year: "2026",
+    id: "dispatcher", main: true, cat: ["ai"], art: "incident", demo: "dispatcher", year: "2026",
     ru: {
       title: "Тренажер диспетчера службы 112",
       tag: "Рабочее место диспетчера, где новичок учится принимать решения по вызовам",
@@ -524,12 +510,13 @@ window.PROJECTS = [
     links: [{ l: "GitHub", url: "https://github.com/DTYUI1/OneOneTwo-OnTheLine" }]
   },
   {
-    id: "alfa", main: true, cat: ["product", "data", "team"], art: "bars", demo: "alfa", year: "2026",
+    id: "alfa", main: true, cat: ["product"], art: "bars", demo: "alfa", year: "2026",
     ru: {
-      title: "Альфа. Первый оборот",
-      tag: "Стратегия для платежного бизнеса Альфа-Банка: как довести молодого предпринимателя до первого устойчивого оборота",
+      title: "Аудит привлечения клиентов в Альфа-Бизнес",
+      tag: "Конкурс «Альфа-Будущее»: разобрали, как банк сейчас привлекает новых клиентов, и предложили режим «Первый оборот»",
       role: "Капитан команды «Крутые парни»",
       period: "Альфа-Будущее Чемпионат 2026, отборочный тур",
+      result: "Конкурсный консалтинговый кейс: сравнили способы привлечения клиентов и предложили, что улучшить. Эффект не замеряли.",
       summary: "Мы провели 16 интервью и опрос на 84 ответа и поняли: молодому предпринимателю нужен не каталог продуктов, а понятный следующий шаг. Так появился режим «Первый оборот»: профиль бизнеса, раскладка выручки по целям и радар кассового разрыва.",
       did: [
         "Собрал команду из пяти человек и распределил роли",
@@ -540,10 +527,11 @@ window.PROJECTS = [
       note: "Цифры опроса верны только внутри нашей выборки, это не доля рынка. Радар в окне учебный."
     },
     en: {
-      title: "Alfa. First Turnover",
-      tag: "A strategy for Alfa-Bank payments: how to take a young entrepreneur to the first steady turnover",
+      title: "Audit of client acquisition for Alfa Business",
+      tag: "Alfa-Future contest: we reviewed how the bank attracts new clients today and proposed a First Turnover mode",
       role: "Captain of the team Cool Guys",
       period: "Alfa-Future Championship 2026, qualifying round",
+      result: "A competition consulting case: we compared ways to attract clients and proposed improvements. The effect was not measured.",
       summary: "We ran 16 interviews and a survey with 84 answers and found that a young entrepreneur needs not a product catalog but a clear next step. So we designed a First Turnover mode: business profile, revenue split by goals and a cash gap radar.",
       did: [
         "Built a team of five and split the roles",
@@ -557,9 +545,9 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "kiroden", main: true, cat: ["auto", "product"], art: "chat", demo: "kiroden", year: "2025-2026",
+    id: "kiroden", main: true, cat: ["auto"], art: "chat", demo: "kiroden", year: "2025-2026",
     ru: {
-      title: "KIRODEN и TAIRO: Telegram-бот поддержки",
+      title: "Telegram-бот поддержки для бизнеса",
       tag: "Один бот для покупателей маркетплейсов: инструкции, гарантия, поддержка и подарок за отзыв",
       role: "Владелец продукта, системный аналитик, участие в разработке, тестах и релизах",
       period: "2025-2026, работает в продакшене",
@@ -574,7 +562,7 @@ window.PROJECTS = [
       note: "Код в приватном репозитории, покажу по запросу. В окне выдуманные данные."
     },
     en: {
-      title: "KIRODEN and TAIRO: support Telegram bot",
+      title: "Support Telegram bot for business",
       tag: "One bot for marketplace buyers: manuals, warranty, support and a gift for a review",
       role: "Product owner, systems analyst, took part in development, tests and releases",
       period: "2025-2026, runs in production",
@@ -594,10 +582,11 @@ window.PROJECTS = [
   {
     id: "onboarding", main: true, cat: ["auto"], art: "flow", demo: "onboarding", year: "2026",
     ru: {
-      title: "DVAteam Onboarding",
+      title: "Автоматизированная онбординг-платформа",
       tag: "Сайт, который за пару часов проводит нового сотрудника от анкеты до выданных доступов",
       role: "Продуктовый и системный аналитик, бэкенд и развертывание",
       period: "2026, работает в продакшене",
+      result: "Онбординг стал структурным и прозрачным: обучение, задачи и доступы в одном месте. По моей оценке, он ускорился примерно в 4-5 раз.",
       summary: "Сотрудник заполняет анкету, подписывает NDA и проходит обучение, а система сама создает заявку в рабочей системе компании и следит, чтобы доступ выдали. Если облачный диск недоступен, файлы ждут в безопасной очереди и уходят позже.",
       did: [
         "Спроектировал путь сотрудника и отдельную админку",
@@ -609,10 +598,11 @@ window.PROJECTS = [
       note: "Код в приватном репозитории, покажу по запросу. Данных сотрудников на сайте нет."
     },
     en: {
-      title: "DVAteam Onboarding",
+      title: "Automated onboarding platform",
       tag: "A site that takes a new employee from a form to granted access in about two hours",
       role: "Product and systems analyst, backend and deployment",
       period: "2026, runs in production",
+      result: "Onboarding became structured and transparent: training, tasks and access in one place. By my estimate it became about 4-5 times faster.",
       summary: "The employee fills a form, signs an NDA and takes training, and the system creates a request in the company work system and makes sure access is granted. If the cloud disk is unavailable, files wait in a safe queue and are sent later.",
       did: [
         "Designed the employee path and a separate admin panel",
@@ -627,11 +617,11 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "hydroplate", main: true, cat: ["eng"], art: "plate", demo: "hydroplate", year: "2026",
+    id: "hydroplate", hidden: true, cat: ["eng"], art: "plate", demo: "hydroplate", year: "2026",
     photo: { src: "assets/part.jpg", ru: "Образец детали: размеры снимал штангенциркулем", en: "The sample part: dimensions taken with a caliper" },
     ru: {
       title: "Гидрораспределительная плита в KOMPAS-3D",
-      tag: "3D-модель и рабочий чертеж детали по реальному образцу",
+      tag: "Конкурс «Хайтек. Юниоры»: 3D-модель и рабочий чертеж детали по реальному образцу",
       role: "Участник конкурса, автор модели и чертежа",
       period: "2026, конкурс «Хайтек. Юниоры», Университет «Сириус», заказчик АО «Завод №9»",
       summary: "Деталь выдали без чертежа, поэтому каждое отверстие, грань и глубину пришлось обмерять штангенциркулем с точностью 0,02 мм. До этого проекта я не работал в KOMPAS-3D и учился прямо по ходу.",
@@ -646,7 +636,7 @@ window.PROJECTS = [
     },
     en: {
       title: "Hydraulic distribution plate in KOMPAS-3D",
-      tag: "A 3D model and a working drawing of a part made from a real sample",
+      tag: "Hightech Juniors contest: a 3D model and a working drawing of a part made from a real sample",
       role: "Contest participant, author of the model and the drawing",
       period: "2026, the Hitech Juniors contest, Sirius University, customer Plant No. 9",
       summary: "The part came without a drawing, so every hole, face and depth had to be measured with a caliper to 0.02 mm. I had never used KOMPAS-3D before and learned it along the way.",
@@ -667,7 +657,7 @@ window.PROJECTS = [
     ru: {
       title: "Защищенная IT-инфраструктура на отечественном ПО",
       tag: "Сеть филиала из четырех VLAN: виртуализация, маршрутизатор и защищенный доступ",
-      role: "Системный инженер, единственный исполнитель, наставник от компании Astra",
+      role: "Системный инженер",
       period: "30 июня - 24 июля 2025, проектно-образовательная практика, Университет «Сириус»",
       summary: "Учебный кейс: за четыре недели построить с нуля инфраструктуру нового филиала на ISP VMmanager, Astra Linux SE 1.8 и MikroTik CHR. Сеть разделена на VLAN 10-40, адреса раздает DHCP с пулом 100 устройств, на маршрутизатор можно зайти только по SSH на порту 2025.",
       did: [
@@ -682,7 +672,7 @@ window.PROJECTS = [
     en: {
       title: "Secure IT infrastructure on Russian software",
       tag: "A branch network of four VLANs: virtualization, a router and protected access",
-      role: "Systems engineer, the only performer, mentor from the Astra company",
+      role: "Systems engineer",
       period: "June 30 - July 24, 2025, project and education practice, Sirius University",
       summary: "A training case: build the infrastructure of a new branch from scratch in four weeks on ISP VMmanager, Astra Linux SE 1.8 and MikroTik CHR. The network is split into VLAN 10-40, DHCP hands out addresses with a pool of 100 devices, and the router can only be reached over SSH on port 2025.",
       did: [
@@ -698,7 +688,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "medcenter", cat: ["ai", "product"], art: "doc", demo: "medcenter", year: "2026",
+    id: "medcenter", hidden: true, cat: ["ai"], art: "doc", demo: "medcenter", year: "2026",
     ru: {
       title: "AI-инструменты для медицинского центра",
       tag: "Меньше ручной работы врача с документами",
@@ -721,7 +711,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "sellers", cat: ["product", "data"], art: "calc", demo: "sellers", year: "2026",
+    id: "sellers", cat: ["product"], art: "calc", demo: "sellers", year: "2026",
     ru: {
       title: "AI-аналитик для селлеров",
       tag: "Продукт для продавцов Wildberries и Ozon: данные из API, аналитика и автоматизация рутины",
@@ -767,14 +757,15 @@ window.PROJECTS = [
     links: [{ l: "GitHub", url: "https://github.com/IvanShehav/Agents_system_for_YandexHack" }]
   },
   {
-    id: "ecomops", cat: ["auto", "team"], art: "grid", year: "2025-2026",
+    id: "ecomops", main: true, cat: ["auto"], art: "grid", year: "2025-2026",
     ru: {
       title: "Операционная система e-commerce бизнеса",
       tag: "Не один скрипт, а целый контур: боты, онбординг, дашборды, серверы и команда",
       role: "Бизнес-ассистент и операционный руководитель",
       period: "С мая 2025",
+      result: "Бот учета листовок ускорил работу примерно в 4 раза: ручной ввод на складах больше не нужен.",
       summary: "Вокруг бизнеса детских товаров на маркетплейсах я выстроил рабочую систему: учет листовок ботом, единая база контактов, товаров и заказов, регулярные дашборды, серверы и VPN, а еще SMM-отдел «контент-завод».",
-      did: ["Бот учета листовок на складах убрал ручной ввод", "Единая база контактов, товаров и заказов", "Регулярные дашборды конверсий, кликов и показов", "Серверы, VPN и доступы к кабинетам площадок", "SMM-отдел из 4 человек: планы, отчеты, найм", "ТЗ и координация дизайнеров, юристов и бухгалтеров"],
+      did: ["Бот учета листовок на складах убрал ручной ввод", "Единая база контактов, товаров и заказов", "Регулярные дашборды конверсий, кликов и показов", "Серверы, VPN и доступы к кабинетам площадок", "Выстроил отделы, например SMM из 4 человек и логистики: систематизировал и автоматизировал процессы, написал регламенты, занимался наймом", "ТЗ и координация дизайнеров, юристов и бухгалтеров"],
       note: "Показываю только обезличенные процессы."
     },
     en: {
@@ -782,30 +773,31 @@ window.PROJECTS = [
       tag: "Not a single script but a whole loop: bots, onboarding, dashboards, servers and a team",
       role: "Business assistant and operations lead",
       period: "Since May 2025",
+      result: "The flyer-tracking bot sped the work up about 4 times: no more manual entry at warehouses.",
       summary: "Around a children's goods business on marketplaces I built a working system: a bot for flyer tracking, one database of contacts, products and orders, regular dashboards, servers and VPN, and an SMM department called the content factory.",
-      did: ["A flyer tracking bot removed manual entry in warehouses", "One database of contacts, products and orders", "Regular dashboards of conversions, clicks and impressions", "Servers, VPN and access to marketplace accounts", "An SMM department of 4: plans, reports, hiring", "Briefs and coordination of designers, lawyers and accountants"],
+      did: ["A flyer tracking bot removed manual entry in warehouses", "One database of contacts, products and orders", "Regular dashboards of conversions, clicks and impressions", "Servers, VPN and access to marketplace accounts", "Built departments, for example SMM of 4 people and logistics: organized and automated processes, wrote regulations, handled hiring", "Briefs and coordination of designers, lawyers and accountants"],
       note: "Only anonymized processes are shown."
     },
     stack: ["Telegram Bot API", "Python", "Google Sheets", "VPN", "Linux"],
     links: []
   },
   {
-    id: "dashboards", cat: ["data"], art: "bars", year: "2026",
+    id: "dashboards", cat: ["product"], art: "bars", year: "2026",
     ru: {
-      title: "Дашборды наборов «Сириуса»",
-      tag: "Как менялся набор в экспериментальный ИТ-специалитет за 2024-2026 годы",
+      title: "Дашборды по набору студентов",
+      tag: "Как менялся набор на образовательную программу за 2024-2026 годы",
       role: "Аналитик данных",
       period: "2026",
-      summary: "Дашборд для абитуриентов и команды: способы поступления, возраст, география и расстояние до «Сириуса», распределения ЕГЭ. Верстка 1920 на 1080 для презентации и HTML-версия.",
+      summary: "Дашборд для абитуриентов и команды: способы поступления, возраст, география и расстояние до университета, распределения ЕГЭ. Верстка 1920 на 1080 для презентации и HTML-версия.",
       did: ["Собрал и почистил исходные данные наборов", "Выбрал показатели и компоновку, чтобы дашборд читался за минуту", "Сделал карту с акцентом на города, откуда приехало больше всего студентов"],
       note: "Реальные данные не публикую, пока нет согласования с владельцем. Картинка в карточке условная."
     },
     en: {
-      title: "Sirius admission dashboards",
-      tag: "How the intake to the experimental IT specialist program changed in 2024-2026",
+      title: "Student admission dashboards",
+      tag: "How the intake to an education program changed in 2024-2026",
       role: "Data analyst",
       period: "2026",
-      summary: "A dashboard for applicants and the team: admission paths, age, geography and distance to Sirius, exam score distributions. A 1920 by 1080 layout for a presentation and an HTML version.",
+      summary: "A dashboard for applicants and the team: admission paths, age, geography and distance to the university, exam score distributions. A 1920 by 1080 layout for a presentation and an HTML version.",
       did: ["Collected and cleaned the source intake data", "Chose metrics and layout so the dashboard reads in a minute", "Built a map that highlights the cities most students came from"],
       note: "Real data is not published until the data owner agrees. The picture on the card is symbolic."
     },
@@ -813,7 +805,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "mamyasam", cat: ["product", "team"], art: "grid", year: "2026",
+    id: "mamyasam", cat: ["product"], art: "grid", year: "2026",
     ru: {
       title: "«Мам, я сам!»",
       tag: "Цифровая адаптация подростков к самостоятельной жизни",
@@ -836,7 +828,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "hackathons", cat: ["team"], art: "nodes", year: "2025",
+    id: "hackathons", hidden: true, cat: ["product"], art: "nodes", year: "2025",
     ru: {
       title: "Хакатоны «Сириуса»",
       tag: "Организовал два хакатона, один из них международный",
@@ -859,7 +851,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "friendship", cat: ["team", "product"], art: "nodes", year: "2026",
+    id: "friendship", hidden: true, cat: ["product"], art: "nodes", year: "2026",
     ru: {
       title: "International Friendship Club",
       tag: "Концепт международного молодежного клуба на площадке «Сириуса»",
@@ -882,30 +874,53 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "vr3d", cat: ["lab"], art: "grid", year: "2024",
+    id: "vr3d", main: true, cat: ["eng"], art: "grid", cover: "assets/models/head.jpg", year: "2024",
     ru: {
-      title: "3D-модели для VR-симулятора",
-      tag: "Поезда для симулятора машиниста",
-      role: "Стажер-разработчик",
+      title: "3D-моделирование",
+      tag: "Поезда, мост, тоннель и депо для VR-симулятора, а еще деталь в КОМПАС-3D",
+      role: "Стажер-разработчик, 3D-моделирование",
       period: "Январь - апрель 2024, лаборатория VR",
-      summary: "Моделировал поезда для симулятора, сам превращал устные задачи руководителя в требования и метрики и согласовывал итерации с командой Unity.",
-      did: ["3D-модели поездов", "Требования и метрики из устных задач", "Согласование итераций с Unity-разработчиками"],
+      summary: "Моделировал подвижной состав и железнодорожную инфраструктуру для симулятора машиниста, сам превращал устные задачи руководителя в требования и метрики и согласовывал итерации с Unity-разработчиками. Позже сделал 3D-модель и чертеж детали в КОМПАС-3D.",
+      did: ["Модели вагонов, локомотива и электропоезда", "Мост, переезд, тоннель и депо", "Требования и метрики из устных задач", "Согласование итераций с Unity-разработчиками", "Деталь и чертеж в КОМПАС-3D"],
       note: ""
     },
     en: {
-      title: "3D models for a VR simulator",
-      tag: "Trains for a train driver simulator",
-      role: "Developer intern",
+      title: "3D modeling",
+      tag: "Trains, a bridge, a tunnel and a depot for a VR simulator, plus a part in KOMPAS-3D",
+      role: "Developer intern, 3D modeling",
       period: "January - April 2024, VR laboratory",
-      summary: "Modeled trains for the simulator, turned the supervisor's spoken tasks into requirements and metrics and agreed iterations with the Unity team.",
-      did: ["3D train models", "Requirements and metrics from spoken tasks", "Agreed iterations with Unity developers"],
+      summary: "Modeled rolling stock and railway infrastructure for a train driver simulator, turned the supervisor's spoken tasks into requirements and metrics and agreed iterations with the Unity team. Later made a 3D model and a drawing of a part in KOMPAS-3D.",
+      did: ["Models of wagons, a locomotive and an electric train", "A bridge, a crossing, a tunnel and a depot", "Requirements and metrics from spoken tasks", "Agreed iterations with Unity developers", "A part and its drawing in KOMPAS-3D"],
       note: ""
     },
-    stack: ["Blender", "Unity", "Требования"],
-    links: [{ l: "Портфолио 3D", url: "https://www.behance.net/gallery/199616497/tehnologicheskoe-razvitie-televizorov" }]
+    gallery: [
+      { ru: "Подвижной состав", en: "Rolling stock", items: [
+        ["models/platform.jpg", "Вагон-платформа", "Flat wagon"],
+        ["models/railcar.jpg", "Рельсовый вагон", "Rail car"],
+        ["models/timber.jpg", "Вагон-лесовоз", "Timber wagon"],
+        ["models/tem.jpg", "Локомотив ТЭМ", "TEM locomotive"],
+        ["models/motor.jpg", "Моторный вагон ЭП2ДМ", "EP2DM motor car"],
+        ["models/head.jpg", "Головной вагон ЭП2ДМ", "EP2DM head car"]
+      ] },
+      { ru: "Инфраструктура", en: "Infrastructure", items: [
+        ["models/bridge.jpg", "Мост", "Bridge"],
+        ["models/crossing.jpg", "Переезд", "Level crossing"],
+        ["models/tunnel.jpg", "Тоннель", "Tunnel"]
+      ] },
+      { ru: "Депо", en: "Depot", items: [
+        ["models/depot1.jpg", "Депо, общий вид", "Depot, overview"],
+        ["models/depot2.jpg", "Депо, электропоезд", "Depot, electric train"],
+        ["models/depot3.jpg", "Депо, оборудование", "Depot, equipment"]
+      ] },
+      { ru: "КОМПАС-3D", en: "KOMPAS-3D", items: [
+        ["part.jpg", "Образец детали, по которому сделана модель", "The sample part the model is based on", "hydroplate"]
+      ] }
+    ],
+    stack: ["Blender", "Unity", "KOMPAS-3D", "Требования"],
+    links: [{ l: "GitHub: 3D_Models", url: "https://github.com/IvanShehav/3D_Models" }, { l: "Портфолио 3D", url: "https://www.behance.net/gallery/199616497/tehnologicheskoe-razvitie-televizorov" }]
   },
   {
-    id: "jeopardy", cat: ["lab"], art: "grid", demo: "jeopardy", year: "2026",
+    id: "jeopardy", hidden: true, cat: ["dev"], art: "grid", demo: "jeopardy", year: "2026",
     ru: {
       title: "«Своя игра»",
       tag: "Игра для викторин в одном HTML-файле",
@@ -928,7 +943,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "webots", cat: ["lab", "ai"], art: "robot", demo: "webots", year: "2025",
+    id: "webots", hidden: true, cat: ["dev"], art: "robot", demo: "webots", year: "2025",
     ru: {
       title: "Робот-разведчик в Webots",
       tag: "Автономный e-puck исследует комнату, объезжает препятствия и возвращается домой",
@@ -951,7 +966,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "apisec", cat: ["lab"], art: "lock", demo: "apisec", year: "2026",
+    id: "apisec", hidden: true, cat: ["dev"], art: "lock", demo: "apisec", year: "2026",
     ru: {
       title: "Лаборатория безопасности API",
       tag: "Почему проверки на клиенте мало: BOLA и IDOR на примере котиков",
@@ -974,7 +989,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "invites", cat: ["auto", "lab"], art: "chat", demo: "invites", year: "2026",
+    id: "invites", hidden: true, cat: ["auto"], art: "chat", demo: "invites", year: "2026",
     ru: {
       title: "Telegram Invites",
       tag: "Утилита для персональных приглашений кандидатам на собеседование",
@@ -997,7 +1012,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "financeqt", cat: ["lab"], art: "bars", year: "2026",
+    id: "financeqt", main: true, cat: ["dev"], art: "bars", year: "2026",
     ru: {
       title: "FinanceTracker на Qt",
       tag: "Финансовый трекер на C++ с графиками и рынками",
@@ -1020,7 +1035,7 @@ window.PROJECTS = [
     links: [{ l: "GitHub", url: "https://github.com/IvanShehav/finance_tracker" }]
   },
   {
-    id: "lab", cat: ["lab"], art: "grid", year: "2023-2025",
+    id: "lab", hidden: true, cat: ["dev"], art: "grid", year: "2023-2025",
     ru: {
       title: "Учебные эксперименты",
       tag: "Векторный редактор, нейросети, Unity-игра, банк на Bash и другое",
@@ -1046,5 +1061,29 @@ window.PROJECTS = [
       { l: "Банк на Bash", url: "https://github.com/IvanShehav/OnlineBank-on-Bash" },
       { l: "Все репозитории", url: "https://github.com/IvanShehav?tab=repositories" }
     ]
+  },
+  {
+    id: "bankbash", main: true, cat: ["dev"], art: "bankbash", year: "2023-2025",
+    ru: {
+      title: "Онлайн-банк на Bash",
+      tag: "Учебный банк: счета и операции в базе на Bash, графики на Python",
+      role: "Автор",
+      period: "Учебный проект, 2023-2025",
+      summary: "Онлайн-банк, в котором база данных, счета и операции написаны на Bash, а графики строятся на Python.",
+      did: ["Написал онлайн-банк с базой на Bash", "Добавил графики на Python"],
+      note: "Учебный проект, данные выдуманные."
+    },
+    en: {
+      title: "Online bank in Bash",
+      tag: "A learning bank: accounts and operations in a Bash database, charts in Python",
+      role: "Author",
+      period: "Learning project, 2023-2025",
+      summary: "An online bank where the database, accounts and operations are written in Bash and charts are drawn in Python.",
+      did: ["Wrote an online bank with a Bash database", "Added charts in Python"],
+      note: "A learning project with made-up data."
+    },
+    stack: ["Bash", "Python"],
+    links: [{ l: "GitHub", url: "https://github.com/IvanShehav/OnlineBank-on-Bash" }]
   }
+
 ];

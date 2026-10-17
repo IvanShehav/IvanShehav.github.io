@@ -14,7 +14,7 @@
 - [x] 3.1 Virtual patient: OCEAN sliders
 - [x] 3.2 112 dispatcher trainer: incident card
 - [x] 3.3 Alfa First Turnover: cash flow radar
-- [x] 3.4 KIRODEN bot: Telegram chat flow
+- [x] 3.4 Support bot: Telegram chat flow
 - [x] 3.5 DVAteam onboarding: queue and retry
 - [x] 3.6 Seller analyst: unit economics
 - [x] 3.7 AI PM assistant: agent graph
