@@ -148,7 +148,7 @@
 
   function renderTimeline() {
     $("timeline").innerHTML = window.EXPERIENCE[state.lang].map(function (e) {
-      return '<article class="tl-item"><div class="tl-when">' + esc(e.when) + '</div><div class="tl-card"><h3>' + esc(e.title) + '</h3><p class="tl-org">' + esc(e.org) + "</p><ul>" + e.points.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + '</ul><a class="tl-link" href="#p-' + e.project + '" data-open="' + e.project + '">' + esc(T().projects.open) + "</a></div></article>";
+      return '<article class="tl-item"><div class="tl-when">' + esc(e.when) + '</div><div class="tl-card"><h3>' + esc(e.title) + '</h3><p class="tl-org">' + esc(e.org) + "</p><ul>" + e.points.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + '</ul>' + (e.project ? '<a class="tl-link" href="#p-' + e.project + '" data-open="' + e.project + '">' + esc(T().projects.open) + "</a>" : "") + "</div></article>";
     }).join("");
   }
   function renderEdu() {
