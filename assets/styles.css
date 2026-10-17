@@ -492,3 +492,44 @@ ul { padding: 0; list-style: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Экраны продуктов в карточках */
+.art.shot { --ok: #2e9e6b; --bad: var(--coral); }
+:root[data-theme="dark"] .art.shot { --ok: #5fd49a; }
+.art.shot text { font-family: var(--font); }
+.art.shot .a-b { font-size: 8.5px; font-weight: 600; fill: var(--ink); }
+.art.shot .a-s { font-size: 7.5px; font-weight: 500; fill: var(--muted); }
+.art.shot .a-t { font-size: 9.5px; font-weight: 700; fill: var(--ink); }
+.art.shot .a-w { font-size: 8.5px; font-weight: 600; fill: var(--on-blue, #fff); }
+.art.shot .a-dk { font-size: 8.5px; font-weight: 700; fill: #0c1f36; }
+.art.shot .a-big { font-size: 13px; font-weight: 800; fill: var(--ink); }
+.art.shot .a-ct { font-size: 8px; font-weight: 600; fill: var(--ink); font-family: ui-monospace, Menlo, Consolas, monospace; }
+.art.shot .a-badt { font-size: 8.5px; font-weight: 700; fill: var(--bad); }
+.art.shot .a-okt { font-size: 8.5px; font-weight: 700; fill: var(--ok); }
+.art.shot .a-okt2 { font-size: 8.5px; font-weight: 700; fill: var(--ok); }
+.art.shot .a-dim { font-size: 7px; font-weight: 700; fill: var(--muted); }
+.art.shot .a-bar { fill: var(--surface-2); }
+.art.shot .a-dot { fill: var(--line); }
+.art.shot .a-axis { stroke: var(--line); stroke-width: 1; }
+.art.shot .a-axis2 { stroke: var(--line); stroke-width: 2; }
+.art.shot .a-ok { fill: var(--ok); }
+.art.shot .a-bad { fill: var(--bad); }
+.art.shot .a-chk { fill: none; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.art.shot .a-line3 { fill: none; stroke: var(--blue); stroke-width: 2.2; stroke-linejoin: round; }
+.art.shot .a-line { stroke: var(--blue); stroke-width: 1.5; fill: none; opacity: .55; }
+.art.shot .a-arrow { fill: none; stroke: var(--blue); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.art.shot .a-danger { fill: color-mix(in srgb, var(--bad) 14%, transparent); }
+.art.shot .a-zero { stroke: var(--bad); stroke-width: 1; stroke-dasharray: 3 3; }
+.art.shot .a-top { fill: color-mix(in srgb, var(--blue) 28%, var(--surface)); stroke: var(--blue); stroke-width: 1.2; }
+.art.shot .a-lf { fill: color-mix(in srgb, var(--blue) 45%, var(--surface)); stroke: var(--blue); stroke-width: 1.2; }
+.art.shot .a-rt { fill: color-mix(in srgb, var(--blue) 62%, var(--surface)); stroke: var(--blue); stroke-width: 1.2; }
+.art.shot .a-hole { fill: var(--surface); stroke: var(--blue-deep); stroke-width: 1; }
+.art.shot .a-code { fill: color-mix(in srgb, var(--ink) 8%, var(--surface)); stroke: var(--line); }
+.art.shot .a-arena { fill: color-mix(in srgb, var(--blue) 8%, var(--surface)); stroke: var(--line); stroke-width: 1.5; }
+.art.shot .a-ghost { opacity: .9; }
+.art.shot .a-ok-b { stroke: var(--ok); }
+.art.shot .a-bad-b { stroke: var(--bad); }
+.art.shot .a-none { fill: none; }
+@media (prefers-reduced-motion: reduce) { .art.shot .a-blink { animation: none; } }
+@media (max-width: 480px) { .logo-name { font-size: .88rem; overflow: hidden; text-overflow: ellipsis; } .logo { min-width: 0; gap: 8px; } .logo-ava { width: 38px; height: 38px; } }
+@media (max-width: 400px) { .logo-name { max-width: 6.2em; } }

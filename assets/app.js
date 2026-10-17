@@ -72,7 +72,7 @@
       return '<rect class="a-card" x="126" y="78" width="68" height="56" rx="10"/><path class="a-line" d="M142 78 v-14 a18 18 0 0 1 36 0 v14"/><circle class="a-acc" cx="160" cy="104" r="7"/><circle class="a-fill" cx="70" cy="60" r="16"/><circle class="a-fill2" cx="250" cy="120" r="16"/><path class="a-line" d="M86 62 L124 90" stroke-dasharray="4 4"/>';
     }
   };
-  function art(type) { return '<svg viewBox="0 0 320 180" class="art" aria-hidden="true">' + (ART[type] || ART.grid)() + "</svg>"; }
+  function art(type, id) { if (window.SCREENS && id && window.SCREENS.has(id)) return window.SCREENS.draw(id, state.lang); return '<svg viewBox="0 0 320 180" class="art" aria-hidden="true">' + (ART[type] || ART.grid)() + "</svg>"; }
 
   /* ---------- рендер ---------- */
   function renderStatic() {
@@ -159,7 +159,7 @@
     var main = PROJECTS.filter(function (p) { return p.main && match(p); }), more = PROJECTS.filter(function (p) { return !p.main && match(p); });
     $("tiles").classList.toggle("filtered", state.filter !== "all");
     $("tiles").innerHTML = main.map(function (p) {
-      return '<a class="tile' + cls(p) + '" href="#p-' + p.id + '" data-open="' + p.id + '"><div class="win-bar slim"><span class="dots"><i></i><i></i><i></i></span><span class="tile-cat">' + esc(f[p.cat[0]]) + '</span><span class="tile-year">' + esc(p.year) + '</span></div><div class="tile-art">' + art(p.art) + '</div><div class="tile-body"><h3>' + esc(P(p).title) + "</h3><p>" + esc(P(p).tag) + '</p><span class="tile-open">' + esc(t.open) + "</span></div></a>";
+      return '<a class="tile' + cls(p) + '" href="#p-' + p.id + '" data-open="' + p.id + '"><div class="win-bar slim"><span class="dots"><i></i><i></i><i></i></span><span class="tile-cat">' + esc(f[p.cat[0]]) + '</span><span class="tile-year">' + esc(p.year) + '</span></div><div class="tile-art">' + art(p.art, p.id) + '</div><div class="tile-body"><h3>' + esc(P(p).title) + "</h3><p>" + esc(P(p).tag) + '</p><span class="tile-open">' + esc(t.open) + "</span></div></a>";
     }).join("");
     $("rows").innerHTML = more.map(function (p) {
       return '<a class="row' + cls(p) + '" href="#p-' + p.id + '" data-open="' + p.id + '"><span class="row-year">' + esc(p.year) + '</span><span class="row-main"><b>' + esc(P(p).title) + "</b><small>" + esc(P(p).tag) + '</small></span><span class="row-cats">' + p.cat.map(function (c) { return "<i>" + esc(f[c]) + "</i>"; }).join("") + "</span></a>";
@@ -180,7 +180,7 @@
     var links = p.links.map(function (l) { return '<a class="plink" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(state.lang === "en" && LINK_EN[l.l] ? LINK_EN[l.l] : l.l) + "</a>"; }).join("");
     var hasDemo = !!(p.demo && window.DEMOS[p.demo]);
     $("win-body").innerHTML =
-      '<section class="win-demo"><h3>' + esc(hasDemo ? t.demoTitle : "") + '</h3><div id="demo-root" class="demo-root">' + (hasDemo ? "" : '<div class="art-big">' + art(p.art) + "</div><p class='d-hint'>" + esc(t.noDemo) + "</p>") + "</div>" + (hasDemo ? '<p class="win-note">' + esc(t.simplified) + "</p>" : "") + "</section>" +
+      '<section class="win-demo"><h3>' + esc(hasDemo ? t.demoTitle : "") + '</h3><div id="demo-root" class="demo-root">' + (hasDemo ? "" : '<div class="art-big">' + art(p.art, p.id) + "</div><p class='d-hint'>" + esc(t.noDemo) + "</p>") + "</div>" + (hasDemo ? '<p class="win-note">' + esc(t.simplified) + "</p>" : "") + "</section>" +
       '<section class="win-info"><p class="win-tag">' + esc(L.tag) + '</p><dl class="meta"><div><dt>' + esc(t.role) + "</dt><dd>" + esc(L.role) + "</dd></div><div><dt>" + esc(t.period) + "</dt><dd>" + esc(L.period) + "</dd></div></dl>" + (p.photo ? '<figure class="win-photo"><img src="' + esc(p.photo.src) + '" alt="' + esc(p.photo[state.lang]) + '" loading="lazy"><figcaption>' + esc(p.photo[state.lang]) + "</figcaption></figure>" : "") + "<p>" + esc(L.summary) + "</p><h3>" + esc(t.did) + "</h3><ul>" + L.did.map(function (d) { return "<li>" + esc(d) + "</li>"; }).join("") + "</ul><h3>" + esc(t.stack) + '</h3><div class="chips">' + stack.map(function (s) { return '<span class="chip static">' + esc(s) + "</span>"; }).join("") + "</div>" + (links ? "<h3>" + esc(t.links) + '</h3><div class="plinks">' + links + "</div>" : "") + (L.note ? '<p class="win-note warn">' + esc(L.note) + "</p>" : "") + "</section>";
     $("win-body").scrollTop = 0;
     if (hasDemo) { var cl = window.DEMOS[p.demo]($("demo-root"), state.lang); state.cleanup = cl; }
