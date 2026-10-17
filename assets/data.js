@@ -33,11 +33,12 @@ window.UI = {
         ["Команды", "Руководил группами до 7 человек: хакатоны, SMM-отдел, проектные команды"],
         ["Где живу", "Сочи, федеральная территория «Сириус»"]
       ],
-      goalsTitle: "Куда иду",
+      goalsTitle: "Что я ищу",
       goals: [
-        { t: "Магистратура за рубежом", d: "Долгосрочная цель: сильная программа по информатике и данным, MIT в списке мечты. Для этого расту в английском и науке: пишу обзорную статью с научным руководителем." },
-        { t: "Свой бизнес", d: "Хочу запустить собственный продукт. Первая гипотеза уже посчитана: AI-аналитик для продавцов маркетплейсов." },
-        { t: "Блог про AI-бизнес", d: "Буду открыто рассказывать, как AI помогает вести бизнес с нуля: с цифрами, ошибками и инструментами." }
+        { t: "Сильная команда с ростом", d: "Хочу работать с людьми, у которых можно учиться, и расти вместе с продуктом и командой." },
+        { t: "Интересные задачи", d: "Мне важно понимать, зачем продукт нужен людям, и видеть результат своей работы." },
+        { t: "Сложные вызовы", d: "Принимаю сложные задачи и берусь за незнакомое: так было с KOMPAS-3D, Astra Linux и медицинскими данными." },
+        { t: "Ценность для бизнеса", d: "Хочу приносить пользу, которую можно измерить: сэкономленное время, понятные решения, работающий сервис." }
       ],
       qualTitle: "Что обо мне важно знать",
       quals: [
@@ -111,11 +112,12 @@ window.UI = {
         ["Teams", "Led groups of up to 7 people: hackathons, an SMM department, project teams"],
         ["Based in", "Sochi, Sirius federal territory"]
       ],
-      goalsTitle: "Where I am going",
+      goalsTitle: "What I am looking for",
       goals: [
-        { t: "Graduate study abroad", d: "Long-term goal: a strong program in computer science and data, MIT is on the dream list. I am building English and research experience, including a review paper with my scientific supervisor." },
-        { t: "My own business", d: "I want to launch my own product. The first hypothesis is already modeled: an AI analyst for marketplace sellers." },
-        { t: "A blog about AI business", d: "I will openly show how AI helps run a business from zero: with numbers, mistakes and tools." }
+        { t: "A strong team with room to grow", d: "I want to work with people I can learn from and grow together with the product and the team." },
+        { t: "Interesting problems", d: "It matters to me to understand why people need the product and to see the result of my work." },
+        { t: "Hard challenges", d: "I take on difficult tasks and unfamiliar ground: that is how it went with KOMPAS-3D, Astra Linux and medical data." },
+        { t: "Value for the business", d: "I want to bring benefit that can be measured: saved time, clear decisions, a working service." }
       ],
       qualTitle: "What is worth knowing about me",
       quals: [
