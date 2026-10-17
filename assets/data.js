@@ -292,16 +292,16 @@ window.EXPERIENCE = {
 window.EDUCATION = {
   ru: [
     {
-      when: "2024 - н.в.",
-      title: "Университет «Сириус»",
-      sub: "Проектирование, разработка и управление сложными информационными системами. Очно, 3 курс.",
-      points: ["Математика, алгоритмы, базы данных, ОС, облака, защита информации и машинное обучение", "Проектно-исследовательская работа с первого курса и ежегодные практики", "Трек по данным: системный анализ, хранилища, визуализация для решений"]
-    },
-    {
       when: "2026 - н.в.",
       title: "Финансовый университет при Правительстве РФ",
       sub: "09.03.03 Прикладная информатика, профиль «Прикладные информационные системы в экономике и финансах». Заочно.",
       points: ["Вторая специальность, чтобы добавить экономику, финансы и корпоративные системы к технической базе"]
+    },
+    {
+      when: "2024 - н.в.",
+      title: "Университет «Сириус»",
+      sub: "Проектирование, разработка и управление сложными информационными системами. Очно, 3 курс.",
+      points: ["Математика, алгоритмы, базы данных, ОС, облака, защита информации и машинное обучение", "Проектно-исследовательская работа с первого курса и ежегодные практики", "Трек по данным: системный анализ, хранилища, визуализация для решений"]
     },
     {
       when: "2020 - 2023",
@@ -312,16 +312,16 @@ window.EDUCATION = {
   ],
   en: [
     {
-      when: "2024 - present",
-      title: "Sirius University",
-      sub: "Design, development and management of complex information systems. Full-time, 3rd year.",
-      points: ["Math, algorithms, databases, operating systems, cloud, information security and machine learning", "Project and research work from the first year and yearly practice", "Data track: systems analysis, data storage, visualization for decisions"]
-    },
-    {
       when: "2026 - present",
       title: "Financial University under the Government of the Russian Federation",
       sub: "09.03.03 Applied Informatics, Applied information systems in economics and finance. Part-time.",
       points: ["A second degree to add economics, finance and corporate systems to the technical base"]
+    },
+    {
+      when: "2024 - present",
+      title: "Sirius University",
+      sub: "Design, development and management of complex information systems. Full-time, 3rd year.",
+      points: ["Math, algorithms, databases, operating systems, cloud, information security and machine learning", "Project and research work from the first year and yearly practice", "Data track: systems analysis, data storage, visualization for decisions"]
     },
     {
       when: "2020 - 2023",
@@ -369,7 +369,8 @@ window.SKILLS = {
     { g: "Аналитика и данные", items: [
       ["SQL и PostgreSQL", ["kiroden"]],
       ["Python и pandas", ["dashboards"]],
-      ["Power BI и Excel", ["dashboards", "sellers", "ecomops"]],
+      ["Power BI", ["dashboards", "ecomops", "sellers"]],
+      ["Excel", ["dashboards", "sellers", "ecomops"]],
       ["Метрики и воронки", ["alfa", "sellers", "ecomops", "dashboards"]],
       ["Юнит-экономика", ["sellers", "alfa"]]
     ]},
@@ -408,7 +409,8 @@ window.SKILLS = {
     { g: "Analytics and data", items: [
       ["SQL and PostgreSQL", ["kiroden"]],
       ["Python and pandas", ["dashboards"]],
-      ["Power BI and Excel", ["dashboards", "sellers", "ecomops"]],
+      ["Power BI", ["dashboards", "ecomops", "sellers"]],
+      ["Excel", ["dashboards", "sellers", "ecomops"]],
       ["Metrics and funnels", ["alfa", "sellers", "ecomops", "dashboards"]],
       ["Unit economics", ["sellers", "alfa"]]
     ]},
@@ -801,7 +803,7 @@ window.PROJECTS = [
       did: ["Collected and cleaned the source intake data", "Chose metrics and layout so the dashboard reads in a minute", "Built a map that highlights the cities most students came from"],
       note: "Real data is not published until the data owner agrees. The picture on the card is symbolic."
     },
-    stack: ["Python", "pandas", "Excel", "HTML"],
+    stack: ["Power BI", "Python", "pandas", "Excel", "HTML"],
     links: []
   },
   {
@@ -834,7 +836,7 @@ window.PROJECTS = [
       title: "Хакатоны «Сириуса»",
       tag: "Организовал два хакатона, один из них международный",
       role: "Тимлид оргкоманды",
-      period: "2025",
+      period: "2025-2026",
       summary: "Young Scientists Hackathon собрал участников из пяти стран, а хакатон при поддержке МЧС России проходил вместе с партнером. Вместе с командой мы ставили кейсы, делали систему оценивания и отвечали за площадку.",
       did: ["Координировал команду из 5-7 человек и распределял роли", "Участвовал в разработке кейсов и системы оценивания", "Отвечал за коммуникацию с участниками и партнерами и техническую поддержку"],
       note: ""
@@ -843,12 +845,21 @@ window.PROJECTS = [
       title: "Sirius hackathons",
       tag: "Organized two hackathons, one of them international",
       role: "Team lead of organizers",
-      period: "2025",
+      period: "2025-2026",
       summary: "Young Scientists Hackathon gathered participants from five countries, and the hackathon supported by the Russian Ministry of Emergency Situations ran with a partner. With the team I shaped cases, built the judging system and handled the venue.",
       did: ["Coordinated a team of 5-7 and split roles", "Took part in creating cases and the judging system", "Handled communication with participants and partners and technical support"],
       note: ""
     },
     stack: ["Управление", "Фасилитация", "Партнеры"],
+    gallery: [
+      { ru: "Хакатон с МЧС России", en: "Hackathon with the Ministry of Emergency Situations", items: [
+        ["events/hack-mchs.jpg", "Участники хакатона по разработке ПО для пожарно-спасательных подразделений, 27 февраля - 1 марта 2026", "Participants of the software hackathon for fire and rescue units, February 27 - March 1, 2026"]
+      ] },
+      { ru: "Young Scientists Hackathon", en: "Young Scientists Hackathon", items: [
+        ["events/hack-ysh-work.jpg", "Командная работа на Young Scientists Hackathon, 28-29 ноября 2025", "Teamwork at Young Scientists Hackathon, November 28-29, 2025"],
+        ["events/hack-ysh-open.jpg", "Открытие Young Scientists Hackathon в «Сириусе»", "Opening of Young Scientists Hackathon at Sirius"]
+      ] }
+    ],
     links: []
   },
   {
