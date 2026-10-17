@@ -157,7 +157,7 @@ window.UI = {
 window.EXPERIENCE = {
   ru: [
     {
-      when: "С сентября 2026",
+      when: "2026 - н.в.",
       title: "ML-специалист и проджект-менеджер",
       org: "Фонд «Талант и успех», Центр аналитики и оптимизации процессов",
       points: [
@@ -189,7 +189,7 @@ window.EXPERIENCE = {
       project: "infra"
     },
     {
-      when: "С мая 2025",
+      when: "2025 - н.в.",
       title: "Бизнес-ассистент и операционный руководитель",
       org: "E-commerce компания",
       points: [
@@ -223,7 +223,7 @@ window.EXPERIENCE = {
   ],
   en: [
     {
-      when: "Since September 2026",
+      when: "2026 - present",
       title: "ML specialist and project manager",
       org: "Talent and Success Foundation, Center for Analytics and Process Optimization",
       points: [
@@ -255,7 +255,7 @@ window.EXPERIENCE = {
       project: "infra"
     },
     {
-      when: "Since May 2025",
+      when: "2025 - present",
       title: "Business assistant and operations lead",
       org: "E-commerce company",
       points: [
@@ -292,13 +292,13 @@ window.EXPERIENCE = {
 window.EDUCATION = {
   ru: [
     {
-      when: "С 2024",
+      when: "2024 - н.в.",
       title: "Университет «Сириус»",
       sub: "Проектирование, разработка и управление сложными информационными системами. Очно, 3 курс.",
       points: ["Математика, алгоритмы, базы данных, ОС, облака, защита информации и машинное обучение", "Проектно-исследовательская работа с первого курса и ежегодные практики", "Трек по данным: системный анализ, хранилища, визуализация для решений"]
     },
     {
-      when: "С 2026",
+      when: "2026 - н.в.",
       title: "Финансовый университет при Правительстве РФ",
       sub: "09.03.03 Прикладная информатика, профиль «Прикладные информационные системы в экономике и финансах». Заочно.",
       points: ["Вторая специальность, чтобы добавить экономику, финансы и корпоративные системы к технической базе"]
@@ -312,13 +312,13 @@ window.EDUCATION = {
   ],
   en: [
     {
-      when: "Since 2024",
+      when: "2024 - present",
       title: "Sirius University",
       sub: "Design, development and management of complex information systems. Full-time, 3rd year.",
       points: ["Math, algorithms, databases, operating systems, cloud, information security and machine learning", "Project and research work from the first year and yearly practice", "Data track: systems analysis, data storage, visualization for decisions"]
     },
     {
-      when: "Since 2026",
+      when: "2026 - present",
       title: "Financial University under the Government of the Russian Federation",
       sub: "09.03.03 Applied Informatics, Applied information systems in economics and finance. Part-time.",
       points: ["A second degree to add economics, finance and corporate systems to the technical base"]
@@ -693,7 +693,7 @@ window.PROJECTS = [
       title: "AI-инструменты для медицинского центра",
       tag: "Меньше ручной работы врача с документами",
       role: "ML-специалист и проджект-менеджер",
-      period: "С сентября 2026, Фонд «Талант и успех»",
+      period: "2026 - н.в., Фонд «Талант и успех»",
       summary: "Внутренний стартап из трех человек делает инструменты, которые суммаризируют историю болезни и расшифровывают разговор врача с пациентом, чтобы быстрее заполнять карту.",
       did: ["Разобрал структуру и данные медицинской информационной системы", "Планирую работу и координирую команду", "Проектирую, как AI-сервисы встраиваются в существующий процесс врача"],
       note: "Показываю только обезличенный принцип. Исходный код, данные и детали системы не публикуются."
@@ -702,7 +702,7 @@ window.PROJECTS = [
       title: "AI tools for a medical center",
       tag: "Less manual paperwork for doctors",
       role: "ML specialist and project manager",
-      period: "Since September 2026, Talent and Success Foundation",
+      period: "2026 - present, Talent and Success Foundation",
       summary: "An internal startup of three builds tools that summarize a medical history and transcribe a doctor-patient conversation to fill the record faster.",
       did: ["Studied the structure and data of the hospital information system", "Plan the work and coordinate the team", "Design how the AI services fit into the doctor's existing process"],
       note: "I show only the anonymized principle. Source code, data and system details are not published."
@@ -762,7 +762,7 @@ window.PROJECTS = [
       title: "Операционная система e-commerce бизнеса",
       tag: "Не один скрипт, а целый контур: боты, онбординг, дашборды, серверы и команда",
       role: "Бизнес-ассистент и операционный руководитель",
-      period: "С мая 2025",
+      period: "2025 - н.в.",
       result: "Бот учета листовок ускорил работу примерно в 4 раза: ручной ввод на складах больше не нужен.",
       summary: "Вокруг бизнеса детских товаров на маркетплейсах я выстроил рабочую систему: учет листовок ботом, единая база контактов, товаров и заказов, регулярные дашборды, серверы и VPN, а еще SMM-отдел «контент-завод».",
       did: ["Бот учета листовок на складах убрал ручной ввод", "Единая база контактов, товаров и заказов", "Регулярные дашборды конверсий, кликов и показов", "Серверы, VPN и доступы к кабинетам площадок", "Выстроил отделы, например SMM из 4 человек и логистики: систематизировал и автоматизировал процессы, написал регламенты, занимался наймом", "ТЗ и координация дизайнеров, юристов и бухгалтеров"],
@@ -772,7 +772,7 @@ window.PROJECTS = [
       title: "E-commerce operations system",
       tag: "Not a single script but a whole loop: bots, onboarding, dashboards, servers and a team",
       role: "Business assistant and operations lead",
-      period: "Since May 2025",
+      period: "2025 - present",
       result: "The flyer-tracking bot sped the work up about 4 times: no more manual entry at warehouses.",
       summary: "Around a children's goods business on marketplaces I built a working system: a bot for flyer tracking, one database of contacts, products and orders, regular dashboards, servers and VPN, and an SMM department called the content factory.",
       did: ["A flyer tracking bot removed manual entry in warehouses", "One database of contacts, products and orders", "Regular dashboards of conversions, clicks and impressions", "Servers, VPN and access to marketplace accounts", "Built departments, for example SMM of 4 people and logistics: organized and automated processes, wrote regulations, handled hiring", "Briefs and coordination of designers, lawyers and accountants"],
