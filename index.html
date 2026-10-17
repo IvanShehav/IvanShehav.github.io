@@ -63,10 +63,13 @@
           <div class="mini-bar"><span id="mini-chat-title"></span></div>
           <div class="mini-chat-body" id="mini-chat-body" aria-hidden="true"></div>
         </a>
-        <a class="mini infra" id="mini-infra" href="#p-infra" data-open="infra" aria-label="Серверы и сеть">
-          <div class="mini-bar"><span id="mini-infra-title"></span></div>
-          <svg viewBox="0 0 140 112" id="mini-infra-svg" aria-hidden="true"></svg>
-        </a>
+        <div class="mini train" id="mini-train">
+          <div class="mini-bar"><span id="mini-train-title"></span><a class="mini-more" id="mini-train-open" href="#p-vr3d" data-open="vr3d"></a></div>
+          <div class="train-stage">
+            <canvas id="mini-train-cv" tabindex="0" aria-label="3D-модель электропоезда"></canvas>
+            <div class="train-ctl"><button type="button" id="tz-in" aria-label="Приблизить">+</button><button type="button" id="tz-out" aria-label="Отдалить">&minus;</button></div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -160,6 +163,7 @@
 
 <noscript><p class="wrap" style="padding:2rem 0">Для этого сайта нужен JavaScript. Резюме и проекты: github.com/IvanShehav</p></noscript>
 <script src="assets/data.js"></script>
+<script src="assets/train3d.js"></script>
 <script src="assets/demos.js"></script>
 <script src="assets/screens.js"></script>
 <script src="assets/app.js"></script>

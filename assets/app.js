@@ -82,6 +82,30 @@
       }).join('') + '</div>';
     }).join('') + '</div>';
   }
+  function viewer3d() {
+    var t = T().projects;
+    return '<div class="t3"><canvas class="t3-canvas" id="t3-cv" tabindex="0" aria-label="' + esc(t.viewerLabel) + '"></canvas><div class="t3-ctl"><button type="button" data-t3="in" aria-label="' + esc(T().hero.zoomIn) + '">+</button><button type="button" data-t3="out" aria-label="' + esc(T().hero.zoomOut) + '">&minus;</button><button type="button" data-t3="reset" aria-label="' + esc(t.viewerReset) + '">&#8634;</button></div></div><p class="t3-hint">' + esc(t.viewerHint) + "</p>";
+  }
+  var lb = { list: [], i: 0, el: null };
+  function lbOpen(i) {
+    var items = Array.prototype.slice.call(document.querySelectorAll("#win-body .gallery figure.g-item"));
+    if (!items.length) return;
+    lb.list = items.map(function (f) { return { src: f.querySelector("img").getAttribute("src"), cap: f.querySelector("figcaption").textContent }; });
+    lb.i = Math.max(0, Math.min(i, lb.list.length - 1));
+    if (!lb.el) {
+      var d = document.createElement("div"); d.className = "lb"; d.id = "lb"; d.setAttribute("role", "group"); d.setAttribute("aria-label", T().projects.lbLabel);
+      d.innerHTML = '<button type="button" class="lb-x" data-lb="close" aria-label="' + esc(T().projects.lbClose) + '">&times;</button><button type="button" class="lb-n prev" data-lb="prev" aria-label="' + esc(T().projects.lbPrev) + '">&#8249;</button><figure><img alt=""><figcaption></figcaption></figure><button type="button" class="lb-n next" data-lb="next" aria-label="' + esc(T().projects.lbNext) + '">&#8250;</button><div class="lb-count"></div>';
+      $("win-box").appendChild(d); lb.el = d;
+    }
+    lb.el.hidden = false; lbShow(0); lb.el.querySelector(".lb-x").focus();
+  }
+  function lbShow(d) {
+    lb.i = (lb.i + d + lb.list.length) % lb.list.length; var it = lb.list[lb.i];
+    var img = lb.el.querySelector("img"); img.src = it.src; img.alt = it.cap;
+    lb.el.querySelector("figcaption").textContent = it.cap; lb.el.querySelector(".lb-count").textContent = (lb.i + 1) + " / " + lb.list.length;
+  }
+  function lbClose() { if (lb.el) lb.el.hidden = true; }
+  function lbIsOpen() { return !!(lb.el && !lb.el.hidden); }
   function art(type, id) { if (window.SCREENS && id && window.SCREENS.has(id)) return window.SCREENS.draw(id, state.lang); return '<svg viewBox="0 0 320 180" class="art" aria-hidden="true">' + (ART[type] || ART.grid)() + "</svg>"; }
 
   /* ---------- рендер ---------- */
@@ -93,7 +117,7 @@
     $("hero-name").textContent = t.hero.name; $("hero-role").textContent = t.hero.role; $("hero-lead").textContent = t.hero.lead;
     $("logo-name").textContent = t.hero.name; $("cta1").textContent = t.hero.cta1; $("cta2").textContent = t.hero.cta2;
     var rf = "assets/resume-" + state.lang + ".pdf"; $("cta3").textContent = t.hero.cta3; $("cta3").href = rf; $("resume-btn").textContent = t.hero.cta3; $("resume-btn").href = rf;
-    $("hero-photo").alt = t.hero.photoAlt; $("mini-chat-title").textContent = t.hero.chatTitle; $("mini-infra-title").textContent = t.hero.infraTitle;
+    $("hero-photo").alt = t.hero.photoAlt; $("mini-chat-title").textContent = t.hero.chatTitle; $("mini-train-title").textContent = t.hero.trainTitle; $("mini-train-open").textContent = t.hero.trainOpen; $("mini-train-cv").setAttribute("aria-label", t.hero.trainTitle); $("tz-in").setAttribute("aria-label", t.hero.zoomIn); $("tz-out").setAttribute("aria-label", t.hero.zoomOut);
     $("about-title").textContent = t.about.title;
     $("about-text").innerHTML = t.about.text.map(function (x) { return "<p>" + esc(x) + "</p>"; }).join("");
     function sect(id, items, html) { var e = $(id); e.hidden = !items.length; e.innerHTML = items.length ? html : ""; }
@@ -194,15 +218,29 @@
     var links = p.links.map(function (l) { return '<a class="plink" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(state.lang === "en" && LINK_EN[l.l] ? LINK_EN[l.l] : l.l) + "</a>"; }).join("");
     var hasDemo = !!(p.demo && window.DEMOS[p.demo]);
     $("win-body").innerHTML =
-      '<section class="win-demo">' + (hasDemo ? "<h3>" + esc(t.demoTitle) + "</h3>" : "") + '<div id="demo-root" class="demo-root">' + (hasDemo ? "" : p.gallery ? gallery(p) : '<div class="art-big">' + art(p.art, p.id) + "</div>") + "</div>" + (hasDemo && t.simplified ? '<p class="win-note">' + esc(t.simplified) + "</p>" : "") + "</section>" +
+      '<section class="win-demo">' + (hasDemo ? "<h3>" + esc(t.demoTitle) + "</h3>" : "") + '<div id="demo-root" class="demo-root">' + (hasDemo ? "" : p.viewer3d ? viewer3d() + gallery(p) : p.gallery ? gallery(p) : '<div class="art-big">' + art(p.art, p.id) + "</div>") + "</div>" + (hasDemo && t.simplified ? '<p class="win-note">' + esc(t.simplified) + "</p>" : "") + "</section>" +
       '<section class="win-info"><p class="win-tag">' + esc(L.tag) + '</p><dl class="meta"><div><dt>' + esc(t.role) + "</dt><dd>" + esc(L.role) + "</dd></div><div><dt>" + esc(t.period) + "</dt><dd>" + esc(L.period) + "</dd></div>" + (L.result ? "<div><dt>" + esc(t.resultLabel) + "</dt><dd>" + esc(L.result) + "</dd></div>" : "") + "</dl>" + (p.photo ? '<figure class="win-photo"><img src="' + esc(p.photo.src) + '" alt="' + esc(p.photo[state.lang]) + '" loading="lazy"><figcaption>' + esc(p.photo[state.lang]) + "</figcaption></figure>" : "") + "<p>" + esc(L.summary) + "</p><h3>" + esc(t.did) + "</h3><ul>" + L.did.map(function (d) { return "<li>" + esc(d) + "</li>"; }).join("") + "</ul><h3>" + esc(t.stack) + '</h3><div class="chips">' + stack.map(function (s) { return '<span class="chip static">' + esc(s) + "</span>"; }).join("") + "</div>" + (links ? "<h3>" + esc(t.links) + '</h3><div class="plinks">' + links + "</div>" : "") + (L.note ? '<p class="win-note warn">' + esc(L.note) + "</p>" : "") + "</section>";
     $("win-body").scrollTop = 0;
     if (hasDemo) { var cl = window.DEMOS[p.demo]($("demo-root"), state.lang); state.cleanup = cl; }
+    lbClose();
+    if (p.viewer3d && window.Train3D) {
+      var tv = Train3D.mount($("t3-cv"), { auto: true, wheel: true });
+      $("demo-root").querySelector(".t3-ctl").addEventListener("click", function (e) {
+        var b = e.target.closest("[data-t3]"); if (!b) return; var k = b.getAttribute("data-t3");
+        if (k === "in") tv.zoomBy(1.25); else if (k === "out") tv.zoomBy(0.8); else tv.reset();
+      });
+      state.cleanup = function () { tv.destroy(); };
+    }
     if (!win.open) { if (win.showModal) win.showModal(); else win.setAttribute("open", ""); document.documentElement.classList.add("lock"); }
     $("win-box").focus({ preventScroll: true });
     try { history.replaceState(null, "", "#p-" + id); } catch (e) { /* file:// */ }
   }
   function closeProject() { if (win.open) win.close(); }
+  win.addEventListener("cancel", function (e) { if (lbIsOpen()) { e.preventDefault(); lbClose(); } });
+  win.addEventListener("keydown", function (e) {
+    if (!lbIsOpen()) return;
+    if (e.key === "ArrowLeft") { e.preventDefault(); lbShow(-1); } else if (e.key === "ArrowRight") { e.preventDefault(); lbShow(1); }
+  });
   function onClosed() {
     if (state.cleanup) { state.cleanup(); state.cleanup = null; }
     document.documentElement.classList.remove("lock");
@@ -222,6 +260,10 @@
 
   /* ---------- события ---------- */
   document.addEventListener("click", function (e) {
+    var lbb = e.target.closest("[data-lb]");
+    if (lbb) { var k0 = lbb.getAttribute("data-lb"); if (k0 === "close") lbClose(); else lbShow(k0 === "next" ? 1 : -1); return; }
+    var gi = e.target.closest("#win-body figure.g-item");
+    if (gi) { var all = Array.prototype.slice.call(document.querySelectorAll("#win-body .gallery figure.g-item")); lbOpen(all.indexOf(gi)); return; }
     var a = e.target.closest("[data-open]");
     if (a) { e.preventDefault(); openProject(a.getAttribute("data-open"), a); return; }
     var f = e.target.closest("[data-filter]");
@@ -259,7 +301,7 @@
   }
 
   /* ---------- живые окошки в первом экране ---------- */
-  var heroTimers = [];
+  var heroTimers = [], heroTrain = null;
   function startHero() {
     heroTimers.forEach(function (t) { clearTimeout(t); clearInterval(t); }); heroTimers = [];
     var ru = state.lang === "ru";
@@ -278,21 +320,13 @@
     }
     play();
     if (!reduce) heroTimers.push(setInterval(play, 4800));
-    /* сеть: узлы загораются по очереди */
-    var ps = $("mini-infra-svg"), NS = "http://www.w3.org/2000/svg";
-    function el(tag, a, txt) { var e = document.createElementNS(NS, tag); Object.keys(a).forEach(function (k) { e.setAttribute(k, a[k]); }); if (txt) e.textContent = txt; ps.appendChild(e); return e; }
-    ps.innerHTML = "";
-    var nodes = [[28, 24, "VLAN 10"], [112, 24, "VLAN 20"], [28, 88, "VLAN 30"], [112, 88, "VLAN 40"]];
-    nodes.forEach(function (n) { el("line", { x1: n[0], y1: n[1], x2: 70, y2: 56, class: "mp-link" }); });
-    nodes.forEach(function (n, i) {
-      var g = el("g", { class: "mp-node", style: "animation-delay:" + (i * 0.5) + "s" });
-      ps.removeChild(g);
-      var r = document.createElementNS(NS, "rect"); r.setAttribute("x", n[0] - 24); r.setAttribute("y", n[1] - 9); r.setAttribute("width", 48); r.setAttribute("height", 18); r.setAttribute("rx", 6); r.setAttribute("class", "mp-box");
-      var t = document.createElementNS(NS, "text"); t.setAttribute("x", n[0]); t.setAttribute("y", n[1] + 3.4); t.setAttribute("text-anchor", "middle"); t.setAttribute("class", "mp-txt"); t.textContent = n[2];
-      g.appendChild(r); g.appendChild(t); ps.appendChild(g);
-    });
-    el("rect", { x: 48, y: 45, width: 44, height: 22, rx: 8, class: "mp-router" });
-    el("text", { x: 70, y: 59, "text-anchor": "middle", class: "mp-txt dk" }, "Router");
+    /* 3D-поезд: монтируем один раз, при смене языка меняются только подписи */
+    if (!heroTrain && window.Train3D) {
+      var cv = $("mini-train-cv");
+      heroTrain = Train3D.mount(cv, { auto: true });
+      $("tz-in").addEventListener("click", function () { heroTrain.zoomBy(1.25); });
+      $("tz-out").addEventListener("click", function () { heroTrain.zoomBy(0.8); });
+    }
   }
 
   /* ---------- старт ---------- */

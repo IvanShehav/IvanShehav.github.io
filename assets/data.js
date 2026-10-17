@@ -19,7 +19,7 @@ window.UI = {
       cta3: "Скачать резюме (PDF)",
       photoAlt: "Фотография Ивана Шехавцова",
       chatTitle: "Виртуальный пациент",
-      infraTitle: "Серверы и сеть"
+      trainTitle: "3D-поезд", trainOpen: "Подробнее", zoomIn: "Приблизить", zoomOut: "Отдалить"
     },
     about: {
       title: "Обо мне",
@@ -54,7 +54,7 @@ window.UI = {
       did: "Что сделал",
       stack: "Стек",
       links: "Ссылки",
-      demoTitle: "Попробуйте сами",
+      demoTitle: "Попробуйте сами", viewerLabel: "3D-модель электропоезда", viewerReset: "Сбросить вид", viewerHint: "Потяните, чтобы повернуть модель. Колесо мыши или кнопки + и − меняют масштаб. Ниже примеры работ из портфолио: нажмите на любой, чтобы листать.", lbLabel: "Просмотр работ", lbClose: "Закрыть просмотр", lbPrev: "Предыдущая работа", lbNext: "Следующая работа",
       noDemo: "",
       simplified: "",
       empty: "В этой категории пока пусто",
@@ -91,7 +91,7 @@ window.UI = {
       cta3: "Download resume (PDF)",
       photoAlt: "Photo of Ivan Shekhavtsov",
       chatTitle: "Virtual patient",
-      infraTitle: "Servers and network"
+      trainTitle: "3D train", trainOpen: "More", zoomIn: "Zoom in", zoomOut: "Zoom out"
     },
     about: {
       title: "About me",
@@ -126,7 +126,7 @@ window.UI = {
       did: "What I did",
       stack: "Stack",
       links: "Links",
-      demoTitle: "Try it yourself",
+      demoTitle: "Try it yourself", viewerLabel: "3D model of an electric train", viewerReset: "Reset view", viewerHint: "Drag to rotate the model. Mouse wheel or the + and − buttons zoom. Below are portfolio works: click any to flip through them.", lbLabel: "Work viewer", lbClose: "Close viewer", lbPrev: "Previous work", lbNext: "Next work",
       noDemo: "",
       simplified: "",
       empty: "Nothing here yet",
@@ -158,12 +158,12 @@ window.EXPERIENCE = {
   ru: [
     {
       when: "2026 - н.в.",
-      title: "ML-специалист и проджект-менеджер",
+      title: "Младший аналитик",
       org: "Фонд «Талант и успех», Центр аналитики и оптимизации процессов",
       points: [
         "Работаем над несколькими проектами: внедряем ИИ в медицину и автоматизируем рутинные задачи.",
         "Разобрал структуру и данные медицинской информационной системы и процесс ведения документации.",
-        "В команде из трех человек совмещаю ML-задачи с планированием и координацией, формат внутреннего стартапа."
+        "Работаю в команде из трех человек, формат внутреннего стартапа."
       ]
     },
     {
@@ -224,12 +224,12 @@ window.EXPERIENCE = {
   en: [
     {
       when: "2026 - present",
-      title: "ML specialist and project manager",
+      title: "Junior analyst",
       org: "Talent and Success Foundation, Center for Analytics and Process Optimization",
       points: [
         "We work on several projects: bringing AI into medicine and automating routine tasks.",
         "Studied the structure and data of the hospital information system and the documentation process.",
-        "In a team of three I combine ML work with planning and coordination, an internal startup format."
+        "I work in a team of three, an internal startup format."
       ]
     },
     {
@@ -340,8 +340,8 @@ window.ACHIEVEMENTS = {
     { big: "350+", text: "часов волонтерской деятельности" },
     { big: "10+", text: "мероприятий и около 1000 человек охвата как амбассадор ВКонтакте в 2024-2025" },
     { big: "Гранты", text: "в составе команды писал заявки на гранты Росмолодежи, которые получили поддержку" },
-    { big: "Фестивали молодежи", text: "участник Всемирного фестиваля молодежи 2024 в «Сириусе» и фестиваля молодежи 2026 в Екатеринбурге" },
-    { big: "Статья", text: "пишу с научным руководителем обзорную статью про нейродифференциальные уравнения в химической технологии" }
+    { big: "Фестивали", text: "участник международных фестивалей молодежи" },
+    { big: "Статьи", text: "автор статей про ИТ и технологии" }
   ],
   en: [
     { big: "3 times", text: "winner of the all-Russian contest Bolshaya Peremena" },
@@ -350,8 +350,8 @@ window.ACHIEVEMENTS = {
     { big: "350+", text: "hours of volunteering" },
     { big: "10+", text: "events and about 1000 people reached as a VK ambassador in 2024-2025" },
     { big: "Grants", text: "as part of a team wrote applications for Rosmolodezh grants that received support" },
-    { big: "Youth festivals", text: "took part in the World Festival of Youth 2024 at Sirius and the youth festival 2026 in Yekaterinburg" },
-    { big: "Paper", text: "writing a review paper with my scientific supervisor on neural differential equations in chemical technology" }
+    { big: "Festivals", text: "took part in international youth festivals" },
+    { big: "Articles", text: "author of articles about IT and technology" }
   ]
 };
 
@@ -692,7 +692,7 @@ window.PROJECTS = [
     ru: {
       title: "AI-инструменты для медицинского центра",
       tag: "Меньше ручной работы врача с документами",
-      role: "ML-специалист и проджект-менеджер",
+      role: "Младший аналитик",
       period: "2026 - н.в., Фонд «Талант и успех»",
       summary: "Внутренний стартап из трех человек делает инструменты, которые суммаризируют историю болезни и расшифровывают разговор врача с пациентом, чтобы быстрее заполнять карту.",
       did: ["Разобрал структуру и данные медицинской информационной системы", "Планирую работу и координирую команду", "Проектирую, как AI-сервисы встраиваются в существующий процесс врача"],
@@ -701,7 +701,7 @@ window.PROJECTS = [
     en: {
       title: "AI tools for a medical center",
       tag: "Less manual paperwork for doctors",
-      role: "ML specialist and project manager",
+      role: "Junior analyst",
       period: "2026 - present, Talent and Success Foundation",
       summary: "An internal startup of three builds tools that summarize a medical history and transcribe a doctor-patient conversation to fill the record faster.",
       did: ["Studied the structure and data of the hospital information system", "Plan the work and coordinate the team", "Design how the AI services fit into the doctor's existing process"],
@@ -874,7 +874,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "vr3d", main: true, cat: ["eng"], art: "grid", cover: "assets/models/head.jpg", year: "2024",
+    id: "vr3d", main: true, viewer3d: true, cat: ["eng"], art: "grid", cover: "assets/models/head.jpg", year: "2024",
     ru: {
       title: "3D-моделирование",
       tag: "Поезда, мост, тоннель и депо для VR-симулятора, а еще деталь в КОМПАС-3D",
