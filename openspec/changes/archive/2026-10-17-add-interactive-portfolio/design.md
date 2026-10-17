@@ -22,7 +22,7 @@ Greenfield static site. Hosting is GitHub Pages, so no server code. Ivan prefers
 - Demos use synthetic data only and run on canvas or DOM, no libraries.
 - Montserrat from Google Fonts with system fallback.
 - Theme by CSS variables, stored in localStorage inside try/catch.
-- Phone number is not published; contacts are email, Telegram, GitHub, VK.
+- Phone number is not published; contacts are email, Telegram, GitHub.
 
 ## Risks / Trade-offs
 

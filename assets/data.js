@@ -23,7 +23,7 @@ window.UI = {
     about: {
       title: "Обо мне",
       text: [
-        "Я соединяю продуктовую аналитику, AI и управление. Раньше всего делаю простую вещь: разговариваю с людьми, которым нужен продукт, и превращаю их боль в понятный сценарий.",
+        "Я соединяю продуктовую аналитику, AI и управление. Прежде всего делаю простую вещь: разговариваю с людьми, которым нужен продукт, и превращаю их боль в понятный сценарий.",
         "Дальше проектирую флоу и экраны, пишу промпты и требования, вместе с командой собираю прототип и довожу до запуска. Умею и сам написать бота, сервис или интеграцию, поэтому разговор с разработчиками идет на одном языке."
       ],
       factsTitle: "Коротко",
@@ -65,8 +65,8 @@ window.UI = {
       noDemo: "",
       simplified: "",
       empty: "В этой категории пока пусто",
-      prev: "Назад",
-      next: "Дальше"
+      prev: "Предыдущий проект",
+      next: "Следующий проект"
     },
     experience: { title: "Опыт" },
     education: { title: "Учеба" },
@@ -102,7 +102,7 @@ window.UI = {
     about: {
       title: "About me",
       text: [
-        "I combine product analytics, AI and management. First of all I do a simple thing: I talk to the people who need a product and turn their pain into a clear scenario.",
+        "I combine product analytics, AI and management. First, I do one simple thing: I talk to the people who need a product and turn their pain into a clear scenario.",
         "Then I design flows and screens, write prompts and requirements, build a prototype with the team and bring it to launch. I can also write a bot, a service or an integration myself, so I talk to developers in the same language."
       ],
       factsTitle: "In short",
@@ -144,8 +144,8 @@ window.UI = {
       noDemo: "",
       simplified: "",
       empty: "Nothing here yet",
-      prev: "Previous",
-      next: "Next"
+      prev: "Previous project",
+      next: "Next project"
     },
     experience: { title: "Experience" },
     education: { title: "Education" },
@@ -184,7 +184,7 @@ window.EXPERIENCE = {
     {
       when: "Июль - сентябрь 2026",
       title: "Тимлид и аналитик",
-      org: "ООО «Яндекс Облако», проект «Виртуальный пациент»",
+      org: "ООО «Яндекс Облако», проектно-технологическая стажировка, проект «Виртуальный пациент»",
       points: [
         "Был тимлидом команды из трех человек: созвоны с заказчиком, задачи команде, требования, CJM, User Persona и BPMN.",
         "Нарисовал экраны сервиса в Figma для студента и преподавателя.",
@@ -250,7 +250,7 @@ window.EXPERIENCE = {
     {
       when: "July - September 2026",
       title: "Team lead and analyst",
-      org: "Yandex Cloud, Virtual Patient project",
+      org: "Yandex Cloud, project internship, Virtual Patient project",
       points: [
         "Led a team of three: calls with the customer, tasks for the team, requirements, CJM, user personas and BPMN.",
         "Designed the service screens in Figma for students and teachers.",
@@ -272,7 +272,7 @@ window.EXPERIENCE = {
     {
       when: "Since May 2025",
       title: "Business assistant and operations lead",
-      org: "E-commerce company (children goods), IP Zhurova",
+      org: "E-commerce company (children's goods), IP Zhurova",
       points: [
         "Automated flyer tracking in warehouses with a Telegram bot and built an employee onboarding system.",
         "Set up and maintain servers, VPN, access to marketplace accounts and corporate accounts.",
@@ -354,7 +354,7 @@ window.ACHIEVEMENTS = {
     { big: "350+", text: "часов волонтерской деятельности" },
     { big: "10+", text: "мероприятий и около 1000 человек охвата как амбассадор ВКонтакте в 2024-2025" },
     { big: "Гранты", text: "в составе команды писал заявки на гранты Росмолодежи, которые получили поддержку" },
-    { big: "ВФМ и МФМ", text: "участник Всемирного фестиваля молодежи 2024 в «Сириусе» и фестиваля молодежи 2026 в Екатеринбурге" },
+    { big: "Фестивали молодежи", text: "участник Всемирного фестиваля молодежи 2024 в «Сириусе» и фестиваля молодежи 2026 в Екатеринбурге" },
     { big: "Статья", text: "пишу с научным руководителем обзорную статью про нейродифференциальные уравнения в химической технологии" }
   ],
   en: [
@@ -364,7 +364,7 @@ window.ACHIEVEMENTS = {
     { big: "350+", text: "hours of volunteering" },
     { big: "10+", text: "events and about 1000 people reached as a VK ambassador in 2024-2025" },
     { big: "Grants", text: "as part of a team wrote applications for Rosmolodezh grants that received support" },
-    { big: "WFY and IFY", text: "took part in the World Festival of Youth 2024 at Sirius and the youth festival 2026 in Yekaterinburg" },
+    { big: "Youth festivals", text: "took part in the World Festival of Youth 2024 at Sirius and the youth festival 2026 in Yekaterinburg" },
     { big: "Paper", text: "writing a review paper with my scientific supervisor on neural differential equations in chemical technology" }
   ]
 };
@@ -375,80 +375,78 @@ window.SKILLS = {
     { g: "Продукт и процессы", items: [
       ["CJM и User Story", ["patient", "dispatcher", "alfa", "mamyasam"]],
       ["User Persona и интервью", ["alfa", "patient", "mamyasam"]],
-      ["BPMN и UML", ["patient", "dispatcher", "aipm"]],
+      ["BPMN и UML", ["patient", "dispatcher"]],
       ["Требования и ТЗ", ["patient", "dispatcher", "onboarding", "ecomops", "vr3d"]],
       ["Roadmap", ["patient", "sellers", "alfa"]],
-      ["Agile и Scrum", ["patient", "dispatcher", "hackathons", "infra"]]
+      ["Agile и Scrum", ["infra"]]
     ]},
     { g: "Аналитика и данные", items: [
-      ["SQL и PostgreSQL", ["kiroden", "dispatcher", "dashboards"]],
-      ["Python и pandas", ["dashboards", "alfa", "financeqt"]],
+      ["SQL и PostgreSQL", ["kiroden"]],
+      ["Python и pandas", ["dashboards"]],
       ["Power BI и Excel", ["dashboards", "sellers", "ecomops"]],
       ["Метрики и воронки", ["alfa", "sellers", "ecomops", "dashboards"]],
       ["Юнит-экономика", ["sellers", "alfa"]]
     ]},
     { g: "AI и LLM", items: [
       ["Prompt engineering", ["patient", "aipm", "medcenter"]],
-      ["Тестирование LLM", ["patient", "dispatcher"]],
+      ["Тестирование LLM", ["patient"]],
       ["LangChain и LangGraph", ["aipm", "patient"]],
-      ["YandexGPT и Claude", ["aipm", "patient", "medcenter"]],
-      ["Локальные модели", ["dispatcher"]]
+      ["YandexGPT и Claude", ["aipm", "patient", "medcenter"]]
     ]},
     { g: "Разработка", items: [
-      ["Python и FastAPI", ["kiroden", "dispatcher", "aipm", "apisec"]],
-      ["Telegram Bot API", ["kiroden", "invites", "ecomops"]],
-      ["Docker и VPS", ["kiroden", "onboarding", "dispatcher", "aipm"]],
-      ["React", ["dispatcher", "aipm"]],
+      ["Python и FastAPI", ["kiroden", "apisec"]],
+      ["Telegram Bot API", ["kiroden", "ecomops"]],
+      ["Docker и VPS", ["kiroden", "onboarding", "aipm"]],
+      ["React", ["aipm"]],
       ["C++ и Qt", ["financeqt", "lab"]],
       ["Node.js и интеграции по API", ["onboarding"]],
       ["Linux, сети и виртуализация", ["infra", "ecomops", "onboarding"]]
     ]},
     { g: "Команда и инструменты", items: [
-      ["Руководство командой", ["hackathons", "ecomops", "dispatcher"]],
-      ["Найм и отчетность", ["ecomops", "hackathons"]],
+      ["Руководство командой", ["patient", "alfa", "mamyasam", "hackathons", "ecomops"]],
+      ["Найм и отчетность", ["ecomops"]],
       ["Figma и Miro", ["patient", "dispatcher", "alfa"]],
       ["Yandex Tracker и Notion", ["aipm", "ecomops"]],
-      ["KOMPAS-3D, Blender и 3D", ["vr3d", "lab", "hydroplate"]]
+      ["KOMPAS-3D, Blender и 3D", ["vr3d", "hydroplate"]]
     ]}
   ],
   en: [
     { g: "Product and processes", items: [
       ["CJM and user stories", ["patient", "dispatcher", "alfa", "mamyasam"]],
       ["User personas and interviews", ["alfa", "patient", "mamyasam"]],
-      ["BPMN and UML", ["patient", "dispatcher", "aipm"]],
+      ["BPMN and UML", ["patient", "dispatcher"]],
       ["Requirements and specs", ["patient", "dispatcher", "onboarding", "ecomops", "vr3d"]],
       ["Roadmap", ["patient", "sellers", "alfa"]],
-      ["Agile and Scrum", ["patient", "dispatcher", "hackathons", "infra"]]
+      ["Agile and Scrum", ["infra"]]
     ]},
     { g: "Analytics and data", items: [
-      ["SQL and PostgreSQL", ["kiroden", "dispatcher", "dashboards"]],
-      ["Python and pandas", ["dashboards", "alfa", "financeqt"]],
+      ["SQL and PostgreSQL", ["kiroden"]],
+      ["Python and pandas", ["dashboards"]],
       ["Power BI and Excel", ["dashboards", "sellers", "ecomops"]],
       ["Metrics and funnels", ["alfa", "sellers", "ecomops", "dashboards"]],
       ["Unit economics", ["sellers", "alfa"]]
     ]},
     { g: "AI and LLM", items: [
       ["Prompt engineering", ["patient", "aipm", "medcenter"]],
-      ["LLM testing", ["patient", "dispatcher"]],
+      ["LLM testing", ["patient"]],
       ["LangChain and LangGraph", ["aipm", "patient"]],
-      ["YandexGPT and Claude", ["aipm", "patient", "medcenter"]],
-      ["Local models", ["dispatcher"]]
+      ["YandexGPT and Claude", ["aipm", "patient", "medcenter"]]
     ]},
     { g: "Development", items: [
-      ["Python and FastAPI", ["kiroden", "dispatcher", "aipm", "apisec"]],
-      ["Telegram Bot API", ["kiroden", "invites", "ecomops"]],
-      ["Docker and VPS", ["kiroden", "onboarding", "dispatcher", "aipm"]],
-      ["React", ["dispatcher", "aipm"]],
+      ["Python and FastAPI", ["kiroden", "apisec"]],
+      ["Telegram Bot API", ["kiroden", "ecomops"]],
+      ["Docker and VPS", ["kiroden", "onboarding", "aipm"]],
+      ["React", ["aipm"]],
       ["C++ and Qt", ["financeqt", "lab"]],
       ["Node.js and API integrations", ["onboarding"]],
       ["Linux, networks and virtualization", ["infra", "ecomops", "onboarding"]]
     ]},
     { g: "Team and tools", items: [
-      ["Team leadership", ["hackathons", "ecomops", "dispatcher"]],
-      ["Hiring and reporting", ["ecomops", "hackathons"]],
+      ["Team leadership", ["patient", "alfa", "mamyasam", "hackathons", "ecomops"]],
+      ["Hiring and reporting", ["ecomops"]],
       ["Figma and Miro", ["patient", "dispatcher", "alfa"]],
       ["Yandex Tracker and Notion", ["aipm", "ecomops"]],
-      ["KOMPAS-3D, Blender and 3D", ["vr3d", "lab", "hydroplate"]]
+      ["KOMPAS-3D, Blender and 3D", ["vr3d", "hydroplate"]]
     ]}
   ]
 };
@@ -461,7 +459,7 @@ window.PROJECTS = [
       title: "Виртуальный пациент",
       tag: "Симулятор клинического мышления: студент-медик говорит с LLM в роли пациента",
       role: "Тимлид и аналитик",
-      period: "Июль 2026, проектно-технологическая стажировка в ООО «Яндекс Облако», затем доработка",
+      period: "Июль - сентябрь 2026, проектно-технологическая стажировка в ООО «Яндекс Облако»",
       summary: "Студент собирает анамнез, назначает обследования, ставит диагноз и получает оценку преподавателя. Пока собрано меньше 70% анамнеза, дальше не пустит. Пациент ведет себя по профилю личности, поэтому каждый разговор получается немного другим.",
       did: [
         "Был тимлидом команды из трех человек, вел созвоны с заказчиком и ставил задачи",
@@ -477,7 +475,7 @@ window.PROJECTS = [
       title: "Virtual Patient",
       tag: "A clinical thinking simulator: a medical student talks to an LLM playing the patient",
       role: "Team lead and analyst",
-      period: "July 2026, a project internship at Yandex Cloud, then further work",
+      period: "July - September 2026, a project internship at Yandex Cloud",
       summary: "The student collects history, orders tests, makes a diagnosis and gets a teacher's grade. With less than 70% of the history collected the system does not let them move on. The patient behaves according to a personality profile, so every conversation is a little different.",
       did: [
         "Led a team of three, ran calls with the customer and set tasks",
@@ -784,7 +782,7 @@ window.PROJECTS = [
       tag: "Not a single script but a whole loop: bots, onboarding, dashboards, servers and a team",
       role: "Business assistant and operations lead",
       period: "Since May 2025",
-      summary: "Around a children goods business on marketplaces I built a working system: a bot for flyer tracking, one database of contacts, products and orders, regular dashboards, servers and VPN, and an SMM department called the content factory.",
+      summary: "Around a children's goods business on marketplaces I built a working system: a bot for flyer tracking, one database of contacts, products and orders, regular dashboards, servers and VPN, and an SMM department called the content factory.",
       did: ["A flyer tracking bot removed manual entry in warehouses", "One database of contacts, products and orders", "Regular dashboards of conversions, clicks and impressions", "Servers, VPN and access to marketplace accounts", "An SMM department of 4: plans, reports, hiring", "Briefs and coordination of designers, lawyers and accountants"],
       note: "Only anonymized processes are shown."
     },

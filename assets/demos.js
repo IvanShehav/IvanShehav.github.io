@@ -82,23 +82,23 @@
       ru: [
         ["Болит в боку.", "Болит в правом боку, особенно после еды.", "Ох, доктор, у меня уже несколько дней болит в правом боку, особенно после еды, а еще всю неделю на работе завал, почти не высыпаюсь..."],
         ["Дня три назад.", "Дня три назад, в понедельник вечером.", "Это началось в понедельник вечером, мы как раз ужинали у друзей, там было жирное, ну и понеслось..."],
-        ["Нет.", "Только обезболивающее, один раз.", "Да вот выпил обезболивающее вчера и еще пару раз чай с ромашкой, но толку мало, честно говоря..."]
+        ["Только обезболивающее, один раз.", "Только обезболивающее, один раз.", "Да вот выпил обезболивающее вчера и еще пару раз чай с ромашкой, но толку мало, честно говоря..."]
       ],
       en: [
         ["Pain in my side.", "Pain in my right side, mostly after eating.", "Oh, doctor, my right side has been hurting for days, mostly after eating, and work has been crazy all week, I barely sleep..."],
         ["Three days ago.", "Three days ago, Monday evening.", "It started Monday evening, we were having dinner at friends, it was greasy food, and then it began..."],
-        ["No.", "Only a painkiller, once.", "Well, I took a painkiller yesterday and some chamomile tea a couple of times, but it did not help much, honestly..."]
+        ["Only a painkiller, once.", "Only a painkiller, once.", "Well, I took a painkiller yesterday and some chamomile tea a couple of times, but it did not help much, honestly..."]
       ]
     }[lang];
     base = T[q][lvl];
     var add = {
       ru: [
-        [" Боль тянущая, примерно шесть из десяти, началась в понедельник утром.", " Мне очень тревожно, вдруг это что-то серьезное?", " Я читал, что так бывает из-за питания, но не уверен.", "Я уже все рассказал медсестре. "],
+        [" Боль тянущая, примерно шесть из десяти.", " Мне очень тревожно, вдруг это что-то серьезное?", " Я читал, что так бывает из-за питания, но не уверен.", "Я уже все рассказал медсестре. "],
         [" Точнее, около девяти вечера.", " С тех пор я почти не сплю, все думаю об этом.", " Может, дело в стрессе, а не в еде?", "Вы уже спрашивали. "],
         [" Одну таблетку вчера в 22:00.", " Боюсь, что я принял что-то не то.", " Еще пробовал травяной сбор, говорят, помогает.", "Зачем вам это знать? "]
       ],
       en: [
-        [" The pain is dull, about six out of ten, it began Monday morning.", " I am very worried, what if it is something serious?", " I read it can come from diet, but I am not sure.", "I already told the nurse everything. "],
+        [" The pain is dull, about six out of ten.", " I am very worried, what if it is something serious?", " I read it can come from diet, but I am not sure.", "I already told the nurse everything. "],
         [" To be exact, around nine in the evening.", " Since then I barely sleep, I keep thinking about it.", " Maybe it is stress and not food?", "You already asked that. "],
         [" One pill yesterday at 10 pm.", " I am afraid I took the wrong thing.", " I also tried an herbal mix, they say it helps.", "Why do you need to know? "]
       ]
@@ -217,7 +217,7 @@
       var chosen = {}, decided = null, reactT = 0, stage = -1, skipped = false;
       secs = 0; clearInterval(tick);
       var timer = h("span", { class: "d-timer", text: "00:00" });
-      tick = setInterval(function () { secs++; timer.textContent = "00:" + String(secs).padStart(2, "0"); }, 1000);
+      tick = setInterval(function () { secs++; timer.textContent = String(Math.floor(secs / 60)).padStart(2, "0") + ":" + String(secs % 60).padStart(2, "0"); }, 1000);
       T.every(function () {}, 99999);
       wrap.innerHTML = "";
       var card = h("div", { class: "d-incident" },
@@ -268,11 +268,11 @@
         var hit = need.filter(function (k) { return got.indexOf(k) >= 0; }).length;
         var extra = got.filter(function (k) { return need.indexOf(k) < 0; }).length;
         var svcPts = need.length ? Math.round(30 * hit / need.length) : (c.accept ? 0 : 30);
-        rows.push([L.rules[1], decided ? svcPts : (c.accept ? 0 : 30), 30]);
+        rows.push([L.rules[1], okDec ? svcPts : 0, 30]);
         rows.push([L.rules[2], decided ? -10 * extra : 0, 0]);
-        var spd = reactT <= 8 ? 20 : reactT <= 20 ? 10 : 0;
+        var spd = !okDec ? 0 : reactT <= 8 ? 20 : reactT <= 20 ? 10 : 0;
         rows.push([L.rules[3] + " (" + reactT + " " + L.reaction + ")", spd, 20]);
-        var stagePts = !c.accept ? 20 : (stage === L.status.length - 1 ? (skipped ? 10 : 20) : 0);
+        var stagePts = !okDec ? 0 : !c.accept ? 20 : (stage === L.status.length - 1 ? (skipped ? 10 : 20) : 0);
         rows.push([L.rules[4], stagePts, 20]);
         var total = Math.max(0, rows.reduce(function (a, r) { return a + r[1]; }, 0));
         stepBox.innerHTML = "";
@@ -295,7 +295,7 @@
   var ALFA = {
     ru: {
       tabs: ["Радар разрыва", "Что мы узнали"],
-      rev: "Выручка в день, тыс. руб.", bal: "Остаток сейчас, тыс. руб.", tax: "Откладывать на налоги, %",
+      rev: "Выручка в день, тыс. руб.", bal: "Остаток сейчас, тыс. руб.", tax: "Налоги в выручке дня, %",
       obl: [["Аренда", 2, 35], ["Закупка", 5, 70], ["Налоги", 9, 28], ["Зарплата", 12, 90]],
       day: "день", ok: "На 14 дней вперед разрывов нет.", free: "Свободно после обязательных платежей: ",
       gap: function (d, x) { return "На день " + d + " не хватит " + x + " руб."; },
@@ -308,7 +308,7 @@
     },
     en: {
       tabs: ["Gap radar", "What we learned"],
-      rev: "Daily revenue, k RUB", bal: "Balance now, k RUB", tax: "Set aside for taxes, %",
+      rev: "Daily revenue, k RUB", bal: "Balance now, k RUB", tax: "Tax share of daily revenue, %",
       obl: [["Rent", 2, 35], ["Stock", 5, 70], ["Taxes", 9, 28], ["Payroll", 12, 90]],
       day: "day", ok: "No gaps in the next 14 days.", free: "Free after required payments: ",
       gap: function (d, x) { return "On day " + d + " you are short by " + x + " RUB."; },
@@ -357,7 +357,7 @@
         status.innerHTML = "";
         if (firstNeg === null) status.appendChild(h("span", { text: L.ok + " " + L.free + fmt(Math.max(0, minB)) + " " + (lang === "ru" ? "тыс." : "k") }));
         else {
-          status.appendChild(h("strong", { text: L.gap(firstNeg, fmt(-minB * 1000)) }));
+          status.appendChild(h("strong", { text: L.gap(firstNeg, fmt(-pts[firstNeg] * 1000)) }));
           status.appendChild(h("div", { class: "d-row flexwrap" }, [h("span", { class: "d-hint", text: L.next + ":" })].concat(L.opts.map(function (o) { return h("span", { class: "d-pill", text: o }); }))));
         }
         var parts = [tax, 35, 25]; var free = Math.max(0, 100 - parts[0] - parts[1] - parts[2]);
@@ -402,7 +402,7 @@
       pick: "Choose a product:", prods: ["Blender", "Vacuum sealer"],
       manual: function (p) { return "Manual for \"" + p + "\": PDF, photos and video."; },
       sup: "Describe the problem. A manager will reply, and if they are late they get a reminder.",
-      war: "12 months warranty. Send your order number to make a claim.",
+      war: "12-month warranty. Send your order number to make a claim.",
       sub: "To get a gift, subscribe to the official channel.", subBtn: "I subscribed", checked: "Subscription confirmed. Send a screenshot of your review.", shot: "Attach screenshot",
       done: "Request accepted. We will delete your details and screenshot after processing.", again: "Submit again",
       dupe: "A gift for this order was already issued. A second claim is blocked.",
@@ -665,7 +665,7 @@
       else { resp.textContent = "200 OK\n" + JSON.stringify(c, null, 2); if (c.owner !== "alice") { note.className = "d-status bad"; note.textContent = L.leak; } else { note.className = "d-status"; note.textContent = ""; } }
     }
     function codeUpd() { code.textContent = (on ? L.code : L.codeOff).join("\n"); }
-    cb.addEventListener("change", function () { on = cb.checked; codeUpd(); });
+    cb.addEventListener("change", function () { on = cb.checked; resp.textContent = ""; note.textContent = ""; note.className = "d-status"; codeUpd(); });
     root.appendChild(h("div", { class: "d-split" },
       h("div", { class: "d-col" }, h("strong", { text: L.user }), h("p", { class: "d-hint", text: L.cats }), h("label", { class: "d-switch" }, cb, h("span", { text: L.check })), code),
       h("div", { class: "d-col" }, h("div", { class: "d-row flexwrap" }, sel, h("button", { type: "button", class: "d-btn primary", onclick: send }, L.send)), resp, note, h("p", { class: "d-cap", text: L.hint }))));
