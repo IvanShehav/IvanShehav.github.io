@@ -616,3 +616,7 @@ ul { padding: 0; list-style: none; }
 .art.shot .a-pkt { fill: var(--sun); stroke: var(--surface); stroke-width: 1; }
 .art.shot .a-ring { stroke: var(--sun); }
 .art.shot .a-bad { fill: var(--bad); }
+
+.shot-big { margin: 0; display: grid; gap: 10px; }
+.shot-big img { width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); display: block; }
+.shot-big figcaption { font-size: .84rem; color: var(--muted); }

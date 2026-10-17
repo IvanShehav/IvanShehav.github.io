@@ -806,6 +806,7 @@ window.PROJECTS = [
   },
   {
     id: "mamyasam", cat: ["product"], art: "grid", year: "2026",
+    shot: { src: "assets/mamyasam.jpg", ru: "Обложка поста из группы проекта ВКонтакте: талисман Самыч и «идеальный чемодан первокурсника»", en: "A post cover from the project's VK group: the mascot Samych and the perfect first-year suitcase" },
     ru: {
       title: "«Мам, я сам!»",
       tag: "Цифровая адаптация подростков к самостоятельной жизни",
