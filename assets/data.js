@@ -880,8 +880,8 @@ window.PROJECTS = [
       tag: "Поезда, мост, тоннель и депо для VR-симулятора, а еще деталь в КОМПАС-3D",
       role: "Стажер-разработчик, 3D-моделирование",
       period: "Январь - апрель 2024, лаборатория VR",
-      summary: "Моделировал подвижной состав и железнодорожную инфраструктуру для симулятора машиниста, сам превращал устные задачи руководителя в требования и метрики и согласовывал итерации с Unity-разработчиками. Позже сделал 3D-модель и чертеж детали в КОМПАС-3D.",
-      did: ["Модели вагонов, локомотива и электропоезда", "Мост, переезд, тоннель и депо", "Требования и метрики из устных задач", "Согласование итераций с Unity-разработчиками", "Деталь и чертеж в КОМПАС-3D"],
+      summary: "Моделировал подвижной состав и железнодорожную инфраструктуру для симулятора машиниста, сам превращал устные задачи руководителя в требования и метрики и согласовывал итерации с Unity-разработчиками. Позже сделал 3D-модель и чертеж детали в КОМПАС-3D. В том же репозитории второй проект: телевизоры, которые я смоделировал с нуля и показал историю их создания.",
+      did: ["Модели вагонов, локомотива и электропоезда", "Мост, переезд, тоннель и депо", "Требования и метрики из устных задач", "Согласование итераций с Unity-разработчиками", "Деталь и чертеж в КОМПАС-3D", "Телевизоры с нуля: модели и история их создания"],
       note: ""
     },
     en: {
@@ -889,8 +889,8 @@ window.PROJECTS = [
       tag: "Trains, a bridge, a tunnel and a depot for a VR simulator, plus a part in KOMPAS-3D",
       role: "Developer intern, 3D modeling",
       period: "January - April 2024, VR laboratory",
-      summary: "Modeled rolling stock and railway infrastructure for a train driver simulator, turned the supervisor's spoken tasks into requirements and metrics and agreed iterations with the Unity team. Later made a 3D model and a drawing of a part in KOMPAS-3D.",
-      did: ["Models of wagons, a locomotive and an electric train", "A bridge, a crossing, a tunnel and a depot", "Requirements and metrics from spoken tasks", "Agreed iterations with Unity developers", "A part and its drawing in KOMPAS-3D"],
+      summary: "Modeled rolling stock and railway infrastructure for a train driver simulator, turned the supervisor's spoken tasks into requirements and metrics and agreed iterations with the Unity team. Later made a 3D model and a drawing of a part in KOMPAS-3D. The same repository holds a second project: televisions that I modeled from scratch to show how they developed over time.",
+      did: ["Models of wagons, a locomotive and an electric train", "A bridge, a crossing, a tunnel and a depot", "Requirements and metrics from spoken tasks", "Agreed iterations with Unity developers", "A part and its drawing in KOMPAS-3D", "Televisions from scratch: models and the story of how they developed"],
       note: ""
     },
     gallery: [
@@ -917,7 +917,7 @@ window.PROJECTS = [
       ] }
     ],
     stack: ["Blender", "Unity", "KOMPAS-3D", "Требования"],
-    links: [{ l: "GitHub: 3D_Models", url: "https://github.com/IvanShehav/3D_Models" }, { l: "Портфолио 3D", url: "https://www.behance.net/gallery/199616497/tehnologicheskoe-razvitie-televizorov" }]
+    links: [{ l: "GitHub: 3D_Models", url: "https://github.com/IvanShehav/3D_Models" }]
   },
   {
     id: "jeopardy", hidden: true, cat: ["dev"], art: "grid", demo: "jeopardy", year: "2026",
