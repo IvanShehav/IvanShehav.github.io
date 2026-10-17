@@ -191,7 +191,7 @@
 
   /* ---------- проекты ---------- */
   function renderFilters() {
-    var f = T().projects.filters, cats = ["all", "ai", "product", "auto", "dev", "eng"];
+    var f = T().projects.filters, cats = ["all", "ai", "product", "auto", "dev", "eng", "d3"];
     $("filters").innerHTML = cats.map(function (c) {
       var n = c === "all" ? LIST.length : LIST.filter(function (p) { return p.cat.indexOf(c) >= 0; }).length;
       return '<button type="button" class="chip' + (state.filter === c ? " on" : "") + '" data-filter="' + c + '" aria-pressed="' + (state.filter === c) + '">' + esc(f[c]) + " <small>" + n + "</small></button>";

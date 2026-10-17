@@ -45,7 +45,7 @@ window.UI = {
         { t: "Ведущий мероприятий", d: "Проводил мероприятия в роли ведущего." },
         { t: "Оргкоманда хакатонов", d: "Организовал два хакатона, один из них международный." }
       ],
-      filters: { all: "Все", ai: "AI", product: "Продукт и аналитика", auto: "Автоматизация", dev: "Разработка", eng: "Инженерия и 3D" },
+      filters: { all: "Все", ai: "AI", product: "Продукт и аналитика", auto: "Автоматизация", dev: "Разработка", eng: "Инфраструктура", d3: "3D-моделирование" },
       open: "Смотреть проект",
       close: "Закрыть",
       role: "Моя роль",
@@ -117,7 +117,7 @@ window.UI = {
         { t: "Event host", d: "Hosted events as a presenter." },
         { t: "Hackathon organizing team", d: "Organized two hackathons, one of them international." }
       ],
-      filters: { all: "All", ai: "AI", product: "Product and analytics", auto: "Automation", dev: "Development", eng: "Engineering and 3D" },
+      filters: { all: "All", ai: "AI", product: "Product and analytics", auto: "Automation", dev: "Development", eng: "Infrastructure", d3: "3D modeling" },
       open: "View project",
       close: "Close",
       role: "My role",
@@ -619,7 +619,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "hydroplate", main: true, cat: ["eng"], art: "plate", demo: "hydroplate", year: "2026",
+    id: "hydroplate", main: true, cat: ["d3"], art: "plate", demo: "hydroplate", year: "2026",
     photo: { src: "assets/part.jpg", ru: "Образец детали: размеры снимал штангенциркулем", en: "The sample part: dimensions taken with a caliper" },
     ru: {
       title: "Гидрораспределительная плита в KOMPAS-3D",
@@ -886,7 +886,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "vr3d", main: true, viewer3d: true, cat: ["eng"], art: "grid", cover: "assets/models/head.jpg", year: "2024",
+    id: "vr3d", main: true, viewer3d: true, cat: ["d3"], art: "grid", cover: "assets/models/head.jpg", year: "2024",
     ru: {
       title: "3D-моделирование",
       tag: "Поезда, мост, тоннель и депо для VR-симулятора",
@@ -929,7 +929,7 @@ window.PROJECTS = [
     links: [{ l: "GitHub: 3D_Models", url: "https://github.com/IvanShehav/3D_Models" }]
   },
   {
-    id: "tvs", main: true, cat: ["eng"], art: "tvs", year: "2024",
+    id: "tvs", main: true, cat: ["d3"], art: "tvs", year: "2024",
     ru: {
       title: "3D-модели телевизоров разных эпох",
       tag: "Смоделировал с нуля и показал историю создания в анимации: от механического телевизора до плоского",
