@@ -75,7 +75,7 @@
   };
   function cover(p) {
     if (p.viewer3d && window.Train3D) return '<canvas class="tile-3d" data-tile3d tabindex="-1" aria-label="' + esc(T().projects.viewerLabel) + '"></canvas><span class="tile-hint">' + esc(T().projects.dragHint) + "</span>";
-    return '<img class="tile-cover" src="' + esc(p.cover) + '" alt="" loading="lazy">'; }
+    return '<img class="tile-cover" src="' + esc(p.cover) + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">'; }
   function gallery(p) {
     return '<div class="gallery">' + p.gallery.map(function (b) {
       return '<h4 class="g-title">' + esc(b[state.lang]) + '</h4><div class="g-grid">' + b.items.map(function (it) {
@@ -84,24 +84,26 @@
       }).join('') + '</div>';
     }).join('') + '</div>';
   }
-  function viewer3d() {
-    var t = T().projects;
-    return '<div class="t3"><canvas class="t3-canvas" id="t3-cv" tabindex="0" aria-label="' + esc(t.viewerLabel) + '"></canvas><div class="t3-ctl"><button type="button" data-t3="in" aria-label="' + esc(T().hero.zoomIn) + '">+</button><button type="button" data-t3="out" aria-label="' + esc(T().hero.zoomOut) + '">&minus;</button><button type="button" data-t3="reset" aria-label="' + esc(t.viewerReset) + '">&#8634;</button></div></div><p class="t3-hint">' + esc(t.viewerHint) + "</p>";
-  }
-  /* большая листалка работ + вкладка с 3D-моделью */
-  var sl = { list: [], i: 0 };
+  /* большая листалка работ с фильтром по разделам */
+  var sl = { all: [], list: [], i: 0, f: -1 };
   function slides(p) {
     var l = [];
-    p.gallery.forEach(function (b) { b.items.forEach(function (it) { l.push({ src: "assets/" + it[0], cap: state.lang === "ru" ? it[1] : it[2], sec: b[state.lang], open: it[3] || "" }); }); });
+    p.gallery.forEach(function (b, bi) { b.items.forEach(function (it) { l.push({ src: /^https?:/.test(it[0]) ? it[0] : "assets/" + it[0], cap: state.lang === "ru" ? it[1] : it[2], sec: b[state.lang], bi: bi, open: it[3] || "" }); }); });
     return l;
   }
   function slider(p) {
-    var t = T().projects; sl.list = slides(p); sl.i = 0;
-    return '<div class="tabs" role="tablist"><button type="button" role="tab" class="tab on" data-tab="works" aria-selected="true">' + esc(t.tabWorks) + '</button><button type="button" role="tab" class="tab" data-tab="model" aria-selected="false">' + esc(t.tabModel) + "</button></div>" +
-      '<div class="pane" data-pane="works"><div class="sl"><div class="sl-stage" id="sl-stage"><img id="sl-img" alt=""><button type="button" class="sl-n prev" data-sl="-1" aria-label="' + esc(t.lbPrev) + '">&#8249;</button><button type="button" class="sl-n next" data-sl="1" aria-label="' + esc(t.lbNext) + '">&#8250;</button><span class="sl-count" id="sl-count"></span></div>' +
+    var t = T().projects; sl.all = slides(p); sl.f = -1; sl.list = sl.all; sl.i = 0;
+    var chips = '<button type="button" class="chip on" data-sf="-1">' + esc(t.allWorks) + "</button>" + p.gallery.map(function (b, bi) { return '<button type="button" class="chip" data-sf="' + bi + '">' + esc(b[state.lang]) + "</button>"; }).join("");
+    return '<div class="chips sl-filter" id="sl-filter" role="group" aria-label="' + esc(t.filterWorks) + '">' + chips + '</div>' +
+      '<div class="sl"><div class="sl-stage" id="sl-stage"><img id="sl-img" alt=""><button type="button" class="sl-n prev" data-sl="-1" aria-label="' + esc(t.lbPrev) + '">&#8249;</button><button type="button" class="sl-n next" data-sl="1" aria-label="' + esc(t.lbNext) + '">&#8250;</button><span class="sl-count" id="sl-count"></span></div>' +
       '<div class="sl-cap"><div><span class="sl-sec" id="sl-sec"></span><b id="sl-cap"></b></div><a class="plink" id="sl-open" href="#" hidden>' + esc(t.slOpen) + "</a></div>" +
-      '<div class="sl-thumbs" id="sl-thumbs">' + sl.list.map(function (x, i) { return '<button type="button" class="sl-t" data-sl-go="' + i + '" aria-label="' + esc(x.cap) + '"><img src="' + esc(x.src) + '" alt="" loading="lazy"></button>'; }).join("") + "</div></div></div>" +
-      '<div class="pane" data-pane="model" hidden>' + viewer3d() + "</div>";
+      '<div class="sl-thumbs" id="sl-thumbs"></div></div>';
+  }
+  function slFilter(f) {
+    sl.f = f; sl.list = f < 0 ? sl.all : sl.all.filter(function (x) { return x.bi === f; });
+    Array.prototype.forEach.call($("sl-filter").children, function (b) { var on = parseInt(b.getAttribute("data-sf"), 10) === f; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on ? "true" : "false"); });
+    $("sl-thumbs").innerHTML = sl.list.map(function (x, i) { return '<button type="button" class="sl-t" data-sl-go="' + i + '" aria-label="' + esc(x.cap) + '"><img src="' + esc(x.src) + '" alt="" loading="lazy"></button>'; }).join("");
+    $("sl-thumbs").scrollLeft = 0; slShow(0);
   }
   function slShow(i) {
     if (!sl.list.length) return;
@@ -110,12 +112,8 @@
     img.src = it.src; img.alt = it.cap; $("sl-cap").textContent = it.cap; $("sl-sec").textContent = it.sec; $("sl-count").textContent = (sl.i + 1) + " / " + sl.list.length;
     var o = $("sl-open"); o.hidden = !it.open; if (it.open) { o.setAttribute("href", "#p-" + it.open); o.setAttribute("data-open", it.open); }
     Array.prototype.forEach.call($("sl-thumbs").children, function (b, k) { b.classList.toggle("on", k === sl.i); b.setAttribute("aria-current", k === sl.i ? "true" : "false"); });
-    var cur = $("sl-thumbs").children[sl.i]; if (cur) { var th = $("sl-thumbs"); th.scrollTo ? th.scrollTo({ left: cur.offsetLeft - th.clientWidth / 2 + cur.clientWidth / 2, behavior: "smooth" }) : 0; }
+    var cur = $("sl-thumbs").children[sl.i]; if (cur) { var th = $("sl-thumbs"); if (th.scrollTo) th.scrollTo({ left: cur.offsetLeft - th.clientWidth / 2 + cur.clientWidth / 2, behavior: "smooth" }); }
     [1, -1].forEach(function (d) { var n = sl.list[(sl.i + d + sl.list.length) % sl.list.length]; (new Image()).src = n.src; });
-  }
-  function setTab(name) {
-    Array.prototype.forEach.call(document.querySelectorAll("#win-body .tab"), function (b) { var on = b.getAttribute("data-tab") === name; b.classList.toggle("on", on); b.setAttribute("aria-selected", on ? "true" : "false"); });
-    Array.prototype.forEach.call(document.querySelectorAll("#win-body .pane"), function (e) { e.hidden = e.getAttribute("data-pane") !== name; });
   }
   function art(type, id) { if (window.SCREENS && id && window.SCREENS.has(id)) return window.SCREENS.draw(id, state.lang); return '<svg viewBox="0 0 320 180" class="art" aria-hidden="true">' + (ART[type] || ART.grid)() + "</svg>"; }
 
@@ -232,27 +230,18 @@
     var links = p.links.map(function (l) { return '<a class="plink" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(state.lang === "en" && LINK_EN[l.l] ? LINK_EN[l.l] : l.l) + "</a>"; }).join("");
     var hasDemo = !!(p.demo && window.DEMOS[p.demo]);
     $("win-body").innerHTML =
-      '<section class="win-demo">' + (hasDemo ? "<h3>" + esc(t.demoTitle) + "</h3>" : "") + '<div id="demo-root" class="demo-root">' + (hasDemo ? "" : p.viewer3d ? slider(p) : p.gallery ? gallery(p) : '<div class="art-big">' + art(p.art, p.id) + "</div>") + "</div>" + (hasDemo && t.simplified ? '<p class="win-note">' + esc(t.simplified) + "</p>" : "") + "</section>" +
+      '<section class="win-demo">' + (hasDemo ? "<h3>" + esc(t.demoTitle) + "</h3>" : "") + '<div id="demo-root" class="demo-root">' + (hasDemo ? "" : p.gallery ? slider(p) : p.gallery ? gallery(p) : '<div class="art-big">' + art(p.art, p.id) + "</div>") + "</div>" + (hasDemo && t.simplified ? '<p class="win-note">' + esc(t.simplified) + "</p>" : "") + "</section>" +
       '<section class="win-info"><p class="win-tag">' + esc(L.tag) + '</p><dl class="meta"><div><dt>' + esc(t.role) + "</dt><dd>" + esc(L.role) + "</dd></div><div><dt>" + esc(t.period) + "</dt><dd>" + esc(L.period) + "</dd></div>" + (L.result ? "<div><dt>" + esc(t.resultLabel) + "</dt><dd>" + esc(L.result) + "</dd></div>" : "") + "</dl>" + (p.photo ? '<figure class="win-photo"><img src="' + esc(p.photo.src) + '" alt="' + esc(p.photo[state.lang]) + '" loading="lazy"><figcaption>' + esc(p.photo[state.lang]) + "</figcaption></figure>" : "") + "<p>" + esc(L.summary) + "</p><h3>" + esc(t.did) + "</h3><ul>" + L.did.map(function (d) { return "<li>" + esc(d) + "</li>"; }).join("") + "</ul><h3>" + esc(t.stack) + '</h3><div class="chips">' + stack.map(function (s) { return '<span class="chip static">' + esc(s) + "</span>"; }).join("") + "</div>" + (links ? "<h3>" + esc(t.links) + '</h3><div class="plinks">' + links + "</div>" : "") + (L.note ? '<p class="win-note warn">' + esc(L.note) + "</p>" : "") + "</section>";
     $("win-body").scrollTop = 0;
     if (hasDemo) { var cl = window.DEMOS[p.demo]($("demo-root"), state.lang); state.cleanup = cl; }
-    if (p.viewer3d) slShow(0);
-    if (p.viewer3d && window.Train3D) {
-      var tv = Train3D.mount($("t3-cv"), { auto: true, wheel: true });
-      $("demo-root").querySelector(".t3-ctl").addEventListener("click", function (e) {
-        var b = e.target.closest("[data-t3]"); if (!b) return; var k = b.getAttribute("data-t3");
-        if (k === "in") tv.zoomBy(1.25); else if (k === "out") tv.zoomBy(0.8); else tv.reset();
-      });
-      state.cleanup = function () { tv.destroy(); };
-    }
+    if (p.gallery && !hasDemo) slFilter(-1);
     if (!win.open) { if (win.showModal) win.showModal(); else win.setAttribute("open", ""); document.documentElement.classList.add("lock"); }
     $("win-box").focus({ preventScroll: true });
     try { history.replaceState(null, "", "#p-" + id); } catch (e) { /* file:// */ }
   }
   function closeProject() { if (win.open) win.close(); }
   win.addEventListener("keydown", function (e) {
-    var pane = document.querySelector('#win-body .pane[data-pane="works"]');
-    if (!pane || pane.hidden || e.target.closest("canvas")) return;
+    if (!$("sl-stage") || e.target.closest("canvas")) return;
     if (e.key === "ArrowLeft") { e.preventDefault(); slShow(sl.i - 1); } else if (e.key === "ArrowRight") { e.preventDefault(); slShow(sl.i + 1); }
   });
   /* свайп по большой картинке */
@@ -287,8 +276,8 @@
     if (sb) { slShow(sl.i + parseInt(sb.getAttribute("data-sl"), 10)); return; }
     var sg = e.target.closest("[data-sl-go]");
     if (sg) { slShow(parseInt(sg.getAttribute("data-sl-go"), 10)); return; }
-    var tb = e.target.closest("[data-tab]");
-    if (tb) { setTab(tb.getAttribute("data-tab")); return; }
+    var sf = e.target.closest("[data-sf]");
+    if (sf) { slFilter(parseInt(sf.getAttribute("data-sf"), 10)); return; }
     var a = e.target.closest("[data-open]");
     if (a) { e.preventDefault(); openProject(a.getAttribute("data-open"), a); return; }
     var f = e.target.closest("[data-filter]");

@@ -15,6 +15,18 @@
   }
   function check(x, y) { return '<path class="a-chk" d="M' + x + " " + y + " l2.6 2.8 l5 -6\"/>"; }
 
+
+  /* простые SMIL-анимации для карточек */
+  function an(attr, values, dur, extra) { return '<animate attributeName="' + attr + '" values="' + values + '" dur="' + dur + 's" repeatCount="indefinite"' + (extra || "") + "/>"; }
+  function slots(n, i) { var kt = [0], v = [i === 0 ? 1 : 0]; if (i > 0) { kt.push(i / n); v.push(1); } if (i < n - 1) { kt.push((i + 1) / n); v.push(0); } if (kt[kt.length - 1] !== 1) { kt.push(1); v.push(i === n - 1 ? 1 : 0); } return [kt.map(function (x) { return +x.toFixed(4); }).join(";"), v.join(";")]; }
+  /* значение, которое по очереди меняется: все варианты лежат друг на друге, показывается один */
+  function cycle(x, y, vals, cl, dur, anchor) {
+    return vals.map(function (s, i) { var q = slots(vals.length, i); return '<g opacity="' + (i === 0 ? 1 : 0) + '"><animate attributeName="opacity" calcMode="discrete" values="' + q[1] + '" keyTimes="' + q[0] + '" dur="' + dur + 's" repeatCount="indefinite"/>' + t(x, y, s, cl, anchor) + "</g>"; }).join("");
+  }
+  function packet(x1, y1, x2, y2, begin, dur) {
+    return '<circle class="a-pkt" r="3" opacity="0"><animateMotion dur="' + dur + 's" begin="' + begin + 's" repeatCount="indefinite" path="M' + x1 + " " + y1 + " L" + x2 + " " + y2 + '" keyPoints="0;1;1" keyTimes="0;.7;1" calcMode="linear"/><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;.68;.7;1" dur="' + dur + 's" begin="' + begin + 's" repeatCount="indefinite"/></circle>';
+  }
+
   var S = {};
 
   S.patient = function () {
@@ -116,17 +128,39 @@
 
   S.infra = function () {
     var o = frame(T("Сеть филиала", "Branch network"));
-    var n = [[60, 62, "VLAN 10"], [166, 62, "VLAN 20"], [60, 142, "VLAN 30"], [166, 142, "VLAN 40"]];
+    var n = [[60, 62, "VLAN 10", "domain"], [166, 62, "VLAN 20", "pr"], [60, 142, "VLAN 30", "it"], [166, 142, "VLAN 40", "security"]];
     n.forEach(function (p) { o += line(p[0], p[1], 113, 102, "a-line"); });
+    n.forEach(function (p, i) { o += packet(113, 102, p[0], p[1], i * 0.6, 2.6) + packet(p[0], p[1], 113, 102, 1.3 + i * 0.6, 2.6); });
     n.forEach(function (p, i) {
-      o += r(p[0] - 38, p[1] - 14, 76, 28, i === 0 ? "a-card a-ghost" : "a-card", 8) + t(p[0], p[1] - 1, p[2], "a-b", "middle") + t(p[0], p[1] + 9, ["domain", "pr", "it", "security"][i], "a-s", "middle");
+      /* узел периодически отключается и снова включается */
+      var off = i === 0 ? "1;1;.3;.3;1;1" : i === 2 ? "1;1;1;.3;.3;1" : "1;1;1;1;1;1";
+      o += "<g>" + (i % 2 === 0 ? an("opacity", off, 9, ' begin="' + (i * 1.5) + 's"') : "") + r(p[0] - 38, p[1] - 14, 76, 28, "a-card", 8) + t(p[0], p[1] - 1, p[2], "a-b", "middle") + t(p[0], p[1] + 9, p[3], "a-s", "middle") +
+        c(p[0] + 30, p[1] - 6, 3, "a-ok") + (i % 2 === 0 ? c(p[0] + 30, p[1] - 6, 3, "a-bad", ' opacity="0"') .replace("/>", ">" + an("opacity", "0;0;1;1;0;0", 9, ' begin="' + (i * 1.5) + 's"') + "</circle>") : "") + "</g>";
     });
-    o += r(80, 90, 66, 24, "a-acc", 9) + t(113, 105.5, "Router", "a-dk", "middle");
+    o += r(80, 90, 66, 24, "a-acc", 9, "") + t(113, 105.5, "Router", "a-dk", "middle");
+    o += '<rect class="a-ring" x="80" y="90" width="66" height="24" rx="9" fill="none" stroke-width="2">' + an("opacity", "0;.7;0", 2.6) + an("stroke-width", "1;5;5", 2.6) + "</rect>";
     o += line(212, 34, 212, 168, "a-axis") + t(220, 46, T("Пул VLAN 20", "VLAN 20 pool"), "a-b");
-    o += r(220, 54, 84, 8, "a-line2", 4) + r(220, 54, 31, 8, "a-fill", 4) + t(220, 76, T("37 из 100 адресов", "37 of 100 addresses"), "a-s");
+    o += r(220, 54, 84, 8, "a-line2", 4) + '<rect class="a-fill" x="220" y="54" width="31" height="8" rx="4">' + an("width", "31;44;57;44;31", 9) + "</rect>";
+    o += cycle(220, 76, [T("37 из 100 адресов", "37 of 100 addresses"), T("52 из 100 адресов", "52 of 100 addresses"), T("68 из 100 адресов", "68 of 100 addresses")], "a-s", 9);
     o += t(220, 98, "SSH", "a-b");
     o += r(220, 104, 84, 18, "a-card", 8) + c(231, 113, 4, "a-bad") + t(240, 116.5, T("22 закрыт", "22 closed"), "a-s");
-    o += r(220, 128, 84, 18, "a-card", 8) + c(231, 137, 4, "a-ok") + t(240, 140.5, T("2025 открыт", "2025 open"), "a-s");
+    o += r(220, 128, 84, 18, "a-card", 8) + c(231, 137, 4, "a-ok", "") .replace("/>", ">" + an("opacity", "1;.35;1", 1.6) + "</circle>") + t(240, 140.5, T("2025 открыт", "2025 open"), "a-s");
+    o += cycle(220, 162, [T("Подключений: 12", "Connections: 12"), T("Подключений: 15", "Connections: 15"), T("Подключений: 9", "Connections: 9")], "a-s", 6);
+    return o;
+  };
+
+  S.ecomops = function () {
+    var o = frame(T("Операционка e-commerce", "E-commerce operations"));
+    var n = [[58, 62, T("Боты", "Bots"), T("ответы покупателям", "buyer replies")], [168, 62, T("Онбординг", "Onboarding"), T("новые сотрудники", "new hires")], [58, 142, T("Дашборды", "Dashboards"), T("цифры по продажам", "sales numbers")], [168, 142, T("Серверы", "Servers"), T("всё работает", "all running")]];
+    n.forEach(function (p) { o += line(p[0], p[1], 113, 102, "a-line"); });
+    n.forEach(function (p, i) { o += packet(p[0], p[1], 113, 102, i * 0.7, 2.8) + packet(113, 102, p[0], p[1], 1.4 + i * 0.7, 2.8); });
+    n.forEach(function (p, i) { o += "<g>" + r(p[0] - 40, p[1] - 15, 80, 30, "a-card", 8) + t(p[0], p[1] - 2, p[2], "a-b", "middle") + t(p[0], p[1] + 9, p[3], "a-s", "middle") + "</g>"; });
+    o += c(113, 102, 19, "a-acc") + t(113, 105, T("Команда", "Team"), "a-dk", "middle");
+    o += '<circle class="a-ring" cx="113" cy="102" r="19" fill="none" stroke-width="2">' + an("opacity", "0;.7;0", 2.8) + an("r", "19;27;27", 2.8) + "</circle>";
+    o += line(214, 34, 214, 168, "a-axis") + t(222, 46, T("Сегодня", "Today"), "a-b");
+    o += cycle(222, 66, ["128", "131", "135", "140"], "a-big", 8) + t(222, 77, T("ответов бота", "bot replies"), "a-s");
+    o += cycle(222, 102, ["2", "2", "3", "3"], "a-big", 8) + t(222, 113, T("новых сотрудников", "new hires"), "a-s");
+    o += c(227, 142, 4, "a-ok") .replace("/>", ">" + an("opacity", "1;.35;1", 1.6) + "</circle>") + t(236, 145, T("сбоев нет", "no incidents"), "a-b");
     return o;
   };
 

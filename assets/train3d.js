@@ -17,84 +17,128 @@
   }
 
   var C = {
-    body: [128, 138, 150], dark: [26, 33, 43], roof: [200, 207, 216], frame: [52, 58, 66], frame2: [70, 78, 88],
-    stripe: [232, 144, 58], red: [208, 66, 58], glass: [34, 46, 62], lit: [236, 226, 196], lamp: [255, 238, 170],
-    wheel: [44, 48, 54], hub: [150, 156, 164], rail: [120, 126, 134], sleeper: [88, 80, 72]
+    body: [236, 239, 244], low: [196, 203, 214], roof: [168, 177, 190], dark: [24, 32, 44], glass: [24, 36, 54], glassHi: [66, 94, 128],
+    stripe: [240, 138, 40], red: [212, 62, 44], frame: [44, 50, 58], frame2: [70, 78, 90], lamp: [255, 240, 190], ac: [214, 220, 228],
+    wheel: [38, 42, 48], hub: [176, 182, 190], rail: [132, 138, 146], sleeper: [98, 88, 78], door: [202, 209, 219], gap: [140, 148, 160]
   };
+  function lerp3(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
+
+  /* контур сечения (z, y): скругленный прямоугольник, одинаковое число точек в каждом сечении */
+  function ring(w, y0, y1, rb, rt, seg) {
+    var pts = [], k, a;
+    function corner(cz, cy, r, from) { for (k = 0; k <= seg; k++) { a = (from + 90 * k / seg) * Math.PI / 180; pts.push([cz + r * Math.cos(a), cy + r * Math.sin(a)]); } }
+    corner(w - rb, y0 + rb, rb, -90); corner(w - rt, y1 - rt, rt, 0); corner(-(w - rt), y1 - rt, rt, 90); corner(-(w - rb), y0 + rb, rb, 180);
+    return pts;
+  }
 
   function build(lite) {
-    var solid = [], flat = [];
+    var solid = [], flat = [], seg = lite ? 2 : 5;
     function add(list, v, n, col, decals) { var f = { v: v, n: n || autoNormal(v), c: col, d: decals || [] }; list.push(f); return f; }
     function box(x0, x1, y0, y1, z0, z1, col) {
       var P = function (x, y, z) { return [x, y, z]; };
-      return {
-        px: add(solid, [P(x1, y0, z0), P(x1, y1, z0), P(x1, y1, z1), P(x1, y0, z1)], [1, 0, 0], col),
-        nx: add(solid, [P(x0, y0, z1), P(x0, y1, z1), P(x0, y1, z0), P(x0, y0, z0)], [-1, 0, 0], col),
-        py: add(solid, [P(x0, y1, z0), P(x0, y1, z1), P(x1, y1, z1), P(x1, y1, z0)], [0, 1, 0], col),
-        ny: add(solid, [P(x0, y0, z1), P(x0, y0, z0), P(x1, y0, z0), P(x1, y0, z1)], [0, -1, 0], col),
-        pz: add(solid, [P(x0, y0, z1), P(x1, y0, z1), P(x1, y1, z1), P(x0, y1, z1)], [0, 0, 1], col),
-        nz: add(solid, [P(x1, y0, z0), P(x0, y0, z0), P(x0, y1, z0), P(x1, y1, z0)], [0, 0, -1], col)
-      };
+      add(solid, [P(x1, y0, z0), P(x1, y1, z0), P(x1, y1, z1), P(x1, y0, z1)], [1, 0, 0], col);
+      add(solid, [P(x0, y0, z1), P(x0, y1, z1), P(x0, y1, z0), P(x0, y0, z0)], [-1, 0, 0], col);
+      add(solid, [P(x0, y1, z0), P(x0, y1, z1), P(x1, y1, z1), P(x1, y1, z0)], [0, 1, 0], col);
+      add(solid, [P(x0, y0, z1), P(x0, y0, z0), P(x1, y0, z0), P(x1, y0, z1)], [0, -1, 0], col);
+      add(solid, [P(x0, y0, z1), P(x1, y0, z1), P(x1, y1, z1), P(x0, y1, z1)], [0, 0, 1], col);
+      add(solid, [P(x1, y0, z0), P(x0, y0, z0), P(x0, y1, z0), P(x1, y1, z0)], [0, 0, -1], col);
     }
-    function qz(x0, x1, y0, y1, z, col) { return { v: [[x0, y0, z], [x1, y0, z], [x1, y1, z], [x0, y1, z]], c: col }; }
 
-    /* путь: земля, шпалы, рельсы */
-    if (!lite) flat.push({ v: [[-13, 0, -2.2], [13, 0, -2.2], [13, 0, 2.2], [-13, 0, 2.2]], c: [20, 30, 44], a: 0.22 });
-    for (var s = lite ? -7.2 : -11.4; s <= (lite ? 7.2 : 11.4); s += lite ? 2.4 : 1.2) flat.push({ v: [[s - 0.17, 0.04, -1.5], [s + 0.17, 0.04, -1.5], [s + 0.17, 0.04, 1.5], [s - 0.17, 0.04, 1.5]], c: C.sleeper });
-    var RL = lite ? 7.6 : 13; box(-RL, RL, 0.04, 0.14, 0.66, 0.8, C.rail); box(-RL, RL, 0.04, 0.14, -0.8, -0.66, C.rail);
+    /* путь, шпалы, рельсы, тень */
+    if (!lite) flat.push({ v: [[-13, 0, -2.4], [13, 0, -2.4], [13, 0, 2.4], [-13, 0, 2.4]], c: [70, 100, 150], a: 0.10 });
+    flat.push({ v: [[-6, 0.01, -1.8], [7.2, 0.01, -1.8], [7.2, 0.01, 1.8], [-6, 0.01, 1.8]], c: [0, 0, 0], a: 0.10 });
+    flat.push({ v: [[-5.6, 0.02, -1.5], [6.9, 0.02, -1.5], [6.9, 0.02, 1.5], [-5.6, 0.02, 1.5]], c: [0, 0, 0], a: 0.12 });
+    var RL = lite ? 7.6 : 13;
+    for (var s = lite ? -7.2 : -12; s <= (lite ? 7.2 : 12); s += lite ? 2.4 : 1.2) flat.push({ v: [[s - 0.17, 0.04, -1.5], [s + 0.17, 0.04, -1.5], [s + 0.17, 0.04, 1.5], [s - 0.17, 0.04, 1.5]], c: C.sleeper });
+    box(-RL, RL, 0.04, 0.15, 0.68, 0.8, C.rail); box(-RL, RL, 0.04, 0.15, -0.8, -0.68, C.rail);
 
-    /* подвеска и тележки */
-    box(-2.5, -0.7, 0.8, 0.93, -0.7, 0.7, C.frame2); box(0.5, 2.1, 0.8, 0.93, -0.7, 0.7, C.frame2);
+    /* тележки */
     [-3.2, 2.8].forEach(function (bx) {
-      box(bx - 0.95, bx + 0.95, 0.5, 0.78, -0.55, 0.55, C.frame);
-      [-0.72, 0.72].forEach(function (ax) {
-        [-0.86, 0.86].forEach(function (wz) {
-          var v = [], hub = [], k;
-          for (k = 0; k < 14; k++) { var a = k / 14 * Math.PI * 2; v.push([bx + ax + Math.cos(a) * 0.4, 0.52 + Math.sin(a) * 0.4, wz]); hub.push([bx + ax + Math.cos(a) * 0.14, 0.52 + Math.sin(a) * 0.14, wz + (wz > 0 ? 0.012 : -0.012)]); }
-          add(solid, v, [0, 0, wz > 0 ? 1 : -1], C.wheel, [{ v: hub, c: C.hub }]);
+      box(bx - 1.0, bx + 1.0, 0.52, 0.8, -0.58, 0.58, C.frame);
+      box(bx - 0.5, bx + 0.5, 0.8, 0.98, -0.7, 0.7, C.frame2);
+      [-0.74, 0.74].forEach(function (ax) {
+        [-0.9, 0.9].forEach(function (wz) {
+          var v = [], hub = [], k, n = lite ? 10 : 18;
+          for (k = 0; k < n; k++) { var a = k / n * Math.PI * 2; v.push([bx + ax + Math.cos(a) * 0.42, 0.54 + Math.sin(a) * 0.42, wz]); hub.push([bx + ax + Math.cos(a) * 0.16, 0.54 + Math.sin(a) * 0.16, wz + (wz > 0 ? 0.012 : -0.012)]); }
+          add(solid, v, [0, 0, wz > 0 ? 1 : -1], C.wheel, lite ? [] : [{ v: hub, c: C.hub }]);
+          box(bx + ax - 0.12, bx + ax + 0.12, 0.44, 0.64, wz > 0 ? 0.74 : -0.9, wz > 0 ? 0.9 : -0.74, C.frame2);
         });
       });
     });
 
-    /* кузов */
-    box(-5, 4.6, 0.93, 1.1, -1.1, 1.1, C.frame);
-    var body = box(-5, 4.6, 1.1, 2.7, -1.2, 1.2, C.body);
-    [[body.pz, 1.212], [body.nz, -1.212]].forEach(function (pair) {
-      var f = pair[0], z = pair[1];
-      f.d.push(qz(-5, 4.6, 1.6, 2.5, z, C.dark));
-      f.d.push(qz(-5, 4.6, 1.3, 1.38, z, C.stripe));
-      for (var i = 0; i < 8; i++) {
-        var x = -4.4 + i * 1.15;
-        f.d.push(qz(x, x + 0.8, 1.72, 2.38, z * 1.002, i % 3 === 1 ? C.lit : C.glass));
+    /* кузов: набор сечений, между ними грани */
+    var X0 = -5, X1 = 4.6, BL = X1 - X0;
+    var secs = [
+      [X0, 1.2, 1.1, 2.7, 0.12, 0.34, C.low], [X1, 1.2, 1.1, 2.7, 0.12, 0.34, C.low],
+      [5.25, 1.14, 1.14, 2.6, 0.16, 0.4, C.red], [5.85, 1.0, 1.2, 2.47, 0.2, 0.44, C.red], [6.28, 0.8, 1.3, 2.3, 0.22, 0.46, C.red]
+    ].map(function (q) { return { x: q[0], r: ring(q[1], q[2], q[3], q[4], q[5], seg), low: q[6], w: q[1], y0: q[2], y1: q[3], rb: q[4], rt: q[5] }; });
+    var sideR = [], sideL = [], kR = seg, kL = 3 * seg + 2, n = secs[0].r.length;
+    for (var i = 0; i < secs.length - 1; i++) {
+      var A = secs[i], B = secs[i + 1];
+      for (var k = 0; k < n; k++) {
+        var k2 = (k + 1) % n, pa = A.r[k], pb = A.r[k2], pc = B.r[k2], pd = B.r[k];
+        var v = [[A.x, pa[1], pa[0]], [A.x, pb[1], pb[0]], [B.x, pc[1], pc[0]], [B.x, pd[1], pd[0]]];
+        var ym = (pa[1] + pb[1] + pc[1] + pd[1]) / 4, top = A.y1 - A.rt * 0.8, bot = A.y0 + A.rb + 0.05;
+        var col = ym > top ? C.roof : (ym < bot ? (i >= 1 ? C.red : C.low) : C.body);
+        if (ym > top && ym < A.y1 - 0.02 && Math.abs((pa[0] + pb[0]) / 2) > A.w - A.rt * 0.75) col = lerp3(C.body, C.roof, 0.55);
+        var f = add(solid, v, null, col);
+        if (k === kR) sideR[i] = { f: f, lo0: v[0], hi0: v[1], hi1: v[2], lo1: v[3] };
+        if (k === kL) sideL[i] = { f: f, hi0: v[0], lo0: v[1], lo1: v[2], hi1: v[3] };
+      }
+    }
+    /* точка на боковой грани: u вдоль поезда, v по высоте, чуть над поверхностью */
+    function at(sd, u, v, off) {
+      var lo = lerp3(sd.lo0, sd.lo1, u), hi = lerp3(sd.hi0, sd.hi1, u), p = lerp3(lo, hi, v), nn = sd.f.n;
+      return [p[0] + nn[0] * off, p[1] + nn[1] * off, p[2] + nn[2] * off];
+    }
+    function pane(sd, u0, u1, v0, v1, col, ru, rv, off) {
+      if (lite && (col === C.glassHi || col === C.gap)) return;
+      ru = ru || 0.02; rv = rv || 0.08; off = off || 0.012;
+      var q = [[u0 + ru, v0], [u1 - ru, v0], [u1, v0 + rv], [u1, v1 - rv], [u1 - ru, v1], [u0 + ru, v1], [u0, v1 - rv], [u0, v0 + rv]];
+      sd.f.d.push({ v: q.map(function (p) { return at(sd, p[0], p[1], off); }), c: col });
+    }
+    var bodyR = sideR[0], bodyL = sideL[0];
+    [bodyR, bodyL].forEach(function (sd) {
+      pane(sd, 0, 1, 0.1, 0.17, C.stripe, 0, 0, 0.01);
+      pane(sd, 0, 1, 0.0, 0.1, C.gap, 0, 0, 0.008);
+      for (var c = 0; c < 8; c++) {
+        var cu = c / 8, cw = 1 / 8, door = c === 2 || c === 6;
+        if (door) {
+          pane(sd, cu + cw * 0.08, cu + cw * 0.92, 0.12, 0.94, C.door, 0.01, 0.03, 0.011);
+          pane(sd, cu + cw * 0.46, cu + cw * 0.54, 0.12, 0.94, C.gap, 0, 0, 0.013);
+          pane(sd, cu + cw * 0.17, cu + cw * 0.41, 0.4, 0.88, C.glass, 0.006, 0.05, 0.015);
+          pane(sd, cu + cw * 0.59, cu + cw * 0.83, 0.4, 0.88, C.glass, 0.006, 0.05, 0.015);
+        } else {
+          pane(sd, cu + cw * 0.09, cu + cw * 0.91, 0.38, 0.9, C.glass, 0.012, 0.07, 0.012);
+          pane(sd, cu + cw * 0.13, cu + cw * 0.87, 0.74, 0.86, C.glassHi, 0.01, 0.04, 0.014);
+        }
       }
     });
-    body.nx.d.push({ v: [[-5.012, 1.6, 0.5], [-5.012, 1.6, -0.5], [-5.012, 2.5, -0.5], [-5.012, 2.5, 0.5]], c: C.dark });
-    body.nx.d.push({ v: [[-5.014, 1.75, 0.38], [-5.014, 1.75, -0.38], [-5.014, 2.35, -0.38], [-5.014, 2.35, 0.38]], c: C.glass });
+    /* окна кабины на скосе носа */
+    [sideR, sideL].forEach(function (S) {
+      pane(S[1], 0.15, 0.95, 0.4, 0.9, C.glass, 0.03, 0.08, 0.012);
+      pane(S[1], 0.2, 0.9, 0.76, 0.86, C.glassHi, 0.02, 0.04, 0.014);
+      pane(S[2], 0.1, 0.75, 0.4, 0.88, C.glass, 0.04, 0.08, 0.012);
+    });
+    /* торцы */
+    function cap(sec, flip, col) { return add(solid, sec.r.map(function (p) { return [sec.x, p[1], p[0]]; }), [flip, 0, 0], col); }
+    var back = cap(secs[0], -1, C.body), front = cap(secs[secs.length - 1], 1, C.red);
+    function fpoly(cx, pts, col, x) { return { v: pts.map(function (p) { return [x, p[1], p[0] * cx]; }), c: col }; }
+    var fx = secs[secs.length - 1].x + 0.012;
+    front.d.push(fpoly(1, [[0.62, 1.68], [-0.62, 1.68], [-0.66, 1.78], [-0.6, 2.12], [-0.46, 2.2], [0.46, 2.2], [0.6, 2.12], [0.66, 1.78]], C.glass, fx));
+    front.d.push(fpoly(1, [[0.5, 1.98], [-0.2, 1.98], [-0.32, 2.14], [0.46, 2.14]], C.glassHi, fx + 0.004));
+    [0.56, -0.56].forEach(function (z) { var q = [], k; for (k = 0; k < 10; k++) { var a = k / 10 * Math.PI * 2; q.push([z + Math.cos(a) * 0.09, 1.46 + Math.sin(a) * 0.075]); } front.d.push(fpoly(1, q, C.lamp, fx)); });
+    front.d.push(fpoly(1, [[0.45, 1.35], [-0.45, 1.35], [-0.45, 1.42], [0.45, 1.42]], C.dark, fx));
+    back.d.push(fpoly(1, [[0.55, 1.4], [-0.55, 1.4], [-0.6, 2.3], [0.6, 2.3]], C.dark, secs[0].x - 0.012));
 
-    /* крыша и оборудование */
-    box(-4.9, 4.4, 2.7, 2.95, -0.9, 0.9, C.roof);
-    box(-2.2, -0.6, 2.95, 3.2, -0.6, 0.6, C.roof); box(0.7, 2.3, 2.95, 3.2, -0.6, 0.6, C.roof);
+    /* подвагонное оборудование, крыша */
+    box(X0, X1, 0.95, 1.1, -1.0, 1.0, C.frame);
+    box(-2.2, -0.5, 0.72, 0.95, -0.8, 0.8, C.frame2); box(0.4, 1.9, 0.72, 0.95, -0.8, 0.8, C.frame2); box(-0.2, 0.3, 0.82, 0.95, -0.6, 0.6, C.frame);
+    box(5.95, 6.55, 0.88, 1.3, -0.7, 0.7, C.frame2);
+    [[-4.2, -2.6], [1.4, 3.0]].forEach(function (r) { box(r[0], r[1], 2.62, 2.9, -0.55, 0.55, C.ac); box(r[0] + 0.15, r[1] - 0.15, 2.9, 2.98, -0.4, 0.4, C.low); });
+    box(-0.5, 0.5, 2.62, 2.8, -0.35, 0.35, C.frame2);
 
-    /* нос */
-    var bt = [4.6, 2.7], bb = [4.6, 1.1], ft = [6.3, 2.3], fb = [6.3, 1.25], bz = 1.2, fz = 0.82;
-    var N = {
-      top: [[bt[0], bt[1], -bz], [bt[0], bt[1], bz], [ft[0], ft[1], fz], [ft[0], ft[1], -fz]],
-      bottom: [[bb[0], bb[1], bz], [bb[0], bb[1], -bz], [fb[0], fb[1], -fz], [fb[0], fb[1], fz]],
-      right: [[bb[0], bb[1], bz], [fb[0], fb[1], fz], [ft[0], ft[1], fz], [bt[0], bt[1], bz]],
-      left: [[fb[0], fb[1], -fz], [bb[0], bb[1], -bz], [bt[0], bt[1], -bz], [ft[0], ft[1], -fz]],
-      front: [[fb[0], fb[1], fz], [fb[0], fb[1], -fz], [ft[0], ft[1], -fz], [ft[0], ft[1], fz]]
-    };
-    add(solid, N.top, null, C.body); add(solid, N.bottom, null, C.frame);
-    add(solid, N.right, null, C.body, [{ v: [[4.8, 1.75, 1.18], [5.8, 1.78, 0.86], [5.8, 2.2, 0.85], [4.8, 2.4, 1.17]], c: C.glass }]);
-    add(solid, N.left, null, C.body, [{ v: [[5.8, 1.78, -0.86], [4.8, 1.75, -1.18], [4.8, 2.4, -1.17], [5.8, 2.2, -0.85]], c: C.glass }]);
-    add(solid, N.front, null, C.body, [
-      { v: [[6.312, 1.6, 0.62], [6.312, 1.6, -0.62], [6.312, 2.2, -0.55], [6.312, 2.2, 0.55]], c: C.glass },
-      { v: [[6.312, 1.36, 0.6], [6.312, 1.36, 0.42], [6.312, 1.5, 0.42], [6.312, 1.5, 0.6]], c: C.lamp },
-      { v: [[6.312, 1.36, -0.42], [6.312, 1.36, -0.6], [6.312, 1.5, -0.6], [6.312, 1.5, -0.42]], c: C.lamp }
-    ]);
-    box(5.9, 6.4, 0.85, 1.28, -0.82, 0.82, C.red);
-
-    return { solid: solid, flat: flat, pantograph: [[[-0.8, 3.2, 0], [0, 3.85, 0], [0.8, 3.2, 0]], [[0, 3.85, 0.42], [0, 3.85, -0.42]]] };
+    return { solid: solid, flat: flat, pantograph: [[[-0.9, 2.8, 0], [0, 3.55, 0], [0.9, 2.8, 0]], [[0, 3.55, 0.45], [0, 3.55, -0.45]]] };
   }
 
   /* общая отрисовка: ctx может быть canvas или записывающим объектом (для SVG-анимации в README) */
@@ -102,22 +146,22 @@
   function tf(p, cy, sy, cp, sp, D) {
     var x = p[0] - CENTER[0], y = p[1] - CENTER[1], z = p[2] - CENTER[2];
     var X = x * cy + z * sy, Z = -x * sy + z * cy;
-    return [X, y * cp - Z * sp, y * sp + Z * cp + D];
+    return [X, y * cp + Z * sp, -y * sp + Z * cp + D];
   }
   function rot(n, cy, sy, cp, sp) {
     var X = n[0] * cy + n[2] * sy, Z = -n[0] * sy + n[2] * cy;
-    return [X, n[1] * cp - Z * sp, n[1] * sp + Z * cp];
+    return [X, n[1] * cp + Z * sp, -n[1] * sp + Z * cp];
   }
   var LIGHT = norm([-0.35, 0.75, -0.6]);
-  function shade(col, n) { var k = 0.42 + 0.58 * Math.max(0, dot(n, LIGHT)); return "rgb(" + Math.round(col[0] * k) + "," + Math.round(col[1] * k) + "," + Math.round(col[2] * k) + ")"; }
+  function shade(col, n, m) { var k = (0.52 + 0.55 * Math.max(0, dot(n, LIGHT))) * (m || 1); if (k > 1.08) k = 1.08; return "rgb(" + Math.round(col[0] * k) + "," + Math.round(col[1] * k) + "," + Math.round(col[2] * k) + ")"; }
     var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
     var D = 30 / zoom, f = Math.min(W * 1.2, H * 2.0) * 30 / 19;
     ctx.clearRect(0, 0, W, H);
     var ox = W / 2, oy = H * 0.52;
     function proj(q) { return [ox + f * q[0] / q[2], oy - f * q[1] / q[2]]; }
-    function poly(v, fill, alpha) {
+    function poly(v, fill, alpha, edge) {
       ctx.beginPath(); for (var i = 0; i < v.length; i++) { var s = proj(v[i]); i ? ctx.lineTo(s[0], s[1]) : ctx.moveTo(s[0], s[1]); }
-      ctx.closePath(); if (alpha != null) ctx.globalAlpha = alpha; ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = fill; ctx.lineWidth = 0.7; ctx.stroke(); if (alpha != null) ctx.globalAlpha = 1;
+      ctx.closePath(); if (alpha != null) ctx.globalAlpha = alpha; ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = edge || fill; ctx.lineWidth = 0.6; ctx.stroke(); if (alpha != null) ctx.globalAlpha = 1;
     }
     model.flat.forEach(function (fc) {
       var v = fc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); });
@@ -133,14 +177,14 @@
     });
     list.sort(function (a, b) { return b.d - a.d; });
     list.forEach(function (it) {
-      poly(it.v, shade(it.f.c, it.n));
+      poly(it.v, shade(it.f.c, it.n), null, shade(it.f.c, it.n, 0.72));
       it.f.d.forEach(function (dc) {
         if (!dc) return;
-        poly(dc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); }), shade(dc.c, it.n));
+        poly(dc.v.map(function (p) { return tf(p, cy, sy, cp, sp, D); }), shade(dc.c, it.n), null, shade(dc.c, it.n, 0.8));
       });
     });
     /* токоприемник на крыше */
-    ctx.strokeStyle = "rgb(" + shade(C.red, [0, 0, -1]).slice(4, -1) + ")"; ctx.lineWidth = Math.max(1.4, f * 0.012); ctx.lineCap = "round"; ctx.lineJoin = "round";
+    ctx.strokeStyle = "rgb(60,66,76)"; ctx.lineWidth = Math.max(1.4, f * 0.011); ctx.lineCap = "round"; ctx.lineJoin = "round";
     var pg = model.pantograph;
     var a = proj(tf(pg[0][0], cy, sy, cp, sp, D)), b = proj(tf(pg[0][1], cy, sy, cp, sp, D)), c = proj(tf(pg[0][2], cy, sy, cp, sp, D));
     ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.lineTo(c[0], c[1]); ctx.stroke();

@@ -54,7 +54,7 @@ window.UI = {
       did: "Что сделал",
       stack: "Стек",
       links: "Ссылки",
-      demoTitle: "Попробуйте сами", viewerLabel: "3D-модель электропоезда", viewerReset: "Сбросить вид", viewerHint: "Потяните, чтобы повернуть модель. Колесо мыши или кнопки + и − меняют масштаб.", lbPrev: "Предыдущая работа", lbNext: "Следующая работа", tabWorks: "Работы", tabModel: "3D-модель", slOpen: "Открыть проект", dragHint: "Потяните, чтобы повернуть",
+      demoTitle: "Попробуйте сами", viewerLabel: "3D-модель электропоезда", viewerReset: "Сбросить вид", viewerHint: "Потяните, чтобы повернуть модель. Колесо мыши или кнопки + и − меняют масштаб.", lbPrev: "Предыдущая работа", lbNext: "Следующая работа", allWorks: "Все", filterWorks: "Раздел работ", slOpen: "Открыть проект", dragHint: "Потяните, чтобы повернуть",
       noDemo: "",
       simplified: "",
       empty: "В этой категории пока пусто",
@@ -126,7 +126,7 @@ window.UI = {
       did: "What I did",
       stack: "Stack",
       links: "Links",
-      demoTitle: "Try it yourself", viewerLabel: "3D model of an electric train", viewerReset: "Reset view", viewerHint: "Drag to rotate the model. Mouse wheel or the + and − buttons zoom.", lbPrev: "Previous work", lbNext: "Next work", tabWorks: "Works", tabModel: "3D model", slOpen: "Open project", dragHint: "Drag to rotate",
+      demoTitle: "Try it yourself", viewerLabel: "3D model of an electric train", viewerReset: "Reset view", viewerHint: "Drag to rotate the model. Mouse wheel or the + and − buttons zoom.", lbPrev: "Previous work", lbNext: "Next work", allWorks: "All", filterWorks: "Works section", slOpen: "Open project", dragHint: "Drag to rotate",
       noDemo: "",
       simplified: "",
       empty: "Nothing here yet",
@@ -393,7 +393,7 @@ window.SKILLS = {
       ["Найм и отчетность", ["ecomops"]],
       ["Figma и Miro", ["patient", "dispatcher", "alfa"]],
       ["Yandex Tracker и Notion", ["aipm", "ecomops"]],
-      ["KOMPAS-3D, Blender и 3D", ["vr3d", "hydroplate"]]
+      ["KOMPAS-3D, Blender и 3D", ["vr3d", "hydroplate", "tvs"]]
     ]}
   ],
   en: [
@@ -432,7 +432,7 @@ window.SKILLS = {
       ["Hiring and reporting", ["ecomops"]],
       ["Figma and Miro", ["patient", "dispatcher", "alfa"]],
       ["Yandex Tracker and Notion", ["aipm", "ecomops"]],
-      ["KOMPAS-3D, Blender and 3D", ["vr3d", "hydroplate"]]
+      ["KOMPAS-3D, Blender and 3D", ["vr3d", "hydroplate", "tvs"]]
     ]}
   ]
 };
@@ -617,7 +617,7 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: "hydroplate", hidden: true, cat: ["eng"], art: "plate", demo: "hydroplate", year: "2026",
+    id: "hydroplate", main: true, cat: ["eng"], art: "plate", demo: "hydroplate", year: "2026",
     photo: { src: "assets/part.jpg", ru: "Образец детали: размеры снимал штангенциркулем", en: "The sample part: dimensions taken with a caliper" },
     ru: {
       title: "Гидрораспределительная плита в KOMPAS-3D",
@@ -877,20 +877,20 @@ window.PROJECTS = [
     id: "vr3d", main: true, viewer3d: true, cat: ["eng"], art: "grid", cover: "assets/models/head.jpg", year: "2024",
     ru: {
       title: "3D-моделирование",
-      tag: "Поезда, мост, тоннель и депо для VR-симулятора, а еще деталь в КОМПАС-3D",
+      tag: "Поезда, мост, тоннель и депо для VR-симулятора",
       role: "Стажер-разработчик, 3D-моделирование",
       period: "Январь - апрель 2024, лаборатория VR",
-      summary: "Моделировал подвижной состав и железнодорожную инфраструктуру для симулятора машиниста, сам превращал устные задачи руководителя в требования и метрики и согласовывал итерации с Unity-разработчиками. Позже сделал 3D-модель и чертеж детали в КОМПАС-3D. В том же репозитории второй проект: телевизоры, которые я смоделировал с нуля и показал историю их создания.",
-      did: ["Модели вагонов, локомотива и электропоезда", "Мост, переезд, тоннель и депо", "Требования и метрики из устных задач", "Согласование итераций с Unity-разработчиками", "Деталь и чертеж в КОМПАС-3D", "Телевизоры с нуля: модели и история их создания"],
+      summary: "Моделировал подвижной состав и железнодорожную инфраструктуру для симулятора машиниста, сам превращал устные задачи руководителя в требования и метрики и согласовывал итерации с Unity-разработчиками.",
+      did: ["Модели вагонов, локомотива и электропоезда", "Мост, переезд, тоннель и депо", "Требования и метрики из устных задач", "Согласование итераций с Unity-разработчиками"],
       note: ""
     },
     en: {
       title: "3D modeling",
-      tag: "Trains, a bridge, a tunnel and a depot for a VR simulator, plus a part in KOMPAS-3D",
+      tag: "Trains, a bridge, a tunnel and a depot for a VR simulator",
       role: "Developer intern, 3D modeling",
       period: "January - April 2024, VR laboratory",
-      summary: "Modeled rolling stock and railway infrastructure for a train driver simulator, turned the supervisor's spoken tasks into requirements and metrics and agreed iterations with the Unity team. Later made a 3D model and a drawing of a part in KOMPAS-3D. The same repository holds a second project: televisions that I modeled from scratch to show how they developed over time.",
-      did: ["Models of wagons, a locomotive and an electric train", "A bridge, a crossing, a tunnel and a depot", "Requirements and metrics from spoken tasks", "Agreed iterations with Unity developers", "A part and its drawing in KOMPAS-3D", "Televisions from scratch: models and the story of how they developed"],
+      summary: "Modeled rolling stock and railway infrastructure for a train driver simulator, turned the supervisor's spoken tasks into requirements and metrics and agreed iterations with the Unity team.",
+      did: ["Models of wagons, a locomotive and an electric train", "A bridge, a crossing, a tunnel and a depot", "Requirements and metrics from spoken tasks", "Agreed iterations with Unity developers"],
       note: ""
     },
     gallery: [
@@ -911,13 +911,51 @@ window.PROJECTS = [
         ["models/depot1.jpg", "Депо, общий вид", "Depot, overview"],
         ["models/depot2.jpg", "Депо, электропоезд", "Depot, electric train"],
         ["models/depot3.jpg", "Депо, оборудование", "Depot, equipment"]
-      ] },
-      { ru: "КОМПАС-3D", en: "KOMPAS-3D", items: [
-        ["part.jpg", "Образец детали, по которому сделана модель", "The sample part the model is based on", "hydroplate"]
       ] }
     ],
-    stack: ["Blender", "Unity", "KOMPAS-3D", "Требования"],
+    stack: ["Blender", "Unity", "Требования"],
     links: [{ l: "GitHub: 3D_Models", url: "https://github.com/IvanShehav/3D_Models" }]
+  },
+  {
+    id: "tvs", main: true, viewer3d: false, cat: ["eng"], art: "grid", cover: "https://mir-s3-cdn-cf.behance.net/project_modules/source/253c8e199616497.6654df6d9dc36.gif", year: "2024",
+    ru: {
+      title: "Развитие телевизоров",
+      tag: "Телевизоры разных эпох, смоделированные с нуля, и история их создания в анимации",
+      role: "3D-художник",
+      period: "Май 2024",
+      summary: "Смоделировал с нуля телевизоры разных эпох: от механического с вращающимся диском до современного плоского. Для каждой модели собрал сцену с интерьером и сделал анимацию, чтобы было видно, как менялась технология. Работа опубликована на Behance.",
+      did: ["Смоделировал телевизоры с нуля", "Собрал сцену с интерьером для каждой эпохи", "Сделал 10 анимаций (GIF)", "Оформил проект на Behance"],
+      note: ""
+    },
+    en: {
+      title: "Evolution of the television",
+      tag: "Televisions from different eras modeled from scratch, with the story of their creation in animation",
+      role: "3D artist",
+      period: "May 2024",
+      summary: "Modeled televisions from different eras from scratch, from a mechanical one with a spinning disc to a modern flat screen. For each model I built a scene with an interior and made an animation to show how the technology changed. The work is published on Behance.",
+      did: ["Modeled the televisions from scratch", "Built a scene with an interior for each era", "Made 10 animations (GIF)", "Published the project on Behance"],
+      note: ""
+    },
+    gallery: [
+      { ru: "Механические", en: "Mechanical", items: [
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/4fbfb5199616497.6654df6da0ebe.gif", "Механический телевизор: лампа за экраном", "Mechanical TV: the lamp behind the screen"],
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/253c8e199616497.6654df6d9dc36.gif", "Механический телевизор: вращающийся диск", "Mechanical TV: the spinning disc"]
+      ] },
+      { ru: "Ламповые и кинескопные", en: "Tube and CRT", items: [
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/722e5b199616497.6654df6d9e1c7.gif", "Ламповый телевизор в деревянном корпусе", "A tube TV in a wooden case"],
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/0f851d199616497.6654df6d9f436.gif", "Ламповый телевизор, вид сбоку", "A tube TV, side view"],
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/e9d413199616497.6654df6da07e4.gif", "Телевизор на тумбе с небольшим экраном", "A small-screen TV on a stand"],
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/2062c1199616497.6654df6d9e7b6.gif", "Телевизор в белом корпусе, вид сзади", "A white-case TV, rear view"],
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/378d5c199616497.6654df6d9ff72.gif", "Портативный кинескопный телевизор", "A portable CRT TV"]
+      ] },
+      { ru: "Плоские", en: "Flat screen", items: [
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/350e55199616497.6654df6d9f864.gif", "Плоский телевизор в комнате", "A flat TV in a room"],
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/ad15ec199616497.6654df6da039c.gif", "Плоский телевизор, вид сзади", "A flat TV, rear view"],
+        ["https://mir-s3-cdn-cf.behance.net/project_modules/source/9f3660199616497.6654df6d9ec78.gif", "Современный телевизор в интерьере", "A modern TV in an interior"]
+      ] }
+    ],
+    stack: ["3D-моделирование", "Анимация"],
+    links: [{ l: "Behance", url: "https://www.behance.net/gallery/199616497/tehnologicheskoe-razvitie-televizorov" }, { l: "GitHub: 3D_Models", url: "https://github.com/IvanShehav/3D_Models" }]
   },
   {
     id: "jeopardy", hidden: true, cat: ["dev"], art: "grid", demo: "jeopardy", year: "2026",

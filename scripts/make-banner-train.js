@@ -5,8 +5,8 @@ const file = process.argv[2];
 const win = { matchMedia: () => ({ matches: false }) };
 vm.runInNewContext(fs.readFileSync(path.join(__dirname, "../assets/train3d.js"), "utf8"), { window: win, Math, Object, document: {} });
 const T = win.Train3D, model = T.build(true);
-const N = 72, W = 200, H = 168, DUR = 12, PITCH = 0.5, OY = 32;
-const f1 = (x) => Math.round(x * 10) / 10;
+const N = 60, W = 200, H = 168, DUR = 12, PITCH = 0.5, OY = 32;
+const f1 = (x) => Math.round(x * 4) / 4;
 function recorder() {
   const out = []; let d = "", filled = false, alpha = 1, cap = "butt";
   const ctx = {
@@ -37,7 +37,6 @@ const block = `<!-- экран 2: 3D-поезд -->
       <text x="62" y="19" font-size="11" font-weight="700" fill="#52627A">3D-модель поезда</text>
       <clipPath id="trainclip"><rect x="0" y="30" width="200" height="180" rx="14"/></clipPath>
       <g clip-path="url(#trainclip)">${frames}</g>
-      <text x="100" y="200" text-anchor="middle" font-size="10" font-weight="600" fill="#52627A">Электропоезд для VR-симулятора</text>
     </g>`;
 let svg = fs.readFileSync(file, "utf8");
 const a = svg.indexOf("<!-- экран 2");
