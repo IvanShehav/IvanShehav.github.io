@@ -151,7 +151,7 @@
 
   S.ecomops = function () {
     var o = frame(T("Операционка e-commerce", "E-commerce operations"));
-    var n = [[58, 62, T("Боты", "Bots"), T("ответы покупателям", "buyer replies")], [168, 62, T("Онбординг", "Onboarding"), T("новые сотрудники", "new hires")], [58, 142, T("Дашборды", "Dashboards"), T("цифры по продажам", "sales numbers")], [168, 142, T("Серверы", "Servers"), T("всё работает", "all running")]];
+    var n = [[58, 62, T("Боты", "Bots"), T("ответы покупателям", "buyer replies")], [168, 62, T("Онбординг", "Onboarding"), T("новые сотрудники", "new hires")], [58, 142, T("Дашборды", "Dashboards"), T("цифры по продажам", "sales numbers")], [168, 142, T("Серверы", "Servers"), T("все работает", "all running")]];
     n.forEach(function (p) { o += line(p[0], p[1], 113, 102, "a-line"); });
     n.forEach(function (p, i) { o += packet(p[0], p[1], 113, 102, i * 0.7, 2.8) + packet(113, 102, p[0], p[1], 1.4 + i * 0.7, 2.8); });
     n.forEach(function (p, i) { o += "<g>" + r(p[0] - 40, p[1] - 15, 80, 30, "a-card", 8) + t(p[0], p[1] - 2, p[2], "a-b", "middle") + t(p[0], p[1] + 9, p[3], "a-s", "middle") + "</g>"; });
