@@ -962,7 +962,7 @@ window.PROJECTS = [
     ru: {
       title: "«Своя игра»",
       tag: "Игра для викторин в одном HTML-файле",
-      role: "Автор",
+      role: "Разработчик",
       period: "2026",
       summary: "Поле из 30 вопросов, счет команд, таймер, музыка и режим «Кот в мешке» со ставкой и передачей вопроса сопернику. Есть светлая и темная версия.",
       did: ["Придумал механику и интерфейс", "Сделал счет, таймер, запись попыток и начисление очков"],
@@ -971,7 +971,7 @@ window.PROJECTS = [
     en: {
       title: "Jeopardy-style game",
       tag: "A quiz game in a single HTML file",
-      role: "Author",
+      role: "Developer",
       period: "2026",
       summary: "A board of 30 questions, team scores, a timer, music and a Cat in a Bag mode with a bet and passing the question to a rival. Light and dark versions.",
       did: ["Designed the mechanics and interface", "Built scores, timer, attempt log and point awards"],
@@ -1031,7 +1031,7 @@ window.PROJECTS = [
     ru: {
       title: "Telegram Invites",
       tag: "Утилита для персональных приглашений кандидатам на собеседование",
-      role: "Автор",
+      role: "Разработчик",
       period: "2026",
       summary: "Шаблон с подстановкой имени, времени и заметки, режим предпросмотра без отправки, явный флаг для реальной отправки и лог со статусами.",
       did: ["Написал утилиту на Python и Telethon", "Сделал безопасный dry-run по умолчанию", "Добавил лог send_log.csv"],
@@ -1040,7 +1040,7 @@ window.PROJECTS = [
     en: {
       title: "Telegram Invites",
       tag: "A utility for personal interview invitations to candidates",
-      role: "Author",
+      role: "Developer",
       period: "2026",
       summary: "A template with name, time and note substitution, a preview mode without sending, an explicit flag for real sending and a log with statuses.",
       did: ["Wrote the utility in Python and Telethon", "Made a safe dry run the default", "Added a send_log.csv log"],
@@ -1054,7 +1054,7 @@ window.PROJECTS = [
     ru: {
       title: "FinanceTracker на Qt",
       tag: "Финансовый трекер на C++ с графиками и рынками",
-      role: "Автор",
+      role: "Разработчик",
       period: "Учебный проект, 2026",
       summary: "Расходы по категориям с лимитами, активы разных типов, график расходов и круговая диаграмма, сделки инсайдеров из SEC EDGAR и графики акций и крипты через открытые API.",
       did: ["Спроектировал классы предметной области и сервисы", "Сделал виджеты графиков без Qt Charts", "Подключил SEC EDGAR, Yahoo Finance и CoinGecko"],
@@ -1063,7 +1063,7 @@ window.PROJECTS = [
     en: {
       title: "FinanceTracker in Qt",
       tag: "A finance tracker in C++ with charts and markets",
-      role: "Author",
+      role: "Developer",
       period: "Course project, 2026",
       summary: "Expenses by category with limits, assets of different types, an expense chart and a pie chart, insider trades from SEC EDGAR and stock and crypto charts through open APIs.",
       did: ["Designed domain classes and services", "Built chart widgets without Qt Charts", "Connected SEC EDGAR, Yahoo Finance and CoinGecko"],
@@ -1077,7 +1077,7 @@ window.PROJECTS = [
     ru: {
       title: "Учебные эксперименты",
       tag: "Векторный редактор, нейросети, Unity-игра, банк на Bash и другое",
-      role: "Автор",
+      role: "Разработчик",
       period: "2023-2025",
       summary: "Векторный редактор на Python с выделением рамкой и многоугольниками, нейросеть на MNIST и своих данных, онлайн-банк на Bash, игра на Unity, практики по C++ и доклад про развитие нейросетей.",
       did: ["Довел векторный редактор до exe-файла", "Обучил нейросеть на своих данных", "Написал онлайн-банк с базой на Bash и графиками на Python"],
@@ -1086,7 +1086,7 @@ window.PROJECTS = [
     en: {
       title: "Learning experiments",
       tag: "A vector editor, neural networks, a Unity game, a bank in Bash and more",
-      role: "Author",
+      role: "Developer",
       period: "2023-2025",
       summary: "A vector editor in Python with rubber band selection and polygons, a neural network on MNIST and my own data, an online bank in Bash, a Unity game, C++ practice and a talk on the history of neural networks.",
       did: ["Packed the vector editor into an exe file", "Trained a neural network on my own data", "Wrote an online bank with a Bash database and Python charts"],
@@ -1105,7 +1105,7 @@ window.PROJECTS = [
     ru: {
       title: "Онлайн-банк на Bash",
       tag: "Учебный банк: счета и операции в базе на Bash, графики на Python",
-      role: "Автор",
+      role: "Разработчик",
       period: "Учебный проект, 2023-2025",
       summary: "Онлайн-банк, в котором база данных, счета и операции написаны на Bash, а графики строятся на Python.",
       did: ["Написал онлайн-банк с базой на Bash", "Добавил графики на Python"],
@@ -1114,7 +1114,7 @@ window.PROJECTS = [
     en: {
       title: "Online bank in Bash",
       tag: "A learning bank: accounts and operations in a Bash database, charts in Python",
-      role: "Author",
+      role: "Developer",
       period: "Learning project, 2023-2025",
       summary: "An online bank where the database, accounts and operations are written in Bash and charts are drawn in Python.",
       did: ["Wrote an online bank with a Bash database", "Added charts in Python"],
