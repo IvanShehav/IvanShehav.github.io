@@ -457,7 +457,7 @@ window.PROJECTS = [
         "Помогал с промптами, чтобы пациент держал профиль OCEAN при разных настройках",
         "К защите команда показала: два кабинета, 10 карт пациентов, 10 автотестов backend, правило 70% и штраф"
       ],
-      note: "Командный проект, стажировка была одним из этапов. Данные в примере выдуманные, реальных пациентов нет."
+      note: "Проект закрытый, сделан под NDA, репозитория нет. Устроен так: LLM играет пациента по профилю личности OCEAN, backend на FastAPI и PostgreSQL считает долю собранного анамнеза и оценку, у студента и преподавателя свои кабинеты на React. Делали командой на стажировке в Яндекс Облаке. Здесь показан принцип работы."
     },
     en: {
       title: "Virtual Patient",
@@ -473,7 +473,7 @@ window.PROJECTS = [
         "Helped with prompts so the patient keeps the OCEAN profile at different settings",
         "For the defense the team showed: two cabinets, 10 patient cards, 10 backend autotests, the 70% rule and a penalty"
       ],
-      note: "A team project, the internship was one stage. The example data is made up, no real patients."
+      note: "The project is closed and made under an NDA, there is no repository. How it works: an LLM plays the patient following an OCEAN personality profile, a FastAPI and PostgreSQL backend counts the share of the history collected and the score, and students and teachers have their own React cabinets. Built by a team during the Yandex Cloud internship. The window shows the principle."
     },
     stack: ["LLM", "Prompt engineering", "LangGraph", "Figma", "BPMN", "React", "FastAPI", "PostgreSQL"],
     links: []
@@ -492,7 +492,7 @@ window.PROJECTS = [
         "Нарисовал интерфейс и пользовательские сценарии",
         "Участвовал в разборе сценариев и материалов для презентации и документации"
       ],
-      note: "Командный репозиторий, который ведет тимлид. Мой вклад: аналитика и дизайн. Модель в окне упрощена, карточка выдумана."
+      note: "Командный репозиторий, который ведет тимлид. Мой вклад: аналитика и дизайн. В окне показан принцип тренажера: карточка происшествия, выбор бригад и оценка по правилам."
     },
     en: {
       title: "112 Dispatcher Trainer",
@@ -506,7 +506,7 @@ window.PROJECTS = [
         "Designed the interface and user scenarios",
         "Helped with scenarios and with materials for the presentation and documentation"
       ],
-      note: "A team repository led by the team lead. My part: analytics and design. The model in the window is simplified, the card is made up."
+      note: "A team repository led by the team lead. My part: analytics and design. The window shows the principle of the trainer: an incident card, choosing crews and scoring by rules."
     },
     stack: ["React", "TypeScript", "FastAPI", "PostgreSQL", "llama.cpp", "Docker", "Playwright"],
     links: [{ l: "GitHub", url: "https://github.com/DTYUI1/OneOneTwo-OnTheLine" }]
@@ -561,7 +561,7 @@ window.PROJECTS = [
         "Настроил отчеты по менеджерам за неделю и месяц с выгрузкой в CSV",
         "Участвовал в релизах: миграции, Docker, резервные копии базы"
       ],
-      note: "Код в приватном репозитории, покажу по запросу. В окне выдуманные данные."
+      note: "Проект коммерческий и закрытый, под NDA, код не публикуется. Использовалось: Python, aiogram, PostgreSQL, Redis, SQLAlchemy, Alembic и Docker Compose. Данные покупателей не раскрываются, в окне показан принцип работы бота."
     },
     en: {
       title: "Support Telegram bot for business",
@@ -576,7 +576,7 @@ window.PROJECTS = [
         "Set up manager reports for a week and a month with CSV export",
         "Took part in releases: migrations, Docker, database backups"
       ],
-      note: "The code is in a private repository, available on request. The window uses made-up data."
+      note: "The project is commercial and closed under an NDA, the code is not published. Used: Python, aiogram, PostgreSQL, Redis, SQLAlchemy, Alembic and Docker Compose. Customer data is not disclosed, the window shows how the bot works."
     },
     stack: ["Python 3.12", "aiogram 3", "PostgreSQL 16", "Redis 7", "SQLAlchemy 2", "Alembic", "Docker Compose"],
     links: []
@@ -597,7 +597,7 @@ window.PROJECTS = [
         "Упаковал сервис в Docker для маленького VPS с лимитом памяти",
         "Написал тесты интеграций и инструкцию по эксплуатации"
       ],
-      note: "Код в приватном репозитории, покажу по запросу. Данных сотрудников на сайте нет."
+      note: "Проект закрытый, под NDA, код не публикуется. Использовалось: Node.js, REST API заявок, Yandex Disk API, Docker и Caddy на небольшом VPS. Данных сотрудников на сайте нет, в окне показан принцип работы."
     },
     en: {
       title: "Automated onboarding platform",
@@ -613,7 +613,7 @@ window.PROJECTS = [
         "Packed the service in Docker for a small VPS with a memory limit",
         "Wrote integration tests and an operations guide"
       ],
-      note: "The code is in a private repository, available on request. No employee data on this site."
+      note: "The project is closed under an NDA, the code is not published. Used: Node.js, a REST API for requests, Yandex Disk API, Docker and Caddy on a small VPS. There is no employee data on this site, the window shows the principle."
     },
     stack: ["Node.js 18+", "JavaScript", "Docker", "REST API", "Yandex Disk API", "Caddy"],
     links: []
@@ -698,7 +698,7 @@ window.PROJECTS = [
       period: "2026 - н.в., Фонд «Талант и успех»",
       summary: "Внутренний стартап из трех человек делает инструменты, которые суммаризируют историю болезни и расшифровывают разговор врача с пациентом, чтобы быстрее заполнять карту.",
       did: ["Разобрал структуру и данные медицинской информационной системы", "Планирую работу и координирую команду", "Проектирую, как AI-сервисы встраиваются в существующий процесс врача"],
-      note: "Показываю только обезличенный принцип. Исходный код, данные и детали системы не публикуются."
+      note: "Проект закрытый, под NDA. Использовалось: ML, транскрибация, суммаризация и анонимизация данных. Исходный код, данные и детали системы не публикуются, описан только принцип."
     },
     en: {
       title: "AI tools for a medical center",
@@ -707,7 +707,7 @@ window.PROJECTS = [
       period: "2026 - present, Talent and Success Foundation",
       summary: "An internal startup of three builds tools that summarize a medical history and transcribe a doctor-patient conversation to fill the record faster.",
       did: ["Studied the structure and data of the hospital information system", "Plan the work and coordinate the team", "Design how the AI services fit into the doctor's existing process"],
-      note: "I show only the anonymized principle. Source code, data and system details are not published."
+      note: "The project is closed under an NDA. Used: ML, transcription, summarization and data anonymization. Source code, data and system details are not published, only the principle is described."
     },
     stack: ["ML", "Транскрибация", "Суммаризация", "Анонимизация"],
     links: []
@@ -768,7 +768,7 @@ window.PROJECTS = [
       result: "Бот учета листовок ускорил работу примерно в 4 раза: ручной ввод на складах больше не нужен.",
       summary: "Вокруг бизнеса детских товаров на маркетплейсах я выстроил рабочую систему: учет листовок ботом, единая база контактов, товаров и заказов, регулярные дашборды, серверы и VPN, а еще SMM-отдел «контент-завод».",
       did: ["Бот учета листовок на складах убрал ручной ввод", "Единая база контактов, товаров и заказов", "Регулярные дашборды конверсий, кликов и показов", "Серверы, VPN и доступы к кабинетам площадок", "Выстроил отделы, например SMM из 4 человек и логистики: систематизировал и автоматизировал процессы, написал регламенты, занимался наймом", "ТЗ и координация дизайнеров, юристов и бухгалтеров"],
-      note: "Показываю только обезличенные процессы."
+      note: "Проект коммерческий, под NDA. Использовалось: Python, Telegram Bot API, Google Sheets, VPN и Linux. Описаны только обезличенные процессы."
     },
     en: {
       title: "E-commerce operations system",
@@ -778,7 +778,7 @@ window.PROJECTS = [
       result: "The flyer-tracking bot sped the work up about 4 times: no more manual entry at warehouses.",
       summary: "Around a children's goods business on marketplaces I built a working system: a bot for flyer tracking, one database of contacts, products and orders, regular dashboards, servers and VPN, and an SMM department called the content factory.",
       did: ["A flyer tracking bot removed manual entry in warehouses", "One database of contacts, products and orders", "Regular dashboards of conversions, clicks and impressions", "Servers, VPN and access to marketplace accounts", "Built departments, for example SMM of 4 people and logistics: organized and automated processes, wrote regulations, handled hiring", "Briefs and coordination of designers, lawyers and accountants"],
-      note: "Only anonymized processes are shown."
+      note: "The project is commercial and under an NDA. Used: Python, Telegram Bot API, Google Sheets, VPN and Linux. Only anonymized processes are described."
     },
     stack: ["Telegram Bot API", "Python", "Google Sheets", "VPN", "Linux"],
     links: []
@@ -792,7 +792,7 @@ window.PROJECTS = [
       period: "2026",
       summary: "Дашборд для абитуриентов и команды: способы поступления, возраст, география и расстояние до университета, распределения ЕГЭ. Верстка 1920 на 1080 для презентации и HTML-версия.",
       did: ["Собрал и почистил исходные данные наборов", "Выбрал показатели и компоновку, чтобы дашборд читался за минуту", "Сделал карту с акцентом на города, откуда приехало больше всего студентов"],
-      note: "Реальные данные не публикую, пока нет согласования с владельцем. Картинка в карточке условная."
+      note: "Данные закрытые, под NDA, пока нет согласования с владельцем. Использовалось: Python, pandas, Excel, Power BI и HTML. На карточке показан принцип."
     },
     en: {
       title: "Student admission dashboards",
@@ -801,7 +801,7 @@ window.PROJECTS = [
       period: "2026",
       summary: "A dashboard for applicants and the team: admission paths, age, geography and distance to the university, exam score distributions. A 1920 by 1080 layout for a presentation and an HTML version.",
       did: ["Collected and cleaned the source intake data", "Chose metrics and layout so the dashboard reads in a minute", "Built a map that highlights the cities most students came from"],
-      note: "Real data is not published until the data owner agrees. The picture on the card is symbolic."
+      note: "The data is closed under an NDA until the data owner agrees. Used: Python, pandas, Excel, Power BI and HTML. The card shows the principle."
     },
     stack: ["Power BI", "Python", "pandas", "Excel", "HTML"],
     links: []
@@ -978,7 +978,7 @@ window.PROJECTS = [
       period: "2026",
       summary: "Поле из 30 вопросов, счет команд, таймер, музыка и режим «Кот в мешке» со ставкой и передачей вопроса сопернику. Есть светлая и темная версия.",
       did: ["Придумал механику и интерфейс", "Сделал счет, таймер, запись попыток и начисление очков"],
-      note: "В окне уменьшенная версия с выдуманными вопросами."
+      note: "В окне уменьшенная версия игры с примерными вопросами."
     },
     en: {
       title: "Jeopardy-style game",
@@ -987,7 +987,7 @@ window.PROJECTS = [
       period: "2026",
       summary: "A board of 30 questions, team scores, a timer, music and a Cat in a Bag mode with a bet and passing the question to a rival. Light and dark versions.",
       did: ["Designed the mechanics and interface", "Built scores, timer, attempt log and point awards"],
-      note: "The window has a smaller version with made-up questions."
+      note: "The window has a smaller version of the game with sample questions."
     },
     stack: ["HTML", "CSS", "JavaScript"],
     links: []
@@ -1047,7 +1047,7 @@ window.PROJECTS = [
       period: "2026",
       summary: "Шаблон с подстановкой имени, времени и заметки, режим предпросмотра без отправки, явный флаг для реальной отправки и лог со статусами.",
       did: ["Написал утилиту на Python и Telethon", "Сделал безопасный dry-run по умолчанию", "Добавил лог send_log.csv"],
-      note: "Контакты кандидатов и сессии не публикуются. В окне имитация."
+      note: "Код, контакты кандидатов и сессии не публикуются. Использовалось: Python, Telethon и CSV. В окне показан принцип работы."
     },
     en: {
       title: "Telegram Invites",
@@ -1056,7 +1056,7 @@ window.PROJECTS = [
       period: "2026",
       summary: "A template with name, time and note substitution, a preview mode without sending, an explicit flag for real sending and a log with statuses.",
       did: ["Wrote the utility in Python and Telethon", "Made a safe dry run the default", "Added a send_log.csv log"],
-      note: "Candidate contacts and sessions are not published. The window is a simulation."
+      note: "The code, candidate contacts and sessions are not published. Used: Python, Telethon and CSV. The window shows how it works."
     },
     stack: ["Python", "Telethon", "CSV"],
     links: []
@@ -1121,7 +1121,7 @@ window.PROJECTS = [
       period: "Учебный проект, 2023-2025",
       summary: "Онлайн-банк, в котором база данных, счета и операции написаны на Bash, а графики строятся на Python.",
       did: ["Написал онлайн-банк с базой на Bash", "Добавил графики на Python"],
-      note: "Учебный проект, данные выдуманные."
+      note: "Учебный проект. Использовалось: Bash и Python, в окне показан принцип."
     },
     en: {
       title: "Online bank in Bash",
@@ -1130,7 +1130,7 @@ window.PROJECTS = [
       period: "Learning project, 2023-2025",
       summary: "An online bank where the database, accounts and operations are written in Bash and charts are drawn in Python.",
       did: ["Wrote an online bank with a Bash database", "Added charts in Python"],
-      note: "A learning project with made-up data."
+      note: "A learning project. Used: Bash and Python, the window shows the principle."
     },
     stack: ["Bash", "Python"],
     links: [{ l: "GitHub", url: "https://github.com/IvanShehav/OnlineBank-on-Bash" }]

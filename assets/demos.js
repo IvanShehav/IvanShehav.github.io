@@ -761,14 +761,14 @@
   /* ---------- 12. Медцентр: анонимизация и суммаризация ---------- */
   var MED = {
     ru: {
-      title: "Выдуманный разговор", name: "Иванов Иван Иванович",
+      title: "Пример разговора", name: "Иванов Иван Иванович",
       talk: [["Врач", "Что вас беспокоит?"], ["Пациент", "Я, Иванов Иван Иванович, кашляю уже неделю, ночью хуже, температура была 37,5."], ["Врач", "Что принимали?"], ["Пациент", "Сироп от кашля и много чая."], ["Врач", "Пейте больше жидкости, сироп продолжайте, приходите через пять дней."]],
       steps: ["Анонимизация", "Модель заполняет поля", "Врач проверяет"], run: "Запустить",
       anon: "ФИО заменено на [ПАЦИЕНТ] до отправки в модель", f1: "Жалобы", v1: "Кашель в течение недели, усиливается ночью, температура до 37,5.", f2: "Лечение", v2: "Обильное питье, продолжить сироп от кашля, повторный прием через 5 дней.",
       check: "Врач читает, правит и подтверждает. Решение остается за ним.", hint: "Принцип: перед моделью стирается личное, модель только предлагает текст."
     },
     en: {
-      title: "A made-up conversation", name: "John A. Smith",
+      title: "Sample conversation", name: "John A. Smith",
       talk: [["Doctor", "What brings you here?"], ["Patient", "I, John A. Smith, have had a cough for a week, worse at night, my temperature was 37.5."], ["Doctor", "What did you take?"], ["Patient", "Cough syrup and a lot of tea."], ["Doctor", "Drink more fluids, keep taking the syrup, come back in five days."]],
       steps: ["Anonymization", "Model fills fields", "Doctor reviews"], run: "Run",
       anon: "The name is replaced with [PATIENT] before it goes to the model", f1: "Complaints", v1: "Cough for a week, worse at night, temperature up to 37.5.", f2: "Treatment", v2: "Plenty of fluids, continue cough syrup, follow-up in 5 days.",
